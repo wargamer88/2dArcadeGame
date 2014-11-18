@@ -43,3 +43,6 @@ Temporary Items
 .apdisk
 
 sourcefiles/GXPEngine.userprefs
+
+*.exe
+*.cache

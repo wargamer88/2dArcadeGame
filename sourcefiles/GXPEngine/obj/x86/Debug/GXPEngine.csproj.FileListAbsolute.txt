@@ -1,5 +1,6 @@
-E:\SAXION GTP\Quartile 1\Github\2dArcadeGame\sourcefiles\GXPEngine\bin\Debug\GXPEngine.exe
-E:\SAXION GTP\Quartile 1\Github\2dArcadeGame\sourcefiles\GXPEngine\bin\Debug\GXPEngine.pdb
-E:\SAXION GTP\Quartile 1\Github\2dArcadeGame\sourcefiles\GXPEngine\obj\x86\Debug\GXPEngine.csprojResolveAssemblyReference.cache
-E:\SAXION GTP\Quartile 1\Github\2dArcadeGame\sourcefiles\GXPEngine\obj\x86\Debug\GXPEngine.exe
+C:\Users\Randy\Documents\GitHub\2dArcadeGame\sourcefiles\GXPEngine\obj\x86\Debug\GXPEngine.csprojResolveAssemblyReference.cache
+C:\Users\Randy\Documents\GitHub\2dArcadeGame\sourcefiles\GXPEngine\bin\Debug\GXPEngine.exe
+C:\Users\Randy\Documents\GitHub\2dArcadeGame\sourcefiles\GXPEngine\bin\Debug\GXPEngine.pdb
+C:\Users\Randy\Documents\GitHub\2dArcadeGame\sourcefiles\GXPEngine\obj\x86\Debug\GXPEngine.exe
+C:\Users\Randy\Documents\GitHub\2dArcadeGame\sourcefiles\GXPEngine\obj\x86\Debug\GXPEngine.pdb
 E:\SAXION GTP\Quartile 1\Github\2dArcadeGame\sourcefiles\GXPEngine\obj\x86\Debug\GXPEngine.pdb
