@@ -5,28 +5,29 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class Player : AnimSprite
+    public class Player : AnimSprite
     {
-		float xSpeed = 0.0f; // Horizontal speed
-		float ySpeed = 0.0f; // Vertical speed
-		float ySpeedMax = -15; // Maximum speed for jump
-		int jumps = 0; // Amount of times the player has jumped already
-		int maxJumps = 2; // Amount of times the player can jump after touching the ground
-		int jumpHeight = 12; // Current jump height
-		float jumpBoost = 0; // Amount of height to be added to the jump from holding the button longer
-		float frame = 0.0f; // Frame currently used for the animated sprite
-		int firstFrame = 0; // First frame for the range of frames to be used in the animation of the sprite
-		int lastFrame = 1; // Last frame for the range of frames to be used in the animation of the sprite
-		int playerwidth = 96; // Determine the width of a player
-		int gravity = 10; // Gravity that is currently affecting the player
-		bool jumping = false; // Indicates whether or not the player has jumped
+		private float _xSpeed = 0.0f; // Horizontal speed
+		private float _ySpeed = 0.0f; // Vertical speed
+		private float _ySpeedMax = -15; // Maximum speed for jump
+		private int _jumps = 0; // Amount of times the player has jumped already
+		private int _maxJumps = 2; // Amount of times the player can jump after touching the ground
+		private int _jumpHeight = 12; // Current jump height
+		private float _jumpBoost = 0; // Amount of height to be added to the jump from holding the button longer
+		private float _frame = 0.0f; // Frame currently used for the animated sprite
+		private int _firstFrame = 0; // First frame for the range of frames to be used in the animation of the sprite
+		private int _lastFrame = 1; // Last frame for the range of frames to be used in the animation of the sprite
+		private int _playerwidth = 96; // Determine the width of a player
+		private int _gravity = 10; // Gravity that is currently affecting the player
+		private bool _jumping = false; // Indicates whether or not the player has jumped
+		private Weapon _weapon;
 
 		public Player () : base("images/PlayerAnim.png", 5, 1)
 		{
 			this.x = game.width/2; // Set horizontal position for player at the start 
 			this.y = game.height/2; // Set vertical position for player at the start
 			this.SetOrigin (0, 164);
-			Weapon weapon = new Weapon ();
+			Weapon weapon = new Weapon (this);
 			this.AddChild (weapon);
 		}
 
@@ -35,7 +36,7 @@ namespace GXPEngine
 			this.x = x; // Set horizontal position for player at the start 
 			this.y = y; // Set vertical position for player at the start
 			this.SetOrigin (0, 164);
-			Weapon weapon = new Weapon ();
+			Weapon weapon = new Weapon (this);
 			this.AddChild (weapon);
 		}
 
@@ -50,11 +51,11 @@ namespace GXPEngine
 		{
 
 			if (Input.GetKey (Key.A)) {
-				xSpeed--;
+				_xSpeed--;
 				SetAnimationFrames (2, 3);
 				this.Mirror (true, false);
 			} else if (Input.GetKey (Key.D)) {
-				xSpeed++;
+			    _xSpeed++;
 				SetAnimationFrames (2, 3);
 				this.Mirror (false, false);
 			} 
@@ -62,17 +63,17 @@ namespace GXPEngine
 				SetAnimationFrames (0, 1);
 
 			}
-			MoveChar (xSpeed, 0);
-			xSpeed = xSpeed * 0.9f;
+			MoveChar (_xSpeed, 0);
+			_xSpeed = _xSpeed * 0.9f;
 		}
 
 		void ApplyGravity()
 		{
-			bool hasMoved = MoveChar (0, ySpeed);
-			if (ySpeed <= gravity)
-				ySpeed += 1;
+			bool hasMoved = MoveChar (0, _ySpeed);
+			if (_ySpeed <= _gravity)
+				_ySpeed += 1;
 			if (hasMoved == false) {
-				ySpeed = 0.0f;
+				_ySpeed = 0.0f;
 			}
 
 			if (Input.GetKey(Key.S))
@@ -82,24 +83,24 @@ namespace GXPEngine
 				//Console.WriteLine ("----------------");
 			}
 
-			if (Input.GetKey (Key.SPACE) && jumps < maxJumps) 
+			if (Input.GetKey (Key.SPACE) && _jumps < _maxJumps) 
 			{
-				jumpBoost = jumpBoost + 0.2f;
+				_jumpBoost = _jumpBoost + 0.2f;
 			}
 
-			if (!Input.GetKey(Key.SPACE) && jumpBoost > 0 && jumps < maxJumps)
+			if (!Input.GetKey(Key.SPACE) && _jumpBoost > 0 && _jumps < _maxJumps)
 			{ 
-				if (!jumping)
-					jumping = true;
-				jumpHeight = jumpHeight + (int)jumpBoost;
-				jumpBoost = 0;
-				ySpeed = -jumpHeight;
-				jumpHeight = 12;
+				if (!_jumping)
+					_jumping = true;
+				_jumpHeight = _jumpHeight + (int)_jumpBoost;
+				_jumpBoost = 0;
+				_ySpeed = -_jumpHeight;
+				_jumpHeight = 12;
 				if (x > this.game.width - 1 || x == 72)
-					xSpeed = -(xSpeed * 1.5f);
-				jumps++;
+					_xSpeed = -(_xSpeed * 1.5f);
+				_jumps++;
 			}
-			if (jumping) {
+			if (_jumping) {
 				SetAnimationFrames (5, 5);
 			}
 		}
@@ -111,20 +112,20 @@ namespace GXPEngine
 			x = x + xMovement;
 			y = y + yMovement;
 
-			if (ySpeed < ySpeedMax)
-				ySpeed = ySpeedMax;
+			if (_ySpeed < _ySpeedMax)
+				_ySpeed = _ySpeedMax;
 
 			if (x < 0) {
 				x = 0;
 				if (y < game.height)
-					jumps = 1;
-				ySpeed = ySpeed / 1.25f;
+					_jumps = 1;
+				_ySpeed = _ySpeed / 1.25f;
 				hasMoved = false;
 			}
 			if (x > (game.width)) {
 				x = game.width;
 				if (y < game.height)
-					jumps = 1;
+					_jumps = 1;
 				hasMoved = false;
 			}
 			if (y < 0) {
@@ -133,8 +134,8 @@ namespace GXPEngine
 			}
 			if (y > game.height){
 				y = this.game.height+1;
-				jumps = 0;
-				jumping = false;
+				_jumps = 0;
+				_jumping = false;
 				hasMoved = false;
 			}
 
@@ -144,37 +145,47 @@ namespace GXPEngine
 		public float XSpeed //Return or set the XSpeed of the player
 		{
 			get{
-				return this.xSpeed;
+				return this._xSpeed;
 			}
 			set{
-				this.xSpeed = value;
+				this._xSpeed = value;
 			}
 		}
 
 		public float YSpeed //Return or set the YSpeed of the player
 		{
 			get{
-				return this.ySpeed;
+				return this._ySpeed;
 			}
 			set{
-				this.ySpeed = value;
+				this._ySpeed = value;
+			}
+		}
+
+		public bool Jumping
+		{
+			get{
+				return this._jumping;
+			}
+			set{
+				this._jumping = value;
 			}
 		}
 
 		public void UpdateAnimation() // Continuously loop through the frames based on the maximum and
 		{
-			frame = frame + 0.1f;
-			if (frame >= lastFrame + 1)
-				frame = firstFrame;
-			if (frame < firstFrame)
-				frame = firstFrame;
-			SetFrame ((int)frame);
+			_frame = _frame + 0.1f;
+			if (_frame >= _lastFrame + 1)
+				_frame = _firstFrame;
+			if (_frame < _firstFrame)
+				_frame = _firstFrame;
+			SetFrame ((int)_frame);
 		}
 
 		void SetAnimationFrames(int first, int last) // Adjust animation frames to be displayed to the specified values
 		{
-			firstFrame = first;
-			lastFrame = last;
+			_firstFrame = first;
+			_lastFrame = last;
 		}
 
     }
