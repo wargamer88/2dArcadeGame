@@ -21,6 +21,8 @@ public class MyGame : Game
 
         _sky = new Sprite("images/sky.png");
         AddChild(_sky);
+		Player player = new Player ();
+		this.AddChild (player);
 		
 	}
 	
