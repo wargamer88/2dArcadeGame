@@ -7,6 +7,7 @@ namespace GXPEngine
 {
     class Player : AnimSprite
     {
+<<<<<<< HEAD
 		float xSpeed = 0.0f; // Horizontal speed
 		float ySpeed = 0.0f; // Vertical speed
 		float ySpeedMax = -15; // Maximum speed for jump
@@ -170,5 +171,8 @@ namespace GXPEngine
 			firstFrame = first;
 			lastFrame = last;
 		}
+=======
+
+>>>>>>> origin/master
     }
 }
