@@ -40,9 +40,15 @@ namespace GXPEngine
                         _player.Jumps = 0;
                         _player.YSpeed = 0;
                     }
-                    if (_player.x > ground.x && _player.LastXpos <= ground.x)
+                    if (_player.x + _player.width > ground.x && _player.LastXpos + _player.width <= ground.x)
                     {
-                        _player.x = ground.x;
+                        _player.x = ground.x - _player.width;
+                        _player.XSpeed = 0;
+                    }
+                    if (_player.x < ground.x + ground.width && _player.LastXpos >= ground.x + ground.width)
+                    {
+                        _player.x = ground.x + ground.width;
+                        _player.XSpeed = 0;
                     }
                 }
             }
