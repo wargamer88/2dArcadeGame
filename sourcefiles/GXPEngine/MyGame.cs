@@ -19,7 +19,7 @@ public class MyGame : Game
         _level = new Level(_sLevel);
 
 		//add canvas to display list
-		AddChild(canvas);
+		AddChild(_level);
 	}
 	
 	void Update () {
