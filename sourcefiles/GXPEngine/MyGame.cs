@@ -18,8 +18,8 @@ public class MyGame : Game
         _sLevel = "level1.tmx";
         _level = new Level(_sLevel);
 
-        _sky = new Sprite("images/sky.png");
-        AddChild(_sky);
+		//add canvas to display list
+		AddChild(canvas);
 	}
 	
 	void Update () {

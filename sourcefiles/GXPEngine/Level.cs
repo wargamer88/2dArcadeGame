@@ -40,7 +40,7 @@ namespace GXPEngine
             string level = "";
 
             foreach (XmlNode node in doc.DocumentElement.ChildNodes)
-            {
+        {
                 level = node.InnerText;
             }
 
