@@ -3,20 +3,21 @@ using GXPEngine;
 using System.Drawing;
 
 public class MyGame : Game
-{	
-	public MyGame () : base(800, 600, false)
+{
+    #region local variables
+
+    Level _level;
+    Sprite _sky;
+
+    #endregion
+
+
+    public MyGame () : base(800, 600, false)
 	{
-		//create a canvas
-		Canvas canvas = new Canvas(800, 600);
+        _level = new Level();
 
-		//add some content
-		canvas.graphics.FillRectangle(new SolidBrush(Color.Red), new Rectangle(0, 0, 400, 300));
-		canvas.graphics.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(400, 0, 400, 300));
-		canvas.graphics.FillRectangle(new SolidBrush(Color.Yellow), new Rectangle(0, 300, 400, 300));
-		canvas.graphics.FillRectangle(new SolidBrush(Color.Gray), new Rectangle(400, 300, 400, 300));
-
-		//add canvas to display list
-		AddChild(canvas);
+        _sky = new Sprite("images/sky.png");
+        AddChild(_sky);
 	}
 	
 	void Update () {

@@ -7,5 +7,6 @@ namespace GXPEngine
 {
     class Player
     {
+
     }
 }

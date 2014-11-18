@@ -5,7 +5,11 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class Level
+    class Level : GameObject
     {
+        public Level()
+        {
+
+        }
     }
 }
