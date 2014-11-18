@@ -58,11 +58,16 @@ namespace GXPEngine
 				SetAnimationFrames (2, 3);
 				this.Mirror (true, false);
 				this._weapon.Flip (true);
+ 				if (this._weapon.rotation == 0 && !Jumping)
+					this._weapon.rotation = 180;
 			} else if (Input.GetKey (Key.D)) {
 			    _xSpeed++;
 				SetAnimationFrames (2, 3);
 				this.Mirror (false, false);
 				this._weapon.Flip (false);
+ 				if (this._weapon.rotation == 180 && !Jumping)
+					this._weapon.rotation = 0;
+
 			} 
 			else {
 				SetAnimationFrames (0, 1);
@@ -176,6 +181,12 @@ namespace GXPEngine
 			set{
 				this._jumping = value;
 			}
+		}
+
+		public int Jumps
+		{
+			get{ return this._jumps; }
+			set{ this._jumps = value; }
 		}
 
 		public void UpdateAnimation() // Continuously loop through the frames based on the maximum and

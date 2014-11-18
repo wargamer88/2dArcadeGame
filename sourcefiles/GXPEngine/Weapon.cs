@@ -38,14 +38,12 @@ namespace GXPEngine
 			if (_left) {
 				this.Mirror (true, true);
 				this.SetOrigin (18, 10);
-				this.rotation = 180;
 				if (this.x == 60)
 					this.x -= 60;
 				this._up = false;
 			} else {
 				this.Mirror (true, false);
 				this.SetOrigin (18, 68);
-				this.rotation = 0;
 				if (this.x == 0) {
 					this.x += 60;
 				}
