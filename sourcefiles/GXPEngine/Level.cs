@@ -18,8 +18,8 @@ namespace GXPEngine
         public Level(string sLevel)
         {
             string level = XMLreader(sLevel);
-            //int[,] levelArray = LevelArrayBuilder(level);
-            //BuildGameLevel(levelArray);
+            int[,] levelArray = LevelArrayBuilder(level);
+            BuildGameLevel(levelArray);
         }
 
         public string XMLreader(string slevel)
@@ -40,12 +40,48 @@ namespace GXPEngine
             string level = "";
 
             foreach (XmlNode node in doc.DocumentElement.ChildNodes)
-        {
+            {
                 level = node.InnerText;
             }
 
             return level;
 
+        }
+
+        public int[,] LevelArrayBuilder(string level)
+        {
+            string[] aLevelString = level.Split(',');
+            int[,] aLevelInt = new int[_levelHeight, _levelWidth];
+
+            int indexOfaLevelString = 0;
+            for (int h = 0; h < _levelHeight; h++)
+            {
+                for (int w = 0; w < _levelWidth; w++)
+                {
+                    aLevelInt[h, w] = Convert.ToInt16(aLevelString[indexOfaLevelString]);
+                    indexOfaLevelString++;
+                }
+            }
+
+            return aLevelInt;
+        }
+
+        public void BuildGameLevel(int[,] levelArray)
+        {
+            for (int h = 0; h < _levelHeight; h++)
+            {
+                for (int w = 0; w < _levelWidth; w++)
+                {
+                    int tile = levelArray[h, w];
+
+                    switch (tile)
+                    {
+                        default:
+                            break;
+                    }
+
+                }
+            }
         }
     }
 }
