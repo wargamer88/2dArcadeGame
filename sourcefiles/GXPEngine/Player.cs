@@ -29,6 +29,7 @@ namespace GXPEngine
 			this.SetOrigin (0, 164);
 			Weapon weapon = new Weapon (this);
 			this.AddChild (weapon);
+			_weapon = weapon;
 		}
 
 		public Player (int x, int y) : base("images/PlayerAnim.png", 5, 1)
@@ -38,6 +39,8 @@ namespace GXPEngine
 			this.SetOrigin (0, 164);
 			Weapon weapon = new Weapon (this);
 			this.AddChild (weapon);
+			_weapon = weapon;
+
 		}
 
 		void Update()
@@ -54,10 +57,12 @@ namespace GXPEngine
 				_xSpeed--;
 				SetAnimationFrames (2, 3);
 				this.Mirror (true, false);
+				this._weapon.Flip (true);
 			} else if (Input.GetKey (Key.D)) {
 			    _xSpeed++;
 				SetAnimationFrames (2, 3);
 				this.Mirror (false, false);
+				this._weapon.Flip (false);
 			} 
 			else {
 				SetAnimationFrames (0, 1);
