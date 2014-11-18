@@ -27,6 +27,27 @@ namespace GXPEngine
             AddChild(_player);
         }
 
+        public void Collisions()
+        {
+            foreach (Ground ground in _groundList)
+            {
+                if(_player.HitTest(ground))
+                {
+                    if (_player.y > ground.y && _player.LastYpos <= ground.y )
+                    {
+                        _player.y = ground.y;
+                        _player.Jumping = false;
+                        _player.Jumps = 0;
+                        _player.YSpeed = 0;
+                    }
+                    if (_player.x > ground.x && _player.LastXpos <= ground.x)
+                    {
+                        _player.x = ground.x;
+                    }
+                }
+            }
+        }
+
         public string XMLreader(string slevel)
         {
             XmlDocument doc = new XmlDocument();

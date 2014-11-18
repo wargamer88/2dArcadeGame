@@ -20,6 +20,13 @@ namespace GXPEngine
 		private int _playerwidth = 96; // Determine the width of a player
 		private int _gravity = 10; // Gravity that is currently affecting the player
 		private bool _jumping = false; // Indicates whether or not the player has jumped
+
+        private float _lastXpos;
+        private float _lastYpos;
+
+        public float LastXpos { get { return _lastXpos; } }
+        public float LastYpos { get { return _lastYpos; } }
+
 		private Weapon _weapon;
 
 		public Player () : base("images/PlayerAnim.png", 5, 1)
@@ -45,6 +52,8 @@ namespace GXPEngine
 
 		void Update()
 		{
+            _lastXpos = x;
+            _lastYpos = y;
 			UpdateAnimation (); // Change animation frames
 			ApplySteering (); // Move horizontally based on player input
 			ApplyGravity (); // Move vertically	based on player input

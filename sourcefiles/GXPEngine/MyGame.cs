@@ -26,7 +26,7 @@ public class MyGame : Game
 	}
 	
 	void Update () {
-		//empty
+        _level.Collisions();
 	}
 
 	static void Main() {
