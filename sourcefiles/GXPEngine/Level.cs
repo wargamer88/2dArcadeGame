@@ -10,8 +10,11 @@ namespace GXPEngine
     {
         #region local class variables
 
-        int _levelWidth;
-        int _levelHeight;
+        private List<Ground> _groundList = new List<Ground>();
+        private Ground _ground;
+        private Player _player;
+        private int _levelWidth;
+        private int _levelHeight;
 
         #endregion
 
@@ -20,6 +23,8 @@ namespace GXPEngine
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
             BuildGameLevel(levelArray);
+
+            AddChild(_player);
         }
 
         public string XMLreader(string slevel)
@@ -76,8 +81,17 @@ namespace GXPEngine
 
                     switch (tile)
                     {
-                        default:
+                        case 1:
+                            _ground = new Ground();
+                            AddChild(_ground);
+                            _ground.SetXY(w * 64, h * 64);
+                            _groundList.Add(_ground);
                             break;
+                        case 2:
+                            _player = new Player();
+                            _player.SetXY(w * 64, h * 64);
+                            break;
+
                     }
 
                 }

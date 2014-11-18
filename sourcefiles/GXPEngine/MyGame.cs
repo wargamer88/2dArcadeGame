@@ -13,14 +13,18 @@ public class MyGame : Game
     #endregion
 
 
-    public MyGame () : base(800, 600, false)
+    public MyGame () : base(1280, 960, false)
 	{
+        _sky = new Sprite("images/sky.png");
+        _sky.SetScaleXY(2, 2);
+        AddChild(_sky);
+
         _sLevel = "level1.tmx";
         _level = new Level(_sLevel);
         AddChild(_level);
 
-        _sky = new Sprite("images/sky.png");
-        AddChild(_sky);
+        
+        
 		
 	}
 	
