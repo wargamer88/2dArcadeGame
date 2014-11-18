@@ -22,10 +22,7 @@ public class MyGame : Game
         _sLevel = "level1.tmx";
         _level = new Level(_sLevel);
         AddChild(_level);
-
-        
-        
-		
+	
 	}
 	
 	void Update () {

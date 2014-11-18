@@ -99,6 +99,7 @@ namespace GXPEngine
 					_jumping = true;
 				_jumpHeight = _jumpHeight + (int)_jumpBoost;
 				_jumpBoost = 0;
+				this.y--;
 				_ySpeed = -_jumpHeight;
 				_jumpHeight = 12;
 				if (x > this.game.width - 1 || x == 72)
@@ -129,7 +130,7 @@ namespace GXPEngine
 			}
 			if (x > (game.width - this.width/5)) {
 				x = game.width - this.width/5;
-				if (y < game.height)
+			if (y < game.height)
 					_jumps = 1;
 				hasMoved = false;
 			}

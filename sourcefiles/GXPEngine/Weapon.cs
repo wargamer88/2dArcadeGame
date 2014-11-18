@@ -10,10 +10,10 @@ namespace GXPEngine
 		public Weapon (Player player) : base ("images/tempsword.png")
 		{
 			this._currentPlayer = player;
-			this.x = this.x + 60;
-			this.y = this.y - 70;
+			this.x += 60;
+			this.y -= 70;
 			this.Mirror (true, false);
-			this.rotation = 90;
+			this.rotation = 0;
 			this.SetOrigin (18, 68);
 		}
 
@@ -27,8 +27,9 @@ namespace GXPEngine
 				this.y = -140;
 				if (!this._up)
 					Attack ();
-			} else
+			} else {
 				this.y = -70;
+			}
 		}
 
 		public void Flip(bool left)
@@ -37,16 +38,18 @@ namespace GXPEngine
 			if (_left) {
 				this.Mirror (true, true);
 				this.SetOrigin (18, 10);
-				this.rotation = 90;
+				this.rotation = 180;
 				if (this.x == 60)
 					this.x -= 60;
+				this._up = false;
 			} else {
 				this.Mirror (true, false);
 				this.SetOrigin (18, 68);
-				this.rotation = 90;
+				this.rotation = 0;
 				if (this.x == 0) {
 					this.x += 60;
 				}
+				this._up = false;
 			}
 
 		}
