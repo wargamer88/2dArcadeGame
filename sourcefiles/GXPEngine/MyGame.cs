@@ -18,11 +18,9 @@ public class MyGame : Game
         _sLevel = "level1.tmx";
         _level = new Level(_sLevel);
         AddChild(_level);
-		Player player = new Player ();
+
         _sky = new Sprite("images/sky.png");
         AddChild(_sky);
-		AddChild (player);
-
 		
 	}
 	

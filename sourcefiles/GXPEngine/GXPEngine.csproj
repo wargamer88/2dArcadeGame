@@ -63,7 +63,7 @@
     <Compile Include="GXPEngine\FMOD\FMOD.cs" />
     <Compile Include="GXPEngine\SoundChannel.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="Weapon.cs" />
+    <Compile Include="GXPEngine\Weapon.cs" />
   </ItemGroup>
   <ItemGroup />
 </Project>
