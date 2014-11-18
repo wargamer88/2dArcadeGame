@@ -44,3 +44,6 @@ Temporary Items
 
 *.pdb
 sourcefiles/GXPEngine.userprefs
+
+*.exe
+*.cache
