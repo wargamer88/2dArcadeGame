@@ -21,16 +21,22 @@ namespace GXPEngine
 		int gravity = 10; // Gravity that is currently affecting the player
 		bool jumping = false; // Indicates whether or not the player has jumped
 
-		public Player () : base("PlayerAnim.png", 5, 1)
+		public Player () : base("images/PlayerAnim.png", 5, 1)
 		{
-			this.x = 300; // Set horizontal position for player at the start 
-			this.y = 360; // Set vertical position for player at the start
+			this.x = game.width/2; // Set horizontal position for player at the start 
+			this.y = game.height/2; // Set vertical position for player at the start
+			this.SetOrigin (0, 164);
+			Weapon weapon = new Weapon ();
+			this.AddChild (weapon);
 		}
 
-		public Player (int x, int y) : base("PlayerAnim.png", 5, 1)
+		public Player (int x, int y) : base("images/PlayerAnim.png", 5, 1)
 		{
 			this.x = x; // Set horizontal position for player at the start 
 			this.y = y; // Set vertical position for player at the start
+			this.SetOrigin (0, 164);
+			Weapon weapon = new Weapon ();
+			this.AddChild (weapon);
 		}
 
 		void Update()
@@ -108,8 +114,8 @@ namespace GXPEngine
 			if (ySpeed < ySpeedMax)
 				ySpeed = ySpeedMax;
 
-			if (x < playerwidth) {
-				x = playerwidth;
+			if (x < 0) {
+				x = 0;
 				if (y < game.height)
 					jumps = 1;
 				ySpeed = ySpeed / 1.25f;
@@ -121,12 +127,12 @@ namespace GXPEngine
 					jumps = 1;
 				hasMoved = false;
 			}
-			if (y < this.height) {
-				y = this.height;;
+			if (y < 0) {
+				y = game.height;
 				hasMoved = false;
 			}
-			if (y > (game.height) ){
-				y = this.game.height;
+			if (y > game.height){
+				y = this.game.height+1;
 				jumps = 0;
 				jumping = false;
 				hasMoved = false;
