@@ -90,6 +90,16 @@ namespace GXPEngine
 				
         }
 
+		public void Scrolling()
+		{
+			if (_player != null) {
+				if (_player.x + x > 400)
+					x = 400 - _player.x;
+				if (_player.x + x < 100)
+					x = 100 - _player.x;
+			}
+		}
+
         public string XMLreader(string slevel)
         {
             XmlDocument doc = new XmlDocument();

@@ -27,6 +27,7 @@ public class MyGame : Game
 	
 	void Update () {
         _level.Collisions();
+		_level.Scrolling ();
 	}
 
 	static void Main() {
