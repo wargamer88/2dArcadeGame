@@ -20,16 +20,20 @@ namespace GXPEngine
 		private int _playerwidth = 96; // Determine the width of a player
 		private int _gravity = 10; // Gravity that is currently affecting the player
 		private bool _jumping = false; // Indicates whether or not the player has jumped
+        private int _levelWidth;
 
         private float _lastXpos;
         private float _lastYpos;
+
+        
 
         public float LastXpos { get { return _lastXpos; } }
         public float LastYpos { get { return _lastYpos; } }
 
 		private Weapon _weapon;
 
-		public Player () : base("images/PlayerAnim.png", 5, 1)
+        public Player(int levelWidth)
+            : base("images/PlayerAnim.png", 5, 1)
 		{
 			this.x = game.width/2; // Set horizontal position for player at the start 
 			this.y = game.height/2; // Set vertical position for player at the start
@@ -37,18 +41,9 @@ namespace GXPEngine
 			Weapon weapon = new Weapon (this);
 			this.AddChild (weapon);
 			_weapon = weapon;
+            _levelWidth = levelWidth;
 		}
 
-		public Player (int x, int y) : base("images/PlayerAnim.png", 5, 1)
-		{
-			this.x = x; // Set horizontal position for player at the start 
-			this.y = y; // Set vertical position for player at the start
-			this.SetOrigin (0, 164);
-			Weapon weapon = new Weapon (this);
-			this.AddChild (weapon);
-			_weapon = weapon;
-
-		}
 
 		void Update()
 		{
@@ -115,9 +110,7 @@ namespace GXPEngine
 				_jumpBoost = 0;
 				this.y--;
 				_ySpeed = -_jumpHeight;
-				_jumpHeight = 12;
-				if (x > this.game.width - 1 || x == 72)
-					_xSpeed = -(_xSpeed * 1.5f);
+                _jumpHeight = 12;
 				_jumps++;
 			}
 			if (_jumping) {
@@ -135,19 +128,6 @@ namespace GXPEngine
 			if (_ySpeed < _ySpeedMax)
 				_ySpeed = _ySpeedMax;
 
-			if (x < 0) {
-				x = 0;
-				if (y < game.height)
-					_jumps = 1;
-				_ySpeed = _ySpeed / 1.25f;
-				hasMoved = false;
-			}
-			if (x > (game.width - this.width)) {
-				x = game.width - this.width;
-			if (y < game.height)
-					_jumps = 1;
-				hasMoved = false;
-			}
 			if (y < 0) {
 				y = game.height+1;
 				hasMoved = false;
@@ -158,7 +138,7 @@ namespace GXPEngine
 				_jumping = false;
 				hasMoved = false;
 			}
-
+            
 			return hasMoved;
 		}
 
