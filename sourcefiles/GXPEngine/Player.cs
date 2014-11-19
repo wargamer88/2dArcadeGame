@@ -17,10 +17,8 @@ namespace GXPEngine
 		private float _frame = 0.0f; // Frame currently used for the animated sprite
 		private int _firstFrame = 0; // First frame for the range of frames to be used in the animation of the sprite
 		private int _lastFrame = 1; // Last frame for the range of frames to be used in the animation of the sprite
-		private int _playerwidth = 96; // Determine the width of a player
 		private int _gravity = 10; // Gravity that is currently affecting the player
 		private bool _jumping = false; // Indicates whether or not the player has jumped
-        private int _levelWidth;
 
         private float _lastXpos;
         private float _lastYpos;
@@ -32,16 +30,14 @@ namespace GXPEngine
 
 		private Weapon _weapon;
 
-        public Player(int levelWidth)
+        public Player()
             : base("images/PlayerAnim.png", 5, 1)
 		{
-			this.x = game.width/2; // Set horizontal position for player at the start 
-			this.y = game.height/2; // Set vertical position for player at the start
 			this.SetOrigin (0, 164);
 			Weapon weapon = new Weapon (this);
 			this.AddChild (weapon);
 			_weapon = weapon;
-            _levelWidth = levelWidth;
+
 		}
 
 
@@ -176,6 +172,12 @@ namespace GXPEngine
 		{
 			get{ return this._jumps; }
 			set{ this._jumps = value; }
+		}
+
+		public Weapon Weapon
+		{
+			get{return this._weapon;}
+			set{this._weapon = value;}
 		}
 
 		public void UpdateAnimation() // Continuously loop through the frames based on the maximum and

@@ -13,7 +13,7 @@ namespace GXPEngine
         private List<Ground> _groundList = new List<Ground>();
         private Ground _ground;
         private Player _player;
-		private List<Enemy> _enemies = new List<Enemy>();
+		private List<Enemy> _enemyList = new List<Enemy>();
         private int _levelWidth;
         private int _levelHeight;
 
@@ -24,7 +24,7 @@ namespace GXPEngine
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
             BuildGameLevel(levelArray);
-			foreach(Enemy enemy in _enemies)
+			foreach(Enemy enemy in _enemyList)
 				AddChild (enemy);
             AddChild(_player);
         }
@@ -54,7 +54,7 @@ namespace GXPEngine
                     }
                 }
 
-				foreach (Enemy enemy in _enemies) {
+				foreach (Enemy enemy in _enemyList) {
 					bool enemyTurning = false;
 
 					if (enemy.HitTest (ground)) {
@@ -85,7 +85,13 @@ namespace GXPEngine
 						enemy.TurnAround ();
 				}
             }
-				
+
+			foreach (Enemy enemy in _enemyList) {
+				if (enemy.HitTest(_player.Weapon))
+					{
+						enemy.Destroy(); // get rekt
+					}
+				}
         }
 
 		public void Scrolling()
@@ -159,13 +165,13 @@ namespace GXPEngine
                             _groundList.Add(_ground);
                             break;
                         case 2:
-                            _player = new Player((int)this.x);
+                            _player = new Player();
                             _player.SetXY(w * 64, h * 64);
                             break;
 					case 3:
 						Enemy enemy = new Enemy (w * 64, h * 64);
 							AddChild (enemy);
-							_enemies.Add (enemy);
+							_enemyList.Add (enemy);
 							break;
 
                     }
