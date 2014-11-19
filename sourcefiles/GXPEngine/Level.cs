@@ -24,8 +24,6 @@ namespace GXPEngine
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
             BuildGameLevel(levelArray);
-			Enemy newEnemy = new Enemy (500, 500);
-			_enemies.Add (newEnemy);
 			foreach(Enemy enemy in _enemies)
 				AddChild (enemy);
             AddChild(_player);
@@ -164,6 +162,11 @@ namespace GXPEngine
                             _player = new Player();
                             _player.SetXY(w * 64, h * 64);
                             break;
+					case 3:
+						Enemy enemy = new Enemy (w * 64, h * 64);
+							AddChild (enemy);
+							_enemies.Add (enemy);
+							break;
 
                     }
 

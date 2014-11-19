@@ -64,19 +64,7 @@ namespace GXPEngine
 
 			if (_ySpeed < _ySpeedMax)
 				_ySpeed = _ySpeedMax;
-
-			if (x < 0) {
-				x = 0;
-				if (y < game.height)
-					_jumps = 1;
-				_ySpeed = _ySpeed / 1.25f;
-				hasMoved = false;
-			}
-			if (x > (game.width - this.width)) {
-				x = game.width - this.width;
-
-				hasMoved = false;
-			}
+				
 			if (y < 0) {
 				y = game.height+1;
 				hasMoved = false;
