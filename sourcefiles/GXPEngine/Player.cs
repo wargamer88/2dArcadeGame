@@ -142,8 +142,8 @@ namespace GXPEngine
 				_ySpeed = _ySpeed / 1.25f;
 				hasMoved = false;
 			}
-			if (x > (game.width - this.width/5)) {
-				x = game.width - this.width/5;
+			if (x > (game.width - this.width)) {
+				x = game.width - this.width;
 			if (y < game.height)
 					_jumps = 1;
 				hasMoved = false;
