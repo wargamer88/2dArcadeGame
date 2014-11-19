@@ -13,6 +13,7 @@ namespace GXPEngine
         private List<Ground> _groundList = new List<Ground>();
         private Ground _ground;
         private Player _player;
+		private List<Enemy> _enemies = new List<Enemy>();
         private int _levelWidth;
         private int _levelHeight;
 
@@ -23,7 +24,10 @@ namespace GXPEngine
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
             BuildGameLevel(levelArray);
-
+			Enemy newEnemy = new Enemy (500, 500);
+			_enemies.Add (newEnemy);
+			foreach(Enemy enemy in _enemies)
+				AddChild (enemy);
             AddChild(_player);
         }
 
@@ -51,7 +55,39 @@ namespace GXPEngine
                         _player.XSpeed = 0;
                     }
                 }
+
+				foreach (Enemy enemy in _enemies) {
+					bool enemyTurning = false;
+
+					if (enemy.HitTest (ground)) {
+						if (enemy.y > ground.y && enemy.LastYpos <= ground.y )
+						{
+							enemy.y = ground.y;
+							enemy.Jumping = false;
+							enemy.Jumps = 0;
+							enemy.YSpeed = 0;
+						}
+						if (enemy.x + enemy.width > ground.x && enemy.LastXpos + enemy.width <= ground.x)
+						{
+							enemy.x = ground.x - _player.width;
+							enemy.XSpeed = 0;
+						}
+						if (enemy.x < ground.x + ground.width && enemy.LastXpos >= ground.x + ground.width)
+						{
+							enemy.x = ground.x + ground.width;
+							enemy.XSpeed = 0;
+						}
+						if (enemy.x + enemy.width > ground.x + ground.width)
+							enemyTurning = true;
+						if (enemy.x > ground.x && enemy.y <= ground.y)
+							enemyTurning = false;
+
+					}
+					if (enemyTurning)
+						enemy.TurnAround ();
+				}
             }
+				
         }
 
         public string XMLreader(string slevel)
