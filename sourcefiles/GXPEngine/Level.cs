@@ -13,6 +13,7 @@ namespace GXPEngine
         private List<Ground> _groundList = new List<Ground>();
         private Ground _ground;
         private Player _player;
+        private Enemy _enemy;
 		private List<Enemy> _enemies = new List<Enemy>();
         private int _levelWidth;
         private int _levelHeight;
@@ -24,8 +25,11 @@ namespace GXPEngine
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
             BuildGameLevel(levelArray);
-			foreach(Enemy enemy in _enemies)
-				AddChild (enemy);
+            foreach (Enemy enemy in _enemies)
+            {
+                AddChild(enemy);
+            }
+            
             AddChild(_player);
         }
 
@@ -51,6 +55,12 @@ namespace GXPEngine
                     {
                         _player.x = ground.x + ground.width;
                         _player.XSpeed = 0;
+                    }
+                    if (_player.y - _player.height < ground.y + ground.height && _player.LastYpos - _player.height > ground.y + ground.height)
+                    {
+                        _player.y = ground.y + ground.height + _player.height;
+                        _player.Jumping = false;
+                        _player.YSpeed = 0;
                     }
                 }
 
@@ -162,10 +172,9 @@ namespace GXPEngine
                             _player = new Player((int)this.x);
                             _player.SetXY(w * 64, h * 64);
                             break;
-					case 3:
-						Enemy enemy = new Enemy (w * 64, h * 64);
-							AddChild (enemy);
-							_enemies.Add (enemy);
+					    case 3:
+						    _enemy = new Enemy (w * 64, h * 64);
+							_enemies.Add (_enemy);
 							break;
 
                     }
