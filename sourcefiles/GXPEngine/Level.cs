@@ -159,7 +159,7 @@ namespace GXPEngine
                             _groundList.Add(_ground);
                             break;
                         case 2:
-                            _player = new Player();
+                            _player = new Player((int)this.x);
                             _player.SetXY(w * 64, h * 64);
                             break;
 					case 3:
