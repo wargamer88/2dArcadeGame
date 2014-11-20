@@ -51,6 +51,10 @@ namespace GXPEngine
 			if (_damageTimer > 0)
 			{
 				_damageTimer--;
+				if (_damageTimer % 20 == 1)
+					this.alpha = 0;
+				else
+					this.alpha = 1;
 			}
 		}
 
@@ -113,10 +117,10 @@ namespace GXPEngine
 			if (this._health > 0 && _damageTimer == 0) {
 				if (this._health - damage < 0) {
 					this._health = 0;
-					_damageTimer = 100;
+					_damageTimer = 80;
 				} else {
 					this._health = this._health - damage;
-					_damageTimer = 100;
+					_damageTimer = 80;
 				}
 			}
 		}

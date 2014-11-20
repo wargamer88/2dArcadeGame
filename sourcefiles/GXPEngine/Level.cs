@@ -80,7 +80,7 @@ namespace GXPEngine
 						}
 						if (enemy.x + enemy.width > ground.x && enemy.LastXpos + enemy.width <= ground.x)
 						{
-							enemy.x = ground.x - _player.width;
+							enemy.x = ground.x - _enemy.width;
 							enemy.XSpeed = 0;
 						}
 						if (enemy.x < ground.x + ground.width && enemy.LastXpos >= ground.x + ground.width)
@@ -88,10 +88,6 @@ namespace GXPEngine
 							enemy.x = ground.x + ground.width;
 							enemy.XSpeed = 0;
 						}
-						if (enemy.x + enemy.width > ground.x + ground.width)
-							enemyTurning = true;
-						if (enemy.x > ground.x && enemy.y <= ground.y)
-							enemyTurning = false;
 
 					}
                     if (enemyTurning)
@@ -136,13 +132,14 @@ namespace GXPEngine
 
             foreach (Enemy enemy in _enemyList)
             {
-                if (enemy.HitTest(_player.Weapon))
-                {
-                    enemy.Destroy(); // get rekt
-                }
+				if (_player.Weapon.Attacking) {
+					if (enemy.HitTest (_player.Weapon)) {
+						enemy.TakeDamage (50); // get rekt
+					}
+				}
             }
 
-            if (_player.Weapon.rotation == 90 || _player.Weapon.rotation == 180)
+			if (_player.Weapon.Attacking)
             {
                 int hitRockIndex = -1;
                 int counter = -1;

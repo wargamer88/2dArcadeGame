@@ -8,7 +8,7 @@ namespace GXPEngine
     class Ground : Sprite
     {
         public Ground()
-            : base("images/ground.png")
+            : base("images/platform.png")
         {
 
         }

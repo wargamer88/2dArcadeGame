@@ -31,9 +31,9 @@ namespace GXPEngine
 		private Weapon _weapon;
 
         public Player()
-            : base("images/PlayerAnim.png", 5, 1)
+            : base("images/PlayerAnim.png", 15, 1)
 		{
-			this.SetOrigin (0, 164);
+			this.SetOrigin (0, 96);
 			Weapon weapon = new Weapon (this);
 			this.AddChild (weapon);
 			_weapon = weapon;
@@ -55,14 +55,14 @@ namespace GXPEngine
 
 			if (Input.GetKey (Key.A)) {
 				_xSpeed--;
-				SetAnimationFrames (2, 3);
+				SetAnimationFrames (0, 5);
 				this.Mirror (true, false);
 				this._weapon.Flip (true);
  				if (this._weapon.rotation == 0 && !Jumping)
 					this._weapon.rotation = 180;
 			} else if (Input.GetKey (Key.D)) {
 			    _xSpeed++;
-				SetAnimationFrames (2, 3);
+				SetAnimationFrames (0, 5);
 				this.Mirror (false, false);
 				this._weapon.Flip (false);
  				if (this._weapon.rotation == 180 && !Jumping)
@@ -70,7 +70,7 @@ namespace GXPEngine
 
 			} 
 			else {
-				SetAnimationFrames (0, 1);
+				SetAnimationFrames (6, 11);
 
 			}
 			MoveChar (_xSpeed, 0);
@@ -110,7 +110,13 @@ namespace GXPEngine
 				_jumps++;
 			}
 			if (_jumping) {
-				SetAnimationFrames (5, 5);
+				if (YSpeed < 0) {
+					SetAnimationFrames (12, 12);
+				} else if (YSpeed > 0) {
+					SetAnimationFrames (14, 14);
+				} else {
+					SetAnimationFrames (13, 13);
+				}
 			}
 		}
 
