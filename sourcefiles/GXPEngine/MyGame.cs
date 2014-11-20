@@ -8,6 +8,7 @@ public class MyGame : Game
 
     private Level _level;
     private Sprite _sky;
+    private Menu _menu;
     private string _sLevel;
 
     #endregion
@@ -15,6 +16,10 @@ public class MyGame : Game
 
     public MyGame () : base(1280, 960, false)
 	{
+        _menu = new Menu();
+        AddChild(_menu);
+
+
         _sky = new Sprite("images/sky.png");
         _sky.SetScaleXY(2, 2);
         AddChild(_sky);
