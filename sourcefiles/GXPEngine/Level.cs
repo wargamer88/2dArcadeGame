@@ -134,7 +134,7 @@ namespace GXPEngine
             {
 				if (_player.Weapon.Attacking) {
 					if (enemy.HitTest (_player.Weapon)) {
-						enemy.TakeDamage (50); // get rekt
+						enemy.TakeDamage (_player.Weapon.Damage); // get rekt
 					}
 				}
             }

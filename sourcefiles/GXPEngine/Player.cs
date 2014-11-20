@@ -34,7 +34,7 @@ namespace GXPEngine
             : base("images/PlayerAnim.png", 15, 1)
 		{
 			this.SetOrigin (0, 96);
-			Weapon weapon = new Weapon (this);
+			Weapon weapon = new Weapon (this, 50);
 			this.AddChild (weapon);
 			_weapon = weapon;
 
@@ -53,14 +53,14 @@ namespace GXPEngine
 		void ApplySteering() // Apply horizontal speed based on user input
 		{
 
-			if (Input.GetKey (Key.A)) {
+			if (Input.GetKey (Key.A) && !Weapon.Attacking ) {
 				_xSpeed--;
 				SetAnimationFrames (0, 5);
 				this.Mirror (true, false);
 				this._weapon.Flip (true);
  				if (this._weapon.rotation == 0 && !Jumping)
 					this._weapon.rotation = 180;
-			} else if (Input.GetKey (Key.D)) {
+			} else if (Input.GetKey (Key.D) && !Weapon.Attacking) {
 			    _xSpeed++;
 				SetAnimationFrames (0, 5);
 				this.Mirror (false, false);
