@@ -87,7 +87,7 @@ namespace GXPEngine.Core {
 				GL.Enable( GL.BLEND );
 				GL.BlendFunc( GL.SRC_ALPHA, GL.ONE_MINUS_SRC_ALPHA );
 				GL.Hint (GL.PERSPECTIVE_CORRECTION, GL.FASTEST);
-				GL.Enable (GL.POLYGON_SMOOTH);
+				//GL.Enable (GL.POLYGON_SMOOTH);
 				
 				GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 				
