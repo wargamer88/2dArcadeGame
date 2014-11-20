@@ -18,7 +18,8 @@ namespace GXPEngine
 		private bool _jumping = false; // Indicates whether or not the entity has jumped
 		private Weapon _weapon; // Weapon the entity is using
 		private bool movingLeft = false;
-
+		private int _health = 100;
+		private int _damageTimer = 0;
 
 		private float _lastXpos;
 		private float _lastYpos;
@@ -37,6 +38,20 @@ namespace GXPEngine
 			UpdateAnimation (); // Change animation frames
 			ApplySteering (); // Move horizontally based on player input
 			ApplyGravity (); // Move vertically	based on player input
+			ApplyDamage ();
+
+		}
+
+		public void ApplyDamage()
+		{
+			if (_health == 0)
+			{
+				this.Destroy();
+			}
+			if (_damageTimer > 0)
+			{
+				_damageTimer--;
+			}
 		}
 
 		public void UpdateAnimation() // Continuously loop through the frames based on the maximum and
@@ -90,6 +105,19 @@ namespace GXPEngine
 
 			if (_jumping) {
 				SetAnimationFrames (5, 5);
+			}
+		}
+
+		public void TakeDamage(int damage)
+		{
+			if (this._health > 0 && _damageTimer == 0) {
+				if (this._health - damage < 0) {
+					this._health = 0;
+					_damageTimer = 100;
+				} else {
+					this._health = this._health - damage;
+					_damageTimer = 100;
+				}
 			}
 		}
 
