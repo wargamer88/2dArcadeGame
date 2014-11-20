@@ -13,6 +13,7 @@ namespace GXPEngine
         private List<Ground> _groundList = new List<Ground>();
         private Ground _ground;
         private Player _player;
+		private Enemy _enemy;
 		private List<Enemy> _enemyList = new List<Enemy>();
         private int _levelWidth;
         private int _levelHeight;
@@ -24,7 +25,7 @@ namespace GXPEngine
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
             BuildGameLevel(levelArray);
-            foreach (Enemy enemy in _enemies)
+            foreach (Enemy enemy in _enemyList)
             {
                 AddChild(enemy);
             }
@@ -98,7 +99,7 @@ namespace GXPEngine
 			foreach (Enemy enemy in _enemyList) {
 				if (enemy.HitTest(_player.Weapon))
 					{
-						enemy.Destroy(); // get rekt
+						enemy.TakeDamage(50); // get rekt
 					}
 				}
         }
@@ -179,7 +180,7 @@ namespace GXPEngine
                             break;
 					case 3:
 						    _enemy = new Enemy (w * 64, h * 64);
-							_enemies.Add (_enemy);
+							_enemyList.Add (_enemy);
 							break;
 
                     }
