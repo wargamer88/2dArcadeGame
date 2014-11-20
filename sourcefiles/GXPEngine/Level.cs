@@ -134,12 +134,34 @@ namespace GXPEngine
             }
             #endregion
 
-            foreach (Enemy enemy in _enemyList) {
-				if (enemy.HitTest(_player.Weapon))
-					{
-						enemy.Destroy(); // get rekt
-					}
-				}
+            foreach (Enemy enemy in _enemyList)
+            {
+                if (enemy.HitTest(_player.Weapon))
+                {
+                    enemy.Destroy(); // get rekt
+                }
+            }
+
+            if (_player.Weapon.rotation == 90 || _player.Weapon.rotation == 180)
+            {
+                int hitRockIndex = -1;
+                int counter = -1;
+                foreach (BrokenRock brokenRock in _brokenRockList)
+                {
+                    counter++;
+                    if (_player.Weapon.HitTest(brokenRock))
+                    {
+                        hitRockIndex = counter;
+                    }
+                }
+                if (hitRockIndex >= 0)
+                {
+                    BrokenRock BR = _brokenRockList[hitRockIndex];
+                    BR.Destroy();
+                    _brokenRockList.RemoveAt(hitRockIndex);
+                    
+                }
+            }
         }
 
 		public void Scrolling()
