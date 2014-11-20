@@ -11,12 +11,14 @@ namespace GXPEngine
         #region local class variables
 
         private List<Ground> _groundList = new List<Ground>();
+        private List<Enemy> _enemyList = new List<Enemy>();
+        private List<BrokenRock> _brokenRockList = new List<BrokenRock>();
         private Ground _ground;
         private Player _player;
-		private Enemy _enemy;
-		private List<Enemy> _enemyList = new List<Enemy>();
-        private int _levelWidth;
-        private int _levelHeight;
+        private BrokenRock _brokenRock;
+        private Enemy _enemy;
+		private int _levelWidth;
+		private int _levelHeight;
 
         #endregion
 
@@ -35,6 +37,7 @@ namespace GXPEngine
 
         public void Collisions()
         {
+            #region ground collisions
             foreach (Ground ground in _groundList)
             {
                 if(_player.HitTest(ground))
@@ -61,7 +64,7 @@ namespace GXPEngine
                         _player.y = ground.y + ground.height + _player.height;
                         _player.Jumping = false;
                         _player.YSpeed = 0;
-                }
+                    }
                 }
 
 				foreach (Enemy enemy in _enemyList) {
@@ -91,12 +94,47 @@ namespace GXPEngine
 							enemyTurning = false;
 
 					}
-					if (enemyTurning)
-						enemy.TurnAround ();
+                    if (enemyTurning)
+                    {
+                        enemy.TurnAround();
+                    }
 				}
             }
-				
-			foreach (Enemy enemy in _enemyList) {
+            #endregion
+
+            #region broken rock collisions
+            foreach (BrokenRock brokenRock in _brokenRockList)
+            {
+                if (_player.HitTest(brokenRock))
+                {
+                    if (_player.y > brokenRock.y && _player.LastYpos <= brokenRock.y)
+                    {
+                        _player.y = brokenRock.y;
+                        _player.Jumping = false;
+                        _player.Jumps = 0;
+                        _player.YSpeed = 0;
+                    }
+                    if (_player.x + _player.width > brokenRock.x && _player.LastXpos + _player.width <= brokenRock.x)
+                    {
+                        _player.x = brokenRock.x - _player.width;
+                        _player.XSpeed = 0;
+                    }
+                    if (_player.x < brokenRock.x + brokenRock.width && _player.LastXpos >= brokenRock.x + brokenRock.width)
+                    {
+                        _player.x = brokenRock.x + brokenRock.width;
+                        _player.XSpeed = 0;
+                    }
+                    if (_player.y - _player.height < brokenRock.y + brokenRock.height && _player.LastYpos - _player.height > brokenRock.y + brokenRock.height)
+                    {
+                        _player.y = brokenRock.y + brokenRock.height + _player.height;
+                        _player.Jumping = false;
+                        _player.YSpeed = 0;
+                    }
+                }
+            }
+            #endregion
+
+            foreach (Enemy enemy in _enemyList) {
 				if (enemy.HitTest(_player.Weapon))
 					{
 						enemy.TakeDamage(50); // get rekt
@@ -178,10 +216,17 @@ namespace GXPEngine
                             _player = new Player();
                             _player.SetXY(w * 64, h * 64);
                             break;
-					case 3:
+					    case 3:
 						    _enemy = new Enemy (w * 64, h * 64);
-							_enemyList.Add (_enemy);
+                            _enemyList.Add(_enemy);
 							break;
+                        case 4:
+                            _brokenRock = new BrokenRock();
+                            AddChild(_brokenRock);
+                            _brokenRock.SetXY(w * 64, h * 64);
+                            _brokenRockList.Add(_brokenRock);
+                            break;
+
 
                     }
 
