@@ -2,90 +2,89 @@
 
 namespace GXPEngine
 {
-	public class Weapon : Sprite
+	public class Weapon : AnimSprite
 	{
 		private bool _facingLeft = true;
 		private bool _attacking = false;
-		private Player _currentPlayer;
-		private int _attackTimer = 0;
-		private int _damage = 0;
-		public Weapon (Player player, int damage) : base ("images/tempsword.png")
+		private Player _currentPlayer; // Player that is carrying the weapon
+		private int _attackTimer = 0; // Time until the player can move again after starting an attack
+		private int _damage = 0; // Amount of damage the weapon can inflict
+		private float _frame = 0.0f; // Frame currently used for the animated sprite
+		private int _firstFrame = 0; // First frame for the range of frames to be used in the animation of the sprite
+		private int _lastFrame = 1; // Last frame for the range of frames to be used in the animation of the sprite
+
+		public Weapon (Player player, int damage) : base ("images/SwordAnim.png", 7 ,1)
 		{
 			this._currentPlayer = player;
-			this.x += 60;
-			this.y -= 120;
-			this.Mirror (true, false);
-			this.rotation = 0;
+			this.x += 30;
+			this.y -= 70;
 			this.SetOrigin (18, 68);
 			this._damage = damage;
+			this.alpha = 0;
 		}
 
 		public void Update()
 		{
-			if (Attacking && _attackTimer < 0)
+			if (Attacking && _attackTimer < 0) {
+				this.SetFrame (0);
 				Attack ();
-			if (Input.GetKeyDown(Key.F) && !this._currentPlayer.Jumping)
+			}
+			if (Input.GetKeyDown(Key.F) && !this._currentPlayer.Jumping && _attackTimer <= 0)
 			{
-				if (_attackTimer <= 0)
 				Attack();
 			}
 			if (this._currentPlayer.Jumping) {
-				this.y = -80;
-				if (this._attacking)
+				if (this.Attacking)
 					Attack ();
-			} else {
-				this.y = -60;
-			}
+			} 
 			if (Attacking) {
 				this._currentPlayer.XSpeed = 0;
 			}
 			_attackTimer--;
+			UpdateAnimation ();
 		}
 
 		public void Flip(bool left)
 		{
 			_facingLeft = left;
 			if (_facingLeft) {
-				this.Mirror (true, true);
-				this.SetOrigin (18, 10);
-				if (this.x == 60)
-					this.x -= 20;
+				this.Mirror (false, true);
+				this.SetOrigin (48, 68);
+
 			} else {
-				this.Mirror (true, false);
+				this.Mirror (false, false);
 				this.SetOrigin (18, 68);
-				if (this.x == 40) {
-					this.x += 20;
-				}
+
 			}
 
 		}
 
 		public void Attack()
 		{
-			if (!_facingLeft) {
-				if (this.rotation != 90) {
-					this.alpha = 1;
-					this.rotation = 90;
-					this._attacking = true;
-					this._attackTimer = 80;
-				} else {
-					this.rotation = 0;
-					this._attacking = false;
-					this.alpha = 0;
-				}
+			if (!Attacking) {
+				this.alpha = 1;
+				this.Attacking = true;
+				this.AttackTimer = 58;
 			} else {
-				Console.WriteLine (rotation);
-				if (this.rotation != 180) {
-					this.alpha = 0;
-					this.rotation = 180;
-					this._attacking = false;
-					this._attackTimer = 80;
-				} else {
-					this.alpha = 1;
-					this.rotation = 90;
-					this._attacking = true;
-				}
+				this.alpha = 0;
+				this.Attacking = false;
 			}
+		}
+
+		public void UpdateAnimation() // Continuously loop through the frames based on the maximum and
+		{
+			_frame = _frame + 0.1f;
+			if (_frame >= _lastFrame + 1)
+				_frame = _firstFrame;
+			if (_frame < _firstFrame)
+				_frame = _firstFrame;
+			SetFrame ((int)_frame);
+		}
+
+		public void SetAnimationFrames(int first, int last) // Adjust animation frames to be displayed to the specified values
+		{
+			_firstFrame = first;
+			_lastFrame = last;
 		}
 
 		public int AttackTimer

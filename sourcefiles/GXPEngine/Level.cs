@@ -20,6 +20,9 @@ namespace GXPEngine
 		private NPC _npc;
         private int _levelWidth;
         private int _levelHeight;
+        private bool _onTop = true;
+        private bool _onBottom = true;
+        private bool _allowSideCollision = false;
 
         #endregion
 
@@ -49,23 +52,44 @@ namespace GXPEngine
                         _player.Jumping = false;
                         _player.Jumps = 0;
                         _player.YSpeed = 0;
+                        _onTop = true;
                     }
-                    if (_player.x + _player.width > ground.x && _player.LastXpos + _player.width <= ground.x)
+                    else
                     {
-                        _player.x = ground.x - _player.width;
-                        _player.XSpeed = 0;
-                    }
-                    if (_player.x < ground.x + ground.width && _player.LastXpos >= ground.x + ground.width)
-                    {
-                        _player.x = ground.x + ground.width;
-                        _player.XSpeed = 0;
+                        _onTop = false;
                     }
                     if (_player.y - _player.height < ground.y + ground.height && _player.LastYpos - _player.height > ground.y + ground.height)
                     {
                         _player.y = ground.y + ground.height + _player.height;
                         _player.Jumping = false;
                         _player.YSpeed = 0;
+                        _onBottom = true;
                     }
+                    else
+                    {
+                        _onBottom = false;
+                    }
+
+                    if (!_onBottom && !_onTop)
+                    {
+                        _allowSideCollision = true;
+                    }
+                    else
+                    {
+                        _allowSideCollision = false;
+                    }
+
+                    if (_player.x + _player.width > ground.x && _player.LastXpos + _player.width <= ground.x && _allowSideCollision)
+                    {
+                        _player.x = ground.x - _player.width;
+                        _player.XSpeed = 0;
+                    }
+                    if (_player.x < ground.x + ground.width && _player.LastXpos >= ground.x + ground.width && _allowSideCollision)
+                    {
+                        _player.x = ground.x + ground.width;
+                        _player.XSpeed = 0;
+                    }
+                    
                 }
 
 				foreach (Enemy enemy in _enemyList) {

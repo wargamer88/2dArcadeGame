@@ -35,7 +35,7 @@ public class MyGame : Game
 	}
 	
 	void Update () {
-
+		Console.WriteLine (Utils.frameRate);
         
         if (_buttonClicked == false)
         {
