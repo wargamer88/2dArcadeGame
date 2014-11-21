@@ -17,6 +17,7 @@ namespace GXPEngine
         private Player _player;
         private BrokenRock _brokenRock;
         private Enemy _enemy;
+		private NPC _npc;
         private int _levelWidth;
         private int _levelHeight;
 
@@ -245,7 +246,11 @@ namespace GXPEngine
                             _brokenRock.SetXY(w * 64, h * 64);
                             _brokenRockList.Add(_brokenRock);
                             break;
-
+						case 5:
+							_npc = new NPC ();
+							AddChild (_npc);
+							_npc.SetXY (w * 64, h * 64);
+							break;
 
                     }
 
