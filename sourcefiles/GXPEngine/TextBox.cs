@@ -11,8 +11,9 @@ namespace GXPEngine
 		public TextBox () : base(1280,64)
 		{
 			font = new Font ("Arial", 20, FontStyle.Regular);
-			brush = new SolidBrush (Color.Black);
-			position = new PointF (0, 0);
+			brush = new SolidBrush (Color.White);
+			position = new PointF (0, 64);
+			this.y = this.y + 64;
 		}
 
 		public void ClearTextBox()
@@ -24,12 +25,11 @@ namespace GXPEngine
 		{
 			graphics.Clear (Color.Black);
 			DrawText (name, text);
-
 		}
 		private void DrawText(string name, string text)
 		{
 			string message = "The " + name + " says: \"" + text + "\".";
-			position = new PointF (0, 0);
+			position = new PointF (0, 32);
 			brush = new SolidBrush (Color.White);
 			graphics.DrawString (message, font, brush, position);
 		}

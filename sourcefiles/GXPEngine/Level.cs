@@ -25,6 +25,7 @@ namespace GXPEngine
 		private TextBox _textbox = new TextBox();
         private Coin _coin;
         private Spike _spike;
+		private ScoreBoard _scoreBoard = new ScoreBoard ();
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -44,6 +45,7 @@ namespace GXPEngine
             }
             AddChild(_player);
 			game.AddChild (_textbox);
+			game.AddChild (_scoreBoard);
         }
 
 
@@ -135,6 +137,17 @@ namespace GXPEngine
             {
                 if (_player.HitTest(spike))
                 {
+					if (_player.DamageTimer == 0) {
+						if (_enemy.x > _player.x) {
+							_player.XSpeed = -10;
+							_player.YSpeed = -6;
+						}
+						if (_enemy.x < _player.x) {
+							_player.XSpeed = +10;
+							_player.YSpeed = -6;
+						}
+					}
+					_player.TakeDamage (50);
                     if (_player.y > spike.y && _player.LastYpos <= spike.y)
                     {
                         _player.y = spike.y;
@@ -245,8 +258,9 @@ namespace GXPEngine
 				}
             }
 
-                if (_player.HitTest(enemy))
+				if (_player.HitTest(enemy))
                 {
+					_player.TakeDamage (50);
                     if (_enemy.x > _player.x)
                     {
                         _player.XSpeed = -10;
@@ -292,6 +306,11 @@ namespace GXPEngine
 				}
 			}
         }
+
+		public void DisplayHUD()
+		{
+			_scoreBoard.DrawStats (_player.Score, _player.Health);
+		}
 
 		public void Scrolling()
 		{
