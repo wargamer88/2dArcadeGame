@@ -18,7 +18,7 @@ namespace GXPEngine
         private Player _player;
         private BrokenRock _brokenRock;
         private Enemy _enemy;
-        private Sign _sign;
+		private NPC _npc;
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -171,10 +171,10 @@ namespace GXPEngine
                         {
                             _enemy.XSpeed = +5;
                             _enemy.YSpeed = -3;
-                        }
-                        
 					}
+                        
 				}
+            }
 
                 if (_player.HitTest(enemy))
                 {
@@ -298,13 +298,11 @@ namespace GXPEngine
                             _brokenRock.SetXY(w * 64, h * 64);
                             _brokenRockList.Add(_brokenRock);
                             break;
-                        case 5:
-                            _sign = new Sign();
-                            AddChild(_sign);
-                            _sign.SetXY(w * 64, h * 64);
-                            _signList.Add(_sign);
-                            break;
-
+						case 5:
+							_npc = new NPC ();
+							AddChild (_npc);
+							_npc.SetXY (w * 64, h * 64);
+							break;
 
                     }
 
