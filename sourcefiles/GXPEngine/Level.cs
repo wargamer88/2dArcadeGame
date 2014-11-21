@@ -15,12 +15,14 @@ namespace GXPEngine
         private List<BrokenRock> _brokenRockList = new List<BrokenRock>();
         private List<Sign> _signList = new List<Sign>();
         private List<Coin> _coinList = new List<Coin>();
+        private List<Spike> _spikeList = new List<Spike>();
         private Ground _ground;
         private Player _player;
         private BrokenRock _brokenRock;
         private Enemy _enemy;
 		private NPC _npc;
         private Coin _coin;
+        private Spike _spike;
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -125,6 +127,57 @@ namespace GXPEngine
 				}
             }
             #endregion
+
+            foreach (Spike spike in _spikeList)
+            {
+                if (_player.HitTest(spike))
+                {
+                    if (_player.y > spike.y && _player.LastYpos <= spike.y)
+                    {
+                        _player.y = spike.y;
+                        _player.Jumping = false;
+                        _player.Jumps = 0;
+                        _player.YSpeed = 0;
+                        _onTop = true;
+                    }
+                    else
+                    {
+                        _onTop = false;
+                    }
+                    if (_player.y - _player.height < spike.y + spike.height && _player.LastYpos - _player.height > spike.y + spike.height)
+                    {
+                        _player.y = spike.y + spike.height + _player.height;
+                        _player.Jumping = false;
+                        _player.YSpeed = 0;
+                        _onBottom = true;
+                    }
+                    else
+                    {
+                        _onBottom = false;
+                    }
+
+                    if (!_onBottom && !_onTop)
+                    {
+                        _allowSideCollision = true;
+                    }
+                    else
+                    {
+                        _allowSideCollision = false;
+                    }
+
+                    if (_player.x + _player.width > spike.x && _player.LastXpos + _player.width <= spike.x && _allowSideCollision)
+                    {
+                        _player.x = spike.x - _player.width;
+                        _player.XSpeed = 0;
+                    }
+                    if (_player.x < spike.x + spike.width && _player.LastXpos >= spike.x + spike.width && _allowSideCollision)
+                    {
+                        _player.x = spike.x + spike.width;
+                        _player.XSpeed = 0;
+                    }
+
+                }
+            }
 
             #region broken rock collisions
             foreach (BrokenRock brokenRock in _brokenRockList)
@@ -322,6 +375,13 @@ namespace GXPEngine
                             _coin.SetXY(w * 64, h * 64);
                             _coinList.Add(_coin);
                             break;
+                        case 7:
+                            _spike = new Spike();
+                            AddChild(_spike);
+                            _spike.SetXY(w * 64, h * 64);
+                            _spikeList.Add(_spike);
+                            break;
+
 
                     }
 
