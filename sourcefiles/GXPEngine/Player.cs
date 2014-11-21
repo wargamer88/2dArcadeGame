@@ -20,11 +20,14 @@ namespace GXPEngine
 		private int _gravity = 10; // Gravity that is currently affecting the player
 		private bool _jumping = false; // Indicates whether or not the player has jumped
         private int _score = 0;
+		private int _health = 100;
+		private int _damageTimer = 0;
 
         private float _lastXpos;
         private float _lastYpos;
 
-
+		public int DamageTimer { get { return _damageTimer; } }
+		public int Health { get { return _health; } set { _health = value; } }
         public int Score { get { return _score; } set { _score = value; } }
         public float LastXpos { get { return _lastXpos; } }
         public float LastYpos { get { return _lastYpos; } }
@@ -49,6 +52,7 @@ namespace GXPEngine
 			UpdateAnimation (); // Change animation frames
 			ApplySteering (); // Move horizontally based on player input
 			ApplyGravity (); // Move vertically	based on player input
+			ApplyDamage ();
 		}
 
 		void ApplySteering() // Apply horizontal speed based on user input
@@ -146,6 +150,35 @@ namespace GXPEngine
 			}
             
 			return hasMoved;
+		}
+
+		public void ApplyDamage()
+		{
+			if (_health == 0)
+			{
+				this.Destroy();
+			}
+			if (_damageTimer > 0)
+			{
+				_damageTimer--;
+				if (_damageTimer % 20 == 1)
+					this.alpha = 0;
+				else
+					this.alpha = 1;
+			}
+		}
+
+		public void TakeDamage(int damage)
+		{
+			if (this._health > 0 && _damageTimer == 0) {
+				if (this._health - damage < 0) {
+					this._health = 0;
+					_damageTimer = 80;
+				} else {
+					this._health = this._health - damage;
+					_damageTimer = 80;
+				}
+			}
 		}
 
 		public float XSpeed //Return or set the XSpeed of the player

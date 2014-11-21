@@ -26,8 +26,8 @@ public class MyGame : Game
         AddChild(_sky);
 
         _menu = new Menu();
-        AddChild(_menu);
-
+        AddChild(_menu);     
+        
         _sounds = new Sounds();
         _sounds.BgMusic();
         
@@ -65,6 +65,7 @@ public class MyGame : Game
                     {
                         _level.Collisions();
                         _level.Scrolling();
+						_level.DisplayHUD ();
                     }
                     break;
                 case "tutorial":
