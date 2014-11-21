@@ -21,6 +21,8 @@ namespace GXPEngine
 		private int _health = 100;
 		private int _damageTimer = 0;
 
+        public int DamageTimer { get { return _damageTimer; } }
+
 		private float _lastXpos;
 		private float _lastYpos;
 
@@ -141,8 +143,8 @@ namespace GXPEngine
 				this.Mirror (true, false);
 
 			} else if (!movingLeft) {
-				_xSpeed++;
-				SetAnimationFrames (2, 3);
+				//_xSpeed++;
+				//SetAnimationFrames (2, 3);
 				this.Mirror (false, false);
 			} 
 			else {
