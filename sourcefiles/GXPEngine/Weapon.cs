@@ -11,13 +11,13 @@ namespace GXPEngine
 		private int _damage = 0; // Amount of damage the weapon can inflict
 		private float _frame = 0.0f; // Frame currently used for the animated sprite
 		private int _firstFrame = 0; // First frame for the range of frames to be used in the animation of the sprite
-		private int _lastFrame = 1; // Last frame for the range of frames to be used in the animation of the sprite
+		private int _lastFrame = 6; // Last frame for the range of frames to be used in the animation of the sprite
 
 		public Weapon (Player player, int damage) : base ("images/SwordAnim.png", 7 ,1)
 		{
 			this._currentPlayer = player;
 			this.x += 30;
-			this.y -= 70;
+			this.y -=60;
 			this.SetOrigin (18, 68);
 			this._damage = damage;
 			this.alpha = 0;
@@ -31,6 +31,7 @@ namespace GXPEngine
 			}
 			if (Input.GetKeyDown(Key.F) && !this._currentPlayer.Jumping && _attackTimer <= 0)
 			{
+                _frame = 0.0f;
 				Attack();
 			}
 			if (this._currentPlayer.Jumping) {
@@ -39,9 +40,10 @@ namespace GXPEngine
 			} 
 			if (Attacking) {
 				this._currentPlayer.XSpeed = 0;
+                UpdateAnimation();
 			}
 			_attackTimer--;
-			UpdateAnimation ();
+			
 		}
 
 		public void Flip(bool left)
@@ -64,7 +66,7 @@ namespace GXPEngine
 			if (!Attacking) {
 				this.alpha = 1;
 				this.Attacking = true;
-				this.AttackTimer = 58;
+				this.AttackTimer = 29;
 			} else {
 				this.alpha = 0;
 				this.Attacking = false;
@@ -73,7 +75,7 @@ namespace GXPEngine
 
 		public void UpdateAnimation() // Continuously loop through the frames based on the maximum and
 		{
-			_frame = _frame + 0.1f;
+			_frame = _frame + 0.2f;
 			if (_frame >= _lastFrame + 1)
 				_frame = _firstFrame;
 			if (_frame < _firstFrame)

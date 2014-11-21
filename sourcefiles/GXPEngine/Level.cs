@@ -13,10 +13,12 @@ namespace GXPEngine
         private List<Ground> _groundList = new List<Ground>();
         private List<Enemy> _enemyList = new List<Enemy>();
         private List<BrokenRock> _brokenRockList = new List<BrokenRock>();
+        private List<Sign> _signList = new List<Sign>();
         private Ground _ground;
         private Player _player;
         private BrokenRock _brokenRock;
         private Enemy _enemy;
+        private Sign _sign;
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -157,10 +159,37 @@ namespace GXPEngine
             foreach (Enemy enemy in _enemyList)
             {
 				if (_player.Weapon.Attacking) {
-					if (enemy.HitTest (_player.Weapon)) {
+					if (enemy.HitTest (_player.Weapon) && _player.Weapon.currentFrame == 3 && _enemy.DamageTimer == 0) {
 						enemy.TakeDamage (_player.Weapon.Damage); // get rekt
+
+                        if (_player.x > _enemy.x)
+                        {
+                            _enemy.XSpeed = -5;
+                            _enemy.YSpeed = -3;
+                        }
+                        if (_player.x < _enemy.x)
+                        {
+                            _enemy.XSpeed = +5;
+                            _enemy.YSpeed = -3;
+                        }
+                        
 					}
 				}
+
+                if (_player.HitTest(enemy))
+                {
+                    if (_enemy.x > _player.x)
+                    {
+                        _player.XSpeed = -10;
+                        _player.YSpeed = -6;
+                    }
+                    if (_enemy.x < _player.x)
+                    {
+                        _player.XSpeed = +10;
+                        _player.YSpeed = -6;
+                    }
+                    
+                }
             }
 
 			if (_player.Weapon.Attacking)
@@ -175,7 +204,7 @@ namespace GXPEngine
                         hitRockIndex = counter;
                     }
                 }
-                if (hitRockIndex >= 0)
+                if (hitRockIndex >= 0 && _player.Weapon.currentFrame == 3)
                 {
                     BrokenRock BR = _brokenRockList[hitRockIndex];
                     BR.Destroy();
@@ -268,6 +297,12 @@ namespace GXPEngine
                             AddChild(_brokenRock);
                             _brokenRock.SetXY(w * 64, h * 64);
                             _brokenRockList.Add(_brokenRock);
+                            break;
+                        case 5:
+                            _sign = new Sign();
+                            AddChild(_sign);
+                            _sign.SetXY(w * 64, h * 64);
+                            _signList.Add(_sign);
                             break;
 
 
