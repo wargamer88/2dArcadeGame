@@ -9,6 +9,7 @@ public class MyGame : Game
     private Level _level;
     private Sprite _sky;
     private Menu _menu;
+    private Sounds _sounds;
     private string _sLevel;
     private bool _buttonClicked = false;
     private Button _button;
@@ -25,9 +26,10 @@ public class MyGame : Game
         AddChild(_sky);
 
         _menu = new Menu();
-        AddChild(_menu);     
-        
+        AddChild(_menu);
 
+        _sounds = new Sounds();
+        _sounds.BgMusic();
         
 	
 	}
