@@ -33,7 +33,6 @@ public class MyGame : Game
 	}
 	
 	void Update () {
-		Console.WriteLine (Utils.frameRate);
         
         if (_buttonClicked == false)
         {
@@ -58,6 +57,7 @@ public class MyGame : Game
                         AddChild(_level);
                         _levelLoaded = true;
                         _button = null;
+
                     }
                     else
                     {

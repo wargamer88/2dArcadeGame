@@ -19,12 +19,13 @@ namespace GXPEngine
 		private int _lastFrame = 1; // Last frame for the range of frames to be used in the animation of the sprite
 		private int _gravity = 10; // Gravity that is currently affecting the player
 		private bool _jumping = false; // Indicates whether or not the player has jumped
+        private int _score = 0;
 
         private float _lastXpos;
         private float _lastYpos;
 
-        
 
+        public int Score { get { return _score; } set { _score = value; } }
         public float LastXpos { get { return _lastXpos; } }
         public float LastYpos { get { return _lastYpos; } }
 
