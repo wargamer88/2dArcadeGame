@@ -14,11 +14,13 @@ namespace GXPEngine
         private List<Enemy> _enemyList = new List<Enemy>();
         private List<BrokenRock> _brokenRockList = new List<BrokenRock>();
         private List<Sign> _signList = new List<Sign>();
+        private List<Coin> _coinList = new List<Coin>();
         private Ground _ground;
         private Player _player;
         private BrokenRock _brokenRock;
         private Enemy _enemy;
 		private NPC _npc;
+        private Coin _coin;
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -36,9 +38,9 @@ namespace GXPEngine
             {
                 AddChild(enemy);
             }
-            
             AddChild(_player);
         }
+
 
         public void Collisions()
         {
@@ -155,6 +157,17 @@ namespace GXPEngine
                 }
             }
             #endregion
+
+            foreach (Coin coin in _coinList)
+            {
+                if (_player.HitTest(coin))
+                {
+                    _player.Score++;
+                    Console.WriteLine(_player.Score);
+                    coin.SetXY(900, 900);
+                }
+            }
+
 
             foreach (Enemy enemy in _enemyList)
             {
@@ -298,12 +311,17 @@ namespace GXPEngine
                             _brokenRock.SetXY(w * 64, h * 64);
                             _brokenRockList.Add(_brokenRock);
                             break;
-
 						case 5:
 							_npc = new NPC ();
 							AddChild (_npc);
 							_npc.SetXY (w * 64, h * 64);
 							break;
+                        case 6:
+                            _coin = new Coin();
+                            AddChild(_coin);
+                            _coin.SetXY(w * 64, h * 64);
+                            _coinList.Add(_coin);
+                            break;
 
                     }
 
