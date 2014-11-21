@@ -298,6 +298,7 @@ namespace GXPEngine
                             _brokenRock.SetXY(w * 64, h * 64);
                             _brokenRockList.Add(_brokenRock);
                             break;
+
 						case 5:
 							_npc = new NPC ();
 							AddChild (_npc);
