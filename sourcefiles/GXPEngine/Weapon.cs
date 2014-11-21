@@ -16,8 +16,8 @@ namespace GXPEngine
 		public Weapon (Player player, int damage) : base ("images/SwordAnim.png", 7 ,1)
 		{
 			this._currentPlayer = player;
-			this.x += 30;
-			this.y -=60;
+			this.y -=65;
+			this.x += 20;
 			this.SetOrigin (18, 68);
 			this._damage = damage;
 			this.alpha = 0;
@@ -51,7 +51,7 @@ namespace GXPEngine
 			_facingLeft = left;
 			if (_facingLeft) {
 				this.Mirror (false, true);
-				this.SetOrigin (48, 68);
+				this.SetOrigin (68, 68);
 
 			} else {
 				this.Mirror (false, false);

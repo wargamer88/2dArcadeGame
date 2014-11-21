@@ -25,9 +25,7 @@ public class MyGame : Game
         AddChild(_sky);
 
         _menu = new Menu();
-        AddChild(_menu);
-
-        
+        AddChild(_menu);     
         
 
         
@@ -56,7 +54,7 @@ public class MyGame : Game
                     if (!_levelLoaded)
                     {
                         _sLevel = "level1.tmx";
-                        _level = new Level(_sLevel);
+                        _level = new Level(_sLevel, this);
                         AddChild(_level);
                         _levelLoaded = true;
                         _button = null;

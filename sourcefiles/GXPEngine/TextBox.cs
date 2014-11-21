@@ -15,6 +15,11 @@ namespace GXPEngine
 			position = new PointF (0, 0);
 		}
 
+		public void ClearTextBox()
+		{
+			graphics.Clear (Color.Empty);
+		}
+
 		public void DrawTextBox(string name, string text)
 		{
 			graphics.Clear (Color.Black);
@@ -23,9 +28,9 @@ namespace GXPEngine
 		}
 		private void DrawText(string name, string text)
 		{
-			string message = "The {0} says: " + text + ".";
+			string message = "The " + name + " says: \"" + text + "\".";
 			position = new PointF (0, 0);
-			brush = new SolidBrush (Color.Black);
+			brush = new SolidBrush (Color.White);
 			graphics.DrawString (message, font, brush, position);
 		}
 	}

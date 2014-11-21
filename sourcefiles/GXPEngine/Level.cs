@@ -14,11 +14,13 @@ namespace GXPEngine
         private List<Enemy> _enemyList = new List<Enemy>();
         private List<BrokenRock> _brokenRockList = new List<BrokenRock>();
         private List<Sign> _signList = new List<Sign>();
+		private List<NPC> _npcList = new List<NPC> ();
         private Ground _ground;
         private Player _player;
         private BrokenRock _brokenRock;
         private Enemy _enemy;
 		private NPC _npc;
+		private TextBox _textbox = new TextBox();
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -27,7 +29,7 @@ namespace GXPEngine
 
         #endregion
 
-        public Level(string sLevel)
+		public Level(string sLevel, Game game)
         {
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
@@ -38,6 +40,7 @@ namespace GXPEngine
             }
             
             AddChild(_player);
+			game.AddChild (_textbox);
         }
 
         public void Collisions()
@@ -212,6 +215,16 @@ namespace GXPEngine
                     
                 }
             }
+
+			foreach (NPC npc in _npcList) {
+				if (_player.HitTest (npc)) {
+					npc.SetAnimationFrames (0, 3);
+					_textbox.DrawTextBox (npc.Name, npc.Text);
+				} else{
+					npc.SetAnimationFrames (3, 3);
+					_textbox.ClearTextBox ();
+				}
+			}
         }
 
 		public void Scrolling()
@@ -299,8 +312,9 @@ namespace GXPEngine
                             _brokenRockList.Add(_brokenRock);
                             break;
 						case 5:
-							_npc = new NPC ();
+							_npc = new NPC ("Witchdoctor", "Good news everyone!");
 							AddChild (_npc);
+							_npcList.Add (_npc);
 							_npc.SetXY (w * 64, h * 64);
 							break;
 
