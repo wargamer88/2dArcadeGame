@@ -22,6 +22,7 @@ namespace GXPEngine
         private int _score = 0;
 		private int _health = 100;
 		private int _damageTimer = 0;
+		private bool _alive = true;
 
         private float _lastXpos;
         private float _lastYpos;
@@ -35,7 +36,7 @@ namespace GXPEngine
 		private Weapon _weapon;
 
         public Player()
-            : base("images/PlayerAnim.png", 22, 1)
+            : base("images/PlayerAnim.png", 67, 1)
 		{
 			this.SetOrigin (0, 96);
 			Weapon weapon = new Weapon (this, 50);
@@ -52,36 +53,49 @@ namespace GXPEngine
 			UpdateAnimation (); // Change animation frames
 			ApplySteering (); // Move horizontally based on player input
 			ApplyGravity (); // Move vertically	based on player input
-			ApplyDamage ();
+			ApplyDamage (); // Take damage if hit by monster
 		}
 
 		void ApplySteering() // Apply horizontal speed based on user input
 		{
-
-			if (Input.GetKey (Key.A) && !Weapon.Attacking) {
+			if (_alive) {
+				if (Input.GetKey (Key.A) && !Weapon.Attacking && this.DamageTimer < 40) {
 				_xSpeed--;
+					if (this.Health == 100) {
 				SetAnimationFrames (0, 5);
+					} else if (this.Health == 50)
+						SetAnimationFrames (37, 42);
 				this.Mirror (true, false);
 				this._weapon.Flip (true);
 				if (this._weapon.rotation == 0)
 					this._weapon.rotation = 180;
-			} else if (Input.GetKey (Key.D) && !Weapon.Attacking) {
+				} else if (Input.GetKey (Key.D) && !Weapon.Attacking && this.DamageTimer < 40) {
 				_xSpeed++;
+					if (this.Health == 100) {
 				SetAnimationFrames (0, 5);
+					} else if (this.Health == 50)
+						SetAnimationFrames (37, 42);
 				this.Mirror (false, false);
 				this._weapon.Flip (false);
 				if (this._weapon.rotation == 180)
 					this._weapon.rotation = 0;
 
 			} else if (Weapon.Attacking) {
+					if (Health == 100) {
 				SetAnimationFrames (15, 21);
-				Weapon.SetAnimationFrames (0, 6);
+					} else if (this.Health == 50) {
+						SetAnimationFrames (53, 59);
 			}
-			else {
+					Weapon.SetAnimationFrames (0, 6);
+				} else {
+					if (this.Health == 100) {
 				SetAnimationFrames (6, 11);
+					} else if (this.Health == 50)
+						SetAnimationFrames (43, 49);
 
 			}
 			MoveChar (_xSpeed, 0);
+			}
 			_xSpeed = _xSpeed * 0.9f;
 		}
 
@@ -90,25 +104,23 @@ namespace GXPEngine
 			bool hasMoved = MoveChar (0, _ySpeed);
 			if (_ySpeed <= _gravity)
 				_ySpeed += 1;
+			if (_alive) {
 			if (hasMoved == false) {
 				_ySpeed = 0.0f;
 			}
 
-			if (Input.GetKey(Key.S))
-			{
+				if (Input.GetKey (Key.S)) {
 				MoveChar (0, 4);
 				//debug
 				//Console.WriteLine ("----------------");
 			}
 
-			if (Input.GetKey (Key.SPACE) && _jumps < _maxJumps) 
-			{
+				if (Input.GetKey (Key.SPACE) && _jumps < _maxJumps) {
 				_jumpBoost = _jumpBoost + 0.2f;
                 Sounds.PlayJump();
 			}
 
-			if (!Input.GetKey(Key.SPACE) && _jumpBoost > 0 && _jumps < _maxJumps)
-			{ 
+				if (!Input.GetKey (Key.SPACE) && _jumpBoost > 0 && _jumps < _maxJumps) { 
 				if (!_jumping)
 					_jumping = true;
 				_jumpHeight = _jumpHeight + (int)_jumpBoost;
@@ -120,11 +132,24 @@ namespace GXPEngine
 			}
 			if (_jumping) {
 				if (YSpeed < 0) {
+						if (this.Health == 100) {
 					SetAnimationFrames (12, 12);
+						} else if (this.Health == 50) {
+							SetAnimationFrames (50, 50);
+						}
 				} else if (YSpeed > 0) {
+						if (this.Health == 100) {
 					SetAnimationFrames (14, 14);
+						} else if (this.Health == 50) {
+							SetAnimationFrames (52, 52);
+						}
 				} else {
+						if (this.Health == 100) {
 					SetAnimationFrames (13, 13);
+						} else if (this.Health == 50) {
+							SetAnimationFrames (51, 51);
+						}
+					}
 				}
 			}
 		}
@@ -157,7 +182,12 @@ namespace GXPEngine
 		{
 			if (_health == 0)
 			{
-				this.Destroy();
+				this.alpha = 1;
+				this.SetAnimationFrames (32, 36);
+				if (this.currentFrame == 36) {
+					SetAnimationFrames (36, 36);
+				}
+				_alive = false;
 			}
 			if (_damageTimer > 0)
 			{
@@ -168,6 +198,11 @@ namespace GXPEngine
 					this.alpha = 1;
 			}
 		}
+		
+		public bool IsAlive()
+		{
+			return this._alive;
+		}
 
 		public void TakeDamage(int damage)
 		{
@@ -176,6 +211,7 @@ namespace GXPEngine
 					this._health = 0;
 					_damageTimer = 80;
 				} else {
+					this.SetAnimationFrames (29, 31);
 					this._health = this._health - damage;
 					_damageTimer = 80;
 				}

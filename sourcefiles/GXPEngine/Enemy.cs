@@ -16,7 +16,7 @@ namespace GXPEngine
 		private int _lastFrame = 1; // Last frame for the range of frames to be used in the animation of the sprite
 		private int _gravity = 10; // Gravity that is currently affecting the entity
 		private bool _jumping = false; // Indicates whether or not the entity has jumped
-		private Weapon _weapon; // Weapon the entity is using
+		//private Weapon _weapon; // Weapon the entity is using
 		private bool movingLeft = false;
 		private int _health = 100;
 		private int _damageTimer = 0;
@@ -26,11 +26,11 @@ namespace GXPEngine
 		private float _lastXpos;
 		private float _lastYpos;
 
-		public Enemy (int x, int y) : base("images/EnemyAnim.png", 5, 1)
+		public Enemy (int x, int y) : base("images/SkeletonAnim.png", 15, 1)
 		{
 			this.x = x; // Set horizontal position for player at the start 
 			this.y = y; // Set vertical position for player at the start
-			this.SetOrigin (0, 164);
+			this.SetOrigin (0, 96);
 		}
 
 		void Update()
@@ -41,7 +41,6 @@ namespace GXPEngine
 			ApplySteering (); // Move horizontally based on player input
 			ApplyGravity (); // Move vertically	based on player input
 			ApplyDamage ();
-
 		}
 
 		public void ApplyDamage()
@@ -57,6 +56,20 @@ namespace GXPEngine
 					this.alpha = 0;
 				else
 					this.alpha = 1;
+			}
+		}
+
+		public void TakeDamage(int damage)
+		{
+			if (this._health > 0 && _damageTimer == 0) {
+				if (this._health - damage < 0) {
+					this._health = 0;
+					_damageTimer = 80;
+				} else {
+					this.SetAnimationFrames (15, 15);
+					this._health = this._health - damage;
+					_damageTimer = 80;
+				}
 			}
 		}
 
@@ -111,19 +124,6 @@ namespace GXPEngine
 
 			if (_jumping) {
 				SetAnimationFrames (5, 5);
-			}
-		}
-
-		public void TakeDamage(int damage)
-		{
-			if (this._health > 0 && _damageTimer == 0) {
-				if (this._health - damage < 0) {
-					this._health = 0;
-					_damageTimer = 80;
-				} else {
-					this._health = this._health - damage;
-					_damageTimer = 80;
-				}
 			}
 		}
 
