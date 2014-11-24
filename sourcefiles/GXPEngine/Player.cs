@@ -59,7 +59,8 @@ namespace GXPEngine
 		void ApplySteering() // Apply horizontal speed based on user input
 		{
 			if (_alive) {
-				if (Input.GetKey (Key.A) && !Weapon.Attacking && this.DamageTimer < 40) {
+                if (Input.GetKey(Key.A) || Input.GetKey(Key.LEFT) && !Weapon.Attacking && this.DamageTimer < 40)
+                {
 				_xSpeed--;
 					if (this.Health == 100) {
 				SetAnimationFrames (0, 5);
@@ -69,7 +70,9 @@ namespace GXPEngine
 				this._weapon.Flip (true);
 				if (this._weapon.rotation == 0)
 					this._weapon.rotation = 180;
-				} else if (Input.GetKey (Key.D) && !Weapon.Attacking && this.DamageTimer < 40) {
+                }
+                else if (Input.GetKey(Key.D) || Input.GetKey(Key.RIGHT) && !Weapon.Attacking && this.DamageTimer < 40)
+                {
 				_xSpeed++;
 					if (this.Health == 100) {
 				SetAnimationFrames (0, 5);
@@ -109,13 +112,15 @@ namespace GXPEngine
 				_ySpeed = 0.0f;
 			}
 
-				if (Input.GetKey (Key.S)) {
+            if (Input.GetKey(Key.S) || Input.GetKey(Key.DOWN))
+            {
 				MoveChar (0, 4);
 				//debug
 				//Console.WriteLine ("----------------");
 			}
 
-				if (Input.GetKey (Key.SPACE) && _jumps < _maxJumps) {
+            if (Input.GetKey(Key.SPACE)&& _jumps < _maxJumps)
+            {
 				_jumpBoost = _jumpBoost + 0.2f;
                 Sounds.PlayJump();
 			}
