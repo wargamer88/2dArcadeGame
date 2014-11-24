@@ -69,6 +69,9 @@ namespace GXPEngine
 		public const int ENTER		= 13;
 		public const int DELETE		= 127;
 		public const int BACKSPACE	= 8;
+        public const int LEFT_SHIFT = 287;
+        public const int LEFT_CTRL  = 289;
+        public const int LEFT_ALT   = 291;
 	}
 }
 

@@ -21,15 +21,19 @@ namespace GXPEngine
 			this.SetOrigin (18, 68);
 			this._damage = damage;
 			this.alpha = 0;
+            
 		}
 
 		public void Update()
 		{
-			if (Attacking && _attackTimer < 0) {
-				this.SetFrame (0);
-				Attack ();
-			}
-			if (Input.GetKeyDown(Key.F) && !this._currentPlayer.Jumping && _attackTimer <= 0)
+
+
+                if (Attacking && _attackTimer < 0)
+                {
+                    this.SetFrame(0);
+                    Attack();
+                }
+            if (Input.GetKeyDown(Key.F) | Input.GetKey(Key.LEFT_CTRL) && !this._currentPlayer.Jumping && _attackTimer <= 0)
 			{
                 _frame = 0.0f;
 				Attack();

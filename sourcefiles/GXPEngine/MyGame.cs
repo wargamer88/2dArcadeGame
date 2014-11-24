@@ -60,6 +60,7 @@ public class MyGame : Game
                     }
                     else
                     {
+                        
                         _level.Collisions();
                         _level.Scrolling();
 						_level.DisplayHUD ();
