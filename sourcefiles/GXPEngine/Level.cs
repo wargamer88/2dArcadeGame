@@ -241,7 +241,7 @@ namespace GXPEngine
             foreach (Enemy enemy in _enemyList)
             {
 				if (_player.Weapon.Attacking) {
-					if (enemy.HitTest (_player.Weapon) && _player.Weapon.currentFrame == 3 && _enemy.DamageTimer == 0) {
+					if (enemy.HitTest (_player.Weapon) && _player.Weapon.currentFrame == 3  | _player.Weapon.currentFrame > 9 && _enemy.DamageTimer == 0) {
 						enemy.TakeDamage (_player.Weapon.Damage); // get rekt
 
                         if (_player.x > _enemy.x)
@@ -287,7 +287,7 @@ namespace GXPEngine
                         hitRockIndex = counter;
                     }
                 }
-                if (hitRockIndex >= 0 && _player.Weapon.currentFrame == 3)
+				if (hitRockIndex >= 0 && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9)
                 {
                     BrokenRock BR = _brokenRockList[hitRockIndex];
                     BR.Destroy();

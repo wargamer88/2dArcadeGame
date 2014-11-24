@@ -49,14 +49,15 @@ namespace GXPEngine
 			{
 				this.Destroy();
 			}
-			if (_damageTimer > 0)
-			{
+			if (_damageTimer > 0) {
+				this.SetAnimationFrames (15, 15);
 				_damageTimer--;
 				if (_damageTimer % 20 == 1)
 					this.alpha = 0;
 				else
 					this.alpha = 1;
-			}
+			} else
+				this.SetAnimationFrames (1, 5);
 		}
 
 		public void TakeDamage(int damage)
@@ -66,7 +67,6 @@ namespace GXPEngine
 					this._health = 0;
 					_damageTimer = 80;
 				} else {
-					this.SetAnimationFrames (15, 15);
 					this._health = this._health - damage;
 					_damageTimer = 80;
 				}
@@ -139,7 +139,7 @@ namespace GXPEngine
 		{
 			if (movingLeft) {
 				_xSpeed--;
-				SetAnimationFrames (2, 3);
+				SetAnimationFrames (1, 6);
 				this.Mirror (true, false);
 
 			} else if (!movingLeft) {
@@ -148,11 +148,16 @@ namespace GXPEngine
 				this.Mirror (false, false);
 			} 
 			else {
-				SetAnimationFrames (0, 1);
+				SetAnimationFrames (1, 6);
 
 			}
 			MoveChar (_xSpeed, 0);
 			_xSpeed = _xSpeed * 0.9f;
+		}
+
+		public void Attack()
+		{
+
 		}
 
 		public float XSpeed //Return or set the XSpeed of the player
