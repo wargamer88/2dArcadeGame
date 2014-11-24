@@ -122,7 +122,6 @@ namespace GXPEngine
             if (Input.GetKey(Key.SPACE)&& _jumps < _maxJumps)
             {
 				_jumpBoost = _jumpBoost + 0.2f;
-                Sounds.PlayJump();
 			}
 
 				if (!Input.GetKey (Key.SPACE) && _jumpBoost > 0 && _jumps < _maxJumps) { 
@@ -187,10 +186,10 @@ namespace GXPEngine
 		{
 			if (_health == 0)
 			{
-				this.alpha = 1;
 				this.SetAnimationFrames (32, 36);
 				if (this.currentFrame == 36) {
 					SetAnimationFrames (36, 36);
+					this.alpha = this.alpha * 0.9f;
 				}
 				_alive = false;
 			}
