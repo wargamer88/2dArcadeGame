@@ -60,41 +60,41 @@ namespace GXPEngine
 		{
 			if (_alive) {
 				if (Input.GetKey (Key.A) && !Weapon.Attacking && this.DamageTimer < 40) {
-				_xSpeed--;
+					_xSpeed--;
 					if (this.Health == 100) {
-				SetAnimationFrames (0, 5);
+						SetAnimationFrames (0, 5);
 					} else if (this.Health == 50)
 						SetAnimationFrames (37, 42);
-				this.Mirror (true, false);
-				this._weapon.Flip (true);
-				if (this._weapon.rotation == 0)
-					this._weapon.rotation = 180;
+					this.Mirror (true, false);
+					this._weapon.Flip (true);
+					if (this._weapon.rotation == 0)
+						this._weapon.rotation = 180;
 				} else if (Input.GetKey (Key.D) && !Weapon.Attacking && this.DamageTimer < 40) {
-				_xSpeed++;
+					_xSpeed++;
 					if (this.Health == 100) {
-				SetAnimationFrames (0, 5);
+						SetAnimationFrames (0, 5);
 					} else if (this.Health == 50)
 						SetAnimationFrames (37, 42);
-				this.Mirror (false, false);
-				this._weapon.Flip (false);
-				if (this._weapon.rotation == 180)
-					this._weapon.rotation = 0;
+					this.Mirror (false, false);
+					this._weapon.Flip (false);
+					if (this._weapon.rotation == 180)
+						this._weapon.rotation = 0;
 
-			} else if (Weapon.Attacking) {
+				} else if (Weapon.Attacking) {
 					if (Health == 100) {
-				SetAnimationFrames (15, 21);
+						SetAnimationFrames (15, 21);
 					} else if (this.Health == 50) {
 						SetAnimationFrames (53, 59);
-			}
+					}
 					Weapon.SetAnimationFrames (0, 6);
 				} else {
 					if (this.Health == 100) {
-				SetAnimationFrames (6, 11);
+						SetAnimationFrames (6, 11);
 					} else if (this.Health == 50)
 						SetAnimationFrames (43, 49);
 
-			}
-			MoveChar (_xSpeed, 0);
+				}
+				MoveChar (_xSpeed, 0);
 			}
 			_xSpeed = _xSpeed * 0.9f;
 		}
@@ -102,50 +102,49 @@ namespace GXPEngine
 		void ApplyGravity()
 		{
 			bool hasMoved = MoveChar (0, _ySpeed);
-			if (_ySpeed <= _gravity)
-				_ySpeed += 1;
+				if (_ySpeed <= _gravity)
+					_ySpeed += 1;
 			if (_alive) {
-			if (hasMoved == false) {
-				_ySpeed = 0.0f;
-			}
+				if (hasMoved == false) {
+					_ySpeed = 0.0f;
+				}
 
 				if (Input.GetKey (Key.S)) {
-				MoveChar (0, 4);
-				//debug
-				//Console.WriteLine ("----------------");
-			}
+					MoveChar (0, 4);
+					//debug
+					//Console.WriteLine ("----------------");
+				}
 
 				if (Input.GetKey (Key.SPACE) && _jumps < _maxJumps) {
-				_jumpBoost = _jumpBoost + 0.2f;
-                Sounds.PlayJump();
-			}
+					_jumpBoost = _jumpBoost + 0.2f;
+				}
 
 				if (!Input.GetKey (Key.SPACE) && _jumpBoost > 0 && _jumps < _maxJumps) { 
-				if (!_jumping)
-					_jumping = true;
-				_jumpHeight = _jumpHeight + (int)_jumpBoost;
-				_jumpBoost = 0;
-				this.y--;
-				_ySpeed = -_jumpHeight;
-                _jumpHeight = 12;
-				_jumps++;
-			}
-			if (_jumping) {
-				if (YSpeed < 0) {
+					if (!_jumping)
+						_jumping = true;
+					_jumpHeight = _jumpHeight + (int)_jumpBoost;
+					_jumpBoost = 0;
+					this.y--;
+					_ySpeed = -_jumpHeight;
+					_jumpHeight = 12;
+					_jumps++;
+				}
+				if (_jumping) {
+					if (YSpeed < 0) {
 						if (this.Health == 100) {
-					SetAnimationFrames (12, 12);
+							SetAnimationFrames (12, 12);
 						} else if (this.Health == 50) {
 							SetAnimationFrames (50, 50);
 						}
-				} else if (YSpeed > 0) {
+					} else if (YSpeed > 0) {
 						if (this.Health == 100) {
-					SetAnimationFrames (14, 14);
+							SetAnimationFrames (14, 14);
 						} else if (this.Health == 50) {
 							SetAnimationFrames (52, 52);
 						}
-				} else {
+					} else {
 						if (this.Health == 100) {
-					SetAnimationFrames (13, 13);
+							SetAnimationFrames (13, 13);
 						} else if (this.Health == 50) {
 							SetAnimationFrames (51, 51);
 						}
