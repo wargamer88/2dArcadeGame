@@ -5,45 +5,19 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class Sounds
+    static class Sounds
     {
-        private Sound _soundExplosion;
-        private Sound _soundCoin;
-        private Sound _soundJump;
 
-        public Sounds()
-        {
-
-        }
-
-        #region loading music & play and loading sounds
-        public void BgMusic()
+        public static void BgMusic()
         {
             Sound music = new Sound(@"Sounds/UncleBibby_-_01_-_The_Simple_Complex.mp3", true, true);
             music.Play();
         }
 
-        public void LoadSounds()
+        public static void PlayJump()
         {
-
+            Sound soundJump = new Sound(@"Sounds/Jump.wav");
+            soundJump.Play();
         }
-        #endregion
-
-        #region play sounds
-        public void PlayExplosion()
-        {
-            _soundExplosion.Play();
-        }
-
-        public void PlayCoin()
-        {
-            _soundCoin.Play();
-        }
-
-        public void PlayJump()
-        {
-            _soundJump.Play();
-        }
-        #endregion
     }
 }

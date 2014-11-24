@@ -104,6 +104,7 @@ namespace GXPEngine
 			if (Input.GetKey (Key.SPACE) && _jumps < _maxJumps) 
 			{
 				_jumpBoost = _jumpBoost + 0.2f;
+                Sounds.PlayJump();
 			}
 
 			if (!Input.GetKey(Key.SPACE) && _jumpBoost > 0 && _jumps < _maxJumps)
