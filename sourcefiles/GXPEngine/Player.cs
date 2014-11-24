@@ -181,10 +181,10 @@ namespace GXPEngine
 		{
 			if (_health == 0)
 			{
-				this.alpha = 1;
 				this.SetAnimationFrames (32, 36);
 				if (this.currentFrame == 36) {
 					SetAnimationFrames (36, 36);
+					this.alpha = this.alpha * 0.9f;
 				}
 				_alive = false;
 			}
