@@ -1,17 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="GXPEngine\Player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GXPEngine\Weapon.cs">
     <Files>
       <File FileName="GXPEngine\MyGame.cs" Line="1" Column="1" />
-      <File FileName="GXPEngine\Level.cs" Line="17" Column="17" />
-      <File FileName="GXPEngine\Player.cs" Line="19" Column="19" />
-      <File FileName="GXPEngine\Enemy.cs" Line="1" Column="1" />
-      <File FileName="GXPEngine\Ground.cs" Line="1" Column="1" />
-      <File FileName="GXPEngine\Sign.cs" Line="1" Column="1" />
-      <File FileName="GXPEngine\NPC.cs" Line="1" Column="1" />
+      <File FileName="GXPEngine\Level.cs" Line="42" Column="42" />
+      <File FileName="GXPEngine\Player.cs" Line="35" Column="35" />
+      <File FileName="GXPEngine\Enemy.cs" Line="4" Column="4" />
+      <File FileName="GXPEngine\NPC.cs" Line="9" Column="9" />
       <File FileName="GXPEngine\ScoreBoard.cs" Line="1" Column="1" />
-      <File FileName="GXPEngine\Weapon.cs" Line="31" Column="31" />
-      <File FileName="GXPEngine\Sounds.cs" Line="30" Column="30" />
+      <File FileName="GXPEngine\Weapon.cs" Line="5" Column="5" />
+      <File FileName="GXPEngine\Sounds.cs" Line="1" Column="1" />
+      <File FileName="GXPEngine\TextBox.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

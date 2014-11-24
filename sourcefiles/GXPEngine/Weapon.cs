@@ -13,10 +13,10 @@ namespace GXPEngine
 		private int _firstFrame = 0; // First frame for the range of frames to be used in the animation of the sprite
 		private int _lastFrame = 6; // Last frame for the range of frames to be used in the animation of the sprite
 
-		public Weapon (Player player, int damage) : base ("images/SwordAnim.png", 7 ,1)
+		public Weapon (Player player, int damage) : base ("images/SwordAnim.png", 14 ,1)
 		{
 			this._currentPlayer = player;
-			this.y -=65;
+			this.y -=90;
 			this.x += 20;
 			this.SetOrigin (18, 68);
 			this._damage = damage;
@@ -32,20 +32,39 @@ namespace GXPEngine
                 {
                     this.SetFrame(0);
                     Attack();
-                }
+			}
             if (Input.GetKeyDown(Key.F) | Input.GetKey(Key.LEFT_CTRL) && !this._currentPlayer.Jumping && _attackTimer <= 0)
 			{
                 _frame = 0.0f;
-				Attack();
+				this.SetAnimationFrames (0, 6);
+				Attack ();
 			}
-			if (this._currentPlayer.Jumping) {
+			if (Input.GetKeyDown (Key.F) && this._currentPlayer.Jumping && _attackTimer <= 0) {
+				_frame = 0.0f;
+				this.SetAnimationFrames (7, 13);
+				Attack ();
+			}
+
+			if (Input.GetKeyDown (Key.G) && this._currentPlayer.Jumping && _attackTimer <= 0) {
+				_frame = 0.0f;
+				this.SetAnimationFrames (7, 13);
+				Attack ();
+				_currentPlayer.YSpeed -= 9;
+			}  
+
+			/*if (this._currentPlayer.Jumping) {
 				if (this.Attacking)
 					Attack ();
-			} 
-			if (Attacking) {
+			} */
+			if (Attacking && !this._currentPlayer.Jumping) {
 				this._currentPlayer.XSpeed = 0;
-                UpdateAnimation();
+				UpdateAnimation ();
+			} 
+			else if(Attacking && this._currentPlayer.Jumping)
+			{
+				UpdateAnimation ();
 			}
+
 			_attackTimer--;
 			
 		}
@@ -56,10 +75,14 @@ namespace GXPEngine
 			if (_facingLeft) {
 				this.Mirror (false, true);
 				this.SetOrigin (68, 68);
+				if (this.y == -90)
+					this.y += 55;
 
 			} else {
 				this.Mirror (false, false);
 				this.SetOrigin (18, 68);
+				if (this.y == -35)
+					this.y -= 55;
 
 			}
 
@@ -67,11 +90,18 @@ namespace GXPEngine
 
 		public void Attack()
 		{
-			if (!Attacking) {
+			if (!Attacking && this._currentPlayer.Jumping) {
+				this.alpha = 1;
+				this.Attacking = true;
+				this.AttackTimer = 20;
+			}
+			else if (!Attacking)
+			{
 				this.alpha = 1;
 				this.Attacking = true;
 				this.AttackTimer = 29;
-			} else {
+			}
+			else {
 				this.alpha = 0;
 				this.Attacking = false;
 			}
@@ -79,7 +109,11 @@ namespace GXPEngine
 
 		public void UpdateAnimation() // Continuously loop through the frames based on the maximum and
 		{
+			if (currentFrame > 6) {
+				_frame = _frame + 0.3f;
+			} else {
 			_frame = _frame + 0.2f;
+			}
 			if (_frame >= _lastFrame + 1)
 				_frame = _firstFrame;
 			if (_frame < _firstFrame)
