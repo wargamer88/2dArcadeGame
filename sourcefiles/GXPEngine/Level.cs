@@ -32,6 +32,7 @@ namespace GXPEngine
         private bool _onTop = true;
         private bool _onBottom = true;
         private bool _allowSideCollision = false;
+		private string _currentLevel;
         private MyGame _MG;
 
         #endregion
@@ -40,6 +41,7 @@ namespace GXPEngine
 
         {
             _MG = game;
+			_currentLevel = sLevel;
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
             BuildGameLevel(levelArray);
@@ -50,7 +52,7 @@ namespace GXPEngine
             AddChild(_player);
 			game.AddChild (_textbox);
 			game.AddChild (_scoreBoard);
-            
+			Console.WriteLine (_currentLevel);
 
 
             
@@ -60,6 +62,7 @@ namespace GXPEngine
         {
             _scoreBoard.Destroy();
         }
+
         public void Collisions()
         {
             #region ground collisions
@@ -336,8 +339,10 @@ namespace GXPEngine
 			if (_player != null) {
 				if (_player.x + x > 400)
 					x = 400 - _player.x;
-				if (_player.x + x < 100 && x > 0)
+				if (_player.x + x < 100 && x < 0) {
+					Console.WriteLine (x);
 					x = 100 - _player.x;
+				}
 			}
 		}
 
@@ -487,6 +492,12 @@ namespace GXPEngine
                             _spike.SetXY(w * 64, h * 64);
                             _spikeList.Add(_spike);
                             break;
+					case 10:
+						   _brokenRock = new BrokenRock();
+						   AddChild(_brokenRock);
+						   _brokenRock.SetXY(w * 64, h * 64);
+						   _brokenRockList.Add(_brokenRock);
+						   break;
                     }
 
                 }

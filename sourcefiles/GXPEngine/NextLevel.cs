@@ -4,7 +4,12 @@ namespace GXPEngine
 {
 	public class NextLevel : Sprite
 	{
-		public NextLevel () : base("images/LevelEnd.png")
+		public NextLevel (string currentLevel) : base("images/LevelEnd.png")
+		{
+
+		}
+
+		public void LoadNext()
 		{
 
 		}
