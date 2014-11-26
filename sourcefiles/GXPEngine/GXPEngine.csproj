@@ -92,6 +92,7 @@
     <Compile Include="ScoreBoard.cs" />
     <Compile Include="NextLevel.cs" />
     <Compile Include="Torch.cs" />
+    <Compile Include="FadingBlock.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

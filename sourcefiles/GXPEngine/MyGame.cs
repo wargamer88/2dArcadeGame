@@ -18,7 +18,7 @@ public class MyGame : Game
     #endregion
 
 
-    public MyGame () : base(1280, 960, true)
+    public MyGame () : base(1280, 960, false)
 	{
         _sky = new Sprite("images/sky.png");
         AddChild(_sky);
