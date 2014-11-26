@@ -137,7 +137,7 @@ namespace GXPEngine
 				_jumpBoost = _jumpBoost + 0.2f;
 			}
 
-			if (!Input.GetKey (Key.SPACE) && _jumpBoost > 0 && _jumps < _maxJumps && !Weapon.Attacking) { 
+			if (!Input.GetKey (Key.W) && _jumpBoost > 0 && _jumps < _maxJumps && !Weapon.Attacking) { 
 				if (!_jumping)
 					_jumping = true;
                 Sounds.PlayJump();
@@ -200,7 +200,8 @@ namespace GXPEngine
 		{
 			if (_health == 0)
 			{
-				this.SetAnimationFrames (32, 36);
+				this.Weapon.Destroy ();
+				this.SetAnimationFrames (29, 36);
 				if (this.currentFrame == 36) {
 					SetAnimationFrames (36, 36);
 					this.alpha = this.alpha * 0.9f;
@@ -284,10 +285,11 @@ namespace GXPEngine
 		public void UpdateAnimation() // Continuously loop through the frames based on the maximum and
 		{
 
-			if (currentFrame > 21 && currentFrame < 28)
+			if (currentFrame > 21 && currentFrame < 28) {
 				_frame = _frame + 0.3f;
-			else 
+			} else {
 				_frame = _frame + 0.2f;
+			}
 			if (_frame >= _lastFrame + 1)
 				_frame = _firstFrame;
 			if (_frame < _firstFrame)
