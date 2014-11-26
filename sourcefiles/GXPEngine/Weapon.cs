@@ -45,7 +45,8 @@ namespace GXPEngine
 				Attack ();
 			}
 
-			if (Input.GetKeyDown (Key.G) && this._currentPlayer.Jumping && _attackTimer <= 0) {
+            if (Input.GetKeyDown(Key.G) | Input.GetKey(Key.LEFT_CTRL) && this._currentPlayer.Jumping && _attackTimer <= 0)
+            {
 				_frame = 0.0f;
 				this.SetAnimationFrames (7, 13);
 				Attack ();
