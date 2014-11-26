@@ -65,6 +65,12 @@ public class MyGame : Game
         }
 	}
 
+    public void GameOver()
+    {
+        _level.Destroy();
+        AddChild(_menu);
+    }
+
     private void LoadLevel(string slevel)
     {
         if (!_levelLoaded)

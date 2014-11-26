@@ -206,8 +206,11 @@ namespace GXPEngine
 				if (this.currentFrame == 36) {
 					SetAnimationFrames (36, 36);
 					this.alpha = this.alpha * 0.9f;
-					if (this.alpha < 0.01f)
-						this.Destroy ();
+                    if (this.alpha < 0.01f)
+                    {
+                        this.Destroy();
+                        Console.WriteLine(parent.parent.name);
+                    }
 				}
 				_alive = false;
 			}
