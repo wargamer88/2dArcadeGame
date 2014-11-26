@@ -18,7 +18,7 @@ public class MyGame : Game
     #endregion
 
 
-    public MyGame () : base(1280, 960, false)
+    public MyGame () : base(1280, 960, true)
 	{
         _sky = new Sprite("images/sky.png");
         _sky.SetScaleXY(2, 2);
