@@ -8,7 +8,7 @@ namespace GXPEngine
     class Ground : AnimSprite
     {
         public Ground(int frameNr)
-            : base("images/Tileset1.1.png", 6, 1)
+            : base("images/TilesetGround.png", 6, 1)
         {
             SetFrame(frameNr - 2);
         }
