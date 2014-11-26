@@ -51,15 +51,15 @@ namespace GXPEngine
 		}
 
 		void ApplySteering() // Apply horizontal speed based on user input
-		{ 
-			if (_alive) {
-				if (Input.GetKey (Key.A) | Input.GetKey (Key.LEFT) && Weapon.Attacking && Jumping && this.DamageTimer < 40) {
+		{
+			if (_alive && this.DamageTimer < 40) {
+				if (Input.GetKey (Key.A) | Input.GetKey (Key.LEFT) && Weapon.Attacking && Jumping) {
 				_xSpeed--;
 					this.Mirror (true, false);
 					this._weapon.Flip (true);
 					if (this._weapon.rotation == 0)
 						this._weapon.rotation = 180;
-				} else if (Input.GetKey (Key.A) | Input.GetKey (Key.LEFT) && !Weapon.Attacking && this.DamageTimer < 40) {
+				} else if (Input.GetKey (Key.A) | Input.GetKey (Key.LEFT) && !Weapon.Attacking) {
 					_xSpeed--;
 					if (this.Health == 100) {
 				SetAnimationFrames (0, 5);
@@ -70,14 +70,14 @@ namespace GXPEngine
 				this._weapon.Flip (true);
 				if (this._weapon.rotation == 0)
 					this._weapon.rotation = 180;
-				} else if (Input.GetKey (Key.D) | Input.GetKey (Key.RIGHT) && Weapon.Attacking && Jumping && this.DamageTimer < 40) {
+				} else if (Input.GetKey (Key.D) | Input.GetKey (Key.RIGHT) && Weapon.Attacking && Jumping) {
 					_xSpeed++;
 					this.Mirror (false, false);
 					this._weapon.Flip (false);
 					if (this._weapon.rotation == 180)
 						this._weapon.rotation = 0;
                 }
-				else if (Input.GetKey (Key.D) | Input.GetKey (Key.RIGHT) && !Weapon.Attacking && this.DamageTimer < 40) {
+				else if (Input.GetKey (Key.D) | Input.GetKey (Key.RIGHT) && !Weapon.Attacking) {
 				_xSpeed++;
 					if (this.Health == 100) {
 				SetAnimationFrames (0, 5);
@@ -110,11 +110,12 @@ namespace GXPEngine
 						SetAnimationFrames (43, 49);
 					}
 			}
+
+			}
 			MoveChar (_xSpeed, 0);
 			
 				_xSpeed = _xSpeed * 0.9f;
 			}
-		}
 
 		void ApplyGravity()
 		{
@@ -137,7 +138,7 @@ namespace GXPEngine
 				_jumpBoost = _jumpBoost + 0.2f;
 			}
 
-			if (!Input.GetKey (Key.SPACE) && _jumpBoost > 0 && _jumps < _maxJumps && !Weapon.Attacking) { 
+			if (!Input.GetKey (Key.W) && _jumpBoost > 0 && _jumps < _maxJumps && !Weapon.Attacking) { 
 				if (!_jumping)
 					_jumping = true;
                 Sounds.PlayJump();
@@ -200,7 +201,8 @@ namespace GXPEngine
 		{
 			if (_health == 0)
 			{
-				this.SetAnimationFrames (32, 36);
+				this.Weapon.Destroy ();
+				this.SetAnimationFrames (29, 36);
 				if (this.currentFrame == 36) {
 					SetAnimationFrames (36, 36);
 					this.alpha = this.alpha * 0.9f;
@@ -231,7 +233,7 @@ namespace GXPEngine
 					this._health = 0;
 					_damageTimer = 80;
 				} else {
-					this.SetAnimationFrames (29, 31);
+					this.SetAnimationFrames (29, 29);
 					this._health = this._health - damage;
 					_damageTimer = 80;
 				}
@@ -284,10 +286,11 @@ namespace GXPEngine
 		public void UpdateAnimation() // Continuously loop through the frames based on the maximum and
 		{
 
-			if (currentFrame > 21 && currentFrame < 28)
+			if (currentFrame > 21 && currentFrame < 28) {
 				_frame = _frame + 0.3f;
-			else 
+			} else {
 				_frame = _frame + 0.2f;
+			}
 			if (_frame >= _lastFrame + 1)
 				_frame = _firstFrame;
 			if (_frame < _firstFrame)
