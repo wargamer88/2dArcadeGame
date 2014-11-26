@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="30" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="Tileset1" tilewidth="64" tileheight="64">
+  <image source="E:/Saxion 1st Quarter/2D Arcade Platformer/GroundTileSet/Ground/Tileset1.png" width="384" height="64"/>
+  <terraintypes>
+   <terrain name="Ground" tile="-1"/>
+  </terraintypes>
+ </tileset>
+ <layer name="Tile Layer 2" width="60" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgiD/r25IQAEAAAAAAAAvBhwgAAE=
+  </data>
+ </layer>
+ <layer name="Tile Layer 1" width="60" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1OsKgCAMQOF5ff9HrsFGq1+WQlDng0hLl6ypCAAA31P2K9m9WxtjNF9Z5nNWFsWJ8erg2CxHDVTrV+u3RetR1NYczV1+exEXd+rsL/w/eW50D3XrNznv9SzP91iz+DFePI/8uX8/hXlic3sY1+2dtwEAAAAAwGEDMrsAxg==
+  </data>
+ </layer>
+</map>
