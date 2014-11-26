@@ -21,7 +21,6 @@ public class MyGame : Game
     public MyGame () : base(1280, 960, false)
 	{
         _sky = new Sprite("images/sky.png");
-        _sky.SetScaleXY(2, 2);
         AddChild(_sky);
 
         _menu = new Menu();
@@ -76,6 +75,20 @@ public class MyGame : Game
         
         AddChild(_menu = new Menu());
     }
+
+	public void LoadNextLevel(string slevel)
+	{
+		int score = this._level.CurrentPlayer.Score;
+		int health = this._level.CurrentPlayer.Health;
+		this._level.RemoveHUD ();
+		this._level.Destroy ();
+		_sLevel = slevel;
+		_level = new Level (_sLevel, this);
+		AddChild (_level);
+		this._level.CurrentPlayer.Health = health;
+		this._level.CurrentPlayer.Score = score;
+		_levelLoaded = true;
+	}
 
     private void LoadLevel(string slevel)
     {

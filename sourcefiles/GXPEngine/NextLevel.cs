@@ -4,14 +4,22 @@ namespace GXPEngine
 {
 	public class NextLevel : Sprite
 	{
-		public NextLevel (string currentLevel) : base("images/LevelEnd.png")
+		string _sLevel;
+		MyGame _MG;
+		public NextLevel (string currentLevel, MyGame MG) : base("images/LevelEnd.png")
 		{
-
+			_sLevel = currentLevel;
+			_MG = MG;
 		}
 
 		public void LoadNext()
 		{
-
+			if (_sLevel == "level0.tmx") {
+				_MG.LoadNextLevel ("level1.tmx");
+			} else if (_sLevel == "level1.tmx") {
+				_MG.LoadNextLevel ("level1.1.tmx");
+			} else if (_sLevel == "level1.1.tmx")
+				_MG.LoadNextLevel ("level1.2.tmx");
 		}
 	}
 }

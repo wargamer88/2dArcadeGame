@@ -18,6 +18,7 @@ namespace GXPEngine
 		private List<NPC> _npcList = new List<NPC> ();
         private List<Coin> _coinList = new List<Coin>();
         private List<Spike> _spikeList = new List<Spike>();
+		private List<FadingBlock> _fadingBlockList = new List<FadingBlock>();
         private Ground _ground;
         private Player _player;
         private BrokenRock _brokenRock;
@@ -28,6 +29,8 @@ namespace GXPEngine
         private Spike _spike;
 		private ScoreBoard _scoreBoard = new ScoreBoard ();
 		private NextLevel _nextLevel;
+		private Torch _torch;
+		private FadingBlock _fadingBlock;
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -59,6 +62,11 @@ namespace GXPEngine
 
             
         }
+
+		public Player CurrentPlayer
+		{
+			get {return this._player;}
+		}
 
         public void RemoveHUD()
         {
@@ -243,10 +251,39 @@ namespace GXPEngine
                 }
             }
             #endregion
-			
+
+			foreach (FadingBlock fadingBlock in _fadingBlockList) {
+				if (_player.HitTest(fadingBlock) && fadingBlock.CanCollide)
+				{
+					if (_player.y > fadingBlock.y && _player.LastYpos <= fadingBlock.y)
+					{
+						_player.y = fadingBlock.y;
+						_player.Jumping = false;
+						_player.Jumps = 0;
+						_player.YSpeed = 0;
+					}
+					if (_player.x + _player.width > fadingBlock.x && _player.LastXpos + _player.width <= fadingBlock.x)
+					{
+						_player.x = fadingBlock.x - _player.width;
+						_player.XSpeed = 0;
+					}
+					if (_player.x < fadingBlock.x + fadingBlock.width && _player.LastXpos >= fadingBlock.x + fadingBlock.width)
+					{
+						_player.x = fadingBlock.x + fadingBlock.width;
+						_player.XSpeed = 0;
+					}
+					if (_player.y - _player.height < fadingBlock.y + fadingBlock.height && _player.LastYpos - _player.height > fadingBlock.y + fadingBlock.height)
+					{
+						_player.y = fadingBlock.y + fadingBlock.height + _player.height;
+						_player.Jumping = false;
+						_player.YSpeed = 0;
+					}
+				}
+			}
+
 			if (_player.HitTest(_nextLevel))
 			{
-				Console.WriteLine("YOU MADE IT");
+				_nextLevel.LoadNext ();
 			}
 			
             foreach (Coin coin in _coinList)
@@ -532,6 +569,29 @@ namespace GXPEngine
 						   _brokenRock.SetXY(w * 64, h * 64);
 						   _brokenRockList.Add(_brokenRock);
 						   break;
+					case 11:
+							_nextLevel = new NextLevel (_currentLevel, (MyGame)game);
+							AddChild (_nextLevel);
+							_nextLevel.SetXY (w * 64, h * 64);
+							break;
+					case 12:
+							_torch = new Torch ();
+							AddChild (_torch);
+							_torch.SetXY (w * 64, h * 64);
+							_torch.Mirror (true, false);
+							break;
+					case 13:
+							_torch = new Torch ();
+							AddChild (_torch);
+							_torch.SetXY (w * 64, h * 64);
+							_torch.Mirror (false, false);
+							break;
+					case 14:
+							_fadingBlock = new FadingBlock ();
+							AddChild (_fadingBlock);
+							_fadingBlock.SetXY (w * 64, h * 64);
+							_fadingBlockList.Add (_fadingBlock);
+							break;
                     }
 
                 }
