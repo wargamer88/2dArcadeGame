@@ -6,6 +6,7 @@ namespace GXPEngine
 	{
 		private bool _facingLeft = true;
 		private bool _attacking = false;
+		private bool _uppercutUsable = true;
 		private Player _currentPlayer; // Player that is carrying the weapon
 		private int _attackTimer = 0; // Time until the player can move again after starting an attack
 		private int _damage = 0; // Amount of damage the weapon can inflict
@@ -27,11 +28,9 @@ namespace GXPEngine
 		public void Update()
 		{
 
-
-                if (Attacking && _attackTimer < 0)
-                {
-                    this.SetFrame(0);
-                    Attack();
+            if (Attacking && _attackTimer < 0)
+            {
+               Attack(); // stop attacking
 			}
 			if (Input.GetKeyDown(Key.F) | Input.GetKey(Key.LEFT_CTRL) && !this._currentPlayer.Jumping && this._currentPlayer.DamageTimer < 40 && _attackTimer <= 0)
 			{
@@ -45,12 +44,13 @@ namespace GXPEngine
 				Attack ();
 			}
 
-            if (Input.GetKeyDown(Key.G) | Input.GetKey(Key.LEFT_CTRL) && this._currentPlayer.Jumping && _attackTimer <= 0)
+            if (Input.GetKeyDown(Key.G) | Input.GetKey(Key.LEFT_CTRL) && this._currentPlayer.Jumping && _attackTimer <= 0 && _uppercutUsable)
             {
 				_frame = 0.0f;
 				this.SetAnimationFrames (7, 13);
 				Attack ();
 				_currentPlayer.YSpeed = -15;
+				_uppercutUsable = false;
 			}  
 
 			/*if (this._currentPlayer.Jumping) {

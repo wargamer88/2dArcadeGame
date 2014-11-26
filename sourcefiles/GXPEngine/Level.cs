@@ -26,6 +26,7 @@ namespace GXPEngine
         private Coin _coin;
         private Spike _spike;
 		private ScoreBoard _scoreBoard = new ScoreBoard ();
+		private NextLevel _nextLevel;
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -228,7 +229,12 @@ namespace GXPEngine
                 }
             }
             #endregion
-
+			
+			if (_player.HitTest(_nextLevel))
+						{
+							Console.WriteLine("YOU MADE IT");
+						}
+			
             foreach (Coin coin in _coinList)
             {
                 if (_player.HitTest(coin))
@@ -418,7 +424,11 @@ namespace GXPEngine
                             _spike.SetXY(w * 64, h * 64);
                             _spikeList.Add(_spike);
                             break;
-
+						case 8:
+							_nextLevel = new NextLevel ();
+							AddChild (_nextLevel);
+							_nextLevel.SetXY (w * 64, h * 64);
+							break;
 
                     }
 
