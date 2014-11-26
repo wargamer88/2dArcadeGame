@@ -13,6 +13,7 @@ namespace GXPEngine
         private List<Ground> _groundList = new List<Ground>();
         private List<Enemy> _enemyList = new List<Enemy>();
         private List<BrokenRock> _brokenRockList = new List<BrokenRock>();
+        private List<BrokenRock> TempListBrokenRocks = new List<BrokenRock>(); //temp list, dont remove, needed by the program to function
         private List<Sign> _signList = new List<Sign>();
 		private List<NPC> _npcList = new List<NPC> ();
         private List<Coin> _coinList = new List<Coin>();
@@ -34,6 +35,7 @@ namespace GXPEngine
         private bool _allowSideCollision = false;
 		private string _currentLevel;
         private MyGame _MG;
+        private bool _blockBroken = false;
 
         #endregion
 
@@ -299,6 +301,7 @@ namespace GXPEngine
             {
                 int hitRockIndex = -1;
                 int counter = -1;
+                TempListBrokenRocks = new List<BrokenRock>();
                 foreach (BrokenRock brokenRock in _brokenRockList)
                 {
                     counter++;
@@ -306,16 +309,47 @@ namespace GXPEngine
                     {
                         
                         hitRockIndex = counter;
+                        if (hitRockIndex >= 0 && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9)
+                        {
+                            BrokenRock BR = _brokenRockList[hitRockIndex];
+                            BR = _brokenRockList[hitRockIndex];
+                            //_brokenRockList.RemoveAt(hitRockIndex);
+                            if (BR.Timer == 0)
+                            {
+                                BR.TakeDamage();
+                                if (BR.Durability == 0)
+                                {
+                                    TempListBrokenRocks.Add(BR);
+                                }
+                            }
+                            
+                        }
                     }
                 }
-                if (hitRockIndex >= 0 && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9)
+
+                if (TempListBrokenRocks.Count > 0)
                 {
-                    
-                    BrokenRock BR = _brokenRockList[hitRockIndex];
-                    BR.AnimateBreakBlock(_player);
-                    _brokenRockList.RemoveAt(hitRockIndex);
-                    
+                    foreach (BrokenRock BR in TempListBrokenRocks)
+                    {
+                        _brokenRockList.Remove(BR);
+                    }
                 }
+
+
+                
+
+                //if (hitRockIndex >= 0 && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9)
+                //{
+                //    BrokenRock BR = _brokenRockList[hitRockIndex];
+                //    BR = _brokenRockList[hitRockIndex];
+                //    //_brokenRockList.RemoveAt(hitRockIndex);
+                //    if (BR.Timer == 0)
+                //    {
+                //        BR.TakeDamage();
+                //    }
+                //}
+
+                
             }
 
 			foreach (NPC npc in _npcList) {
