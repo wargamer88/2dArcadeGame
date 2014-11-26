@@ -27,6 +27,7 @@ namespace GXPEngine
         private Spike _spike;
 		private ScoreBoard _scoreBoard = new ScoreBoard ();
 		private NextLevel _nextLevel;
+		private Torch _torch;
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -57,6 +58,11 @@ namespace GXPEngine
 
             
         }
+
+		public Player CurrentPlayer
+		{
+			get {return this._player;}
+		}
 
         public void RemoveHUD()
         {
@@ -244,7 +250,7 @@ namespace GXPEngine
 			
 			if (_player.HitTest(_nextLevel))
 			{
-				Console.WriteLine("YOU MADE IT");
+				_nextLevel.LoadNext ();
 			}
 			
             foreach (Coin coin in _coinList)
@@ -498,6 +504,23 @@ namespace GXPEngine
 						   _brokenRock.SetXY(w * 64, h * 64);
 						   _brokenRockList.Add(_brokenRock);
 						   break;
+					case 11:
+							_nextLevel = new NextLevel (_currentLevel, (MyGame)game);
+							AddChild (_nextLevel);
+							_nextLevel.SetXY (w * 64, h * 64);
+							break;
+					case 12:
+						_torch = new Torch ();
+						AddChild (_torch);
+						_torch.SetXY (w * 64, h * 64);
+						_torch.Mirror (true, false);
+						break;
+					case 13:
+						_torch = new Torch ();
+						AddChild (_torch);
+						_torch.SetXY (w * 64, h * 64);
+						_torch.Mirror (false, false);
+						break;
                     }
 
                 }

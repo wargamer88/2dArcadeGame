@@ -130,12 +130,12 @@ namespace GXPEngine
 				_ySpeed = 0.0f;
 			}
 
-            if (Input.GetKey(Key.UP) && _jumps < _maxJumps)
+			if (Input.GetKey(Key.LEFT_ALT) && _jumps < _maxJumps)
             {
 				_jumpBoost = _jumpBoost + 0.2f;
 			}
 					
-			if (!Input.GetKey(Key.UP) && _jumpBoost > 0 && _jumps < _maxJumps && !Weapon.Attacking) { 
+			if (!Input.GetKey(Key.LEFT_ALT) && _jumpBoost > 0 && _jumps < _maxJumps && !Weapon.Attacking) { 
 				if (!_jumping)
 					_jumping = true;
                 Sounds.PlayJump();
