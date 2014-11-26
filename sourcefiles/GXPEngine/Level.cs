@@ -73,6 +73,7 @@ namespace GXPEngine
                         _player.Jumping = false;
                         _player.Jumps = 0;
                         _player.YSpeed = 0;
+						_player.Weapon.UppercutUsable();
                         _onTop = true;
                     }
                     else
@@ -239,9 +240,9 @@ namespace GXPEngine
             #endregion
 			
 			if (_player.HitTest(_nextLevel))
-						{
-							Console.WriteLine("YOU MADE IT");
-						}
+			{
+				Console.WriteLine("YOU MADE IT");
+			}
 			
             foreach (Coin coin in _coinList)
             {
@@ -335,7 +336,7 @@ namespace GXPEngine
 			if (_player != null) {
 				if (_player.x + x > 400)
 					x = 400 - _player.x;
-				if (_player.x + x < 100)
+				if (_player.x + x < 100 && x > 0)
 					x = 100 - _player.x;
 			}
 		}

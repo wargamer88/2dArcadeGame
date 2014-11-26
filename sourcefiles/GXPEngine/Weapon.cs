@@ -79,6 +79,12 @@ namespace GXPEngine
 
 		}
 
+		public void UppercutUsable()
+		{
+			if (_uppercutUsable == false)
+				_uppercutUsable = true;
+		}
+
 		public void Attack()
 		{
 			if (!Attacking && this._currentPlayer.Jumping) {

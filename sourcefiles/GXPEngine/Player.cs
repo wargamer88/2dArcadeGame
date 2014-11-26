@@ -55,13 +55,13 @@ namespace GXPEngine
 		void ApplySteering() // Apply horizontal speed based on user input
 		{
 			if (_alive && this.DamageTimer < 40) {
-				if (Input.GetKey (Key.A) | Input.GetKey (Key.LEFT) && Weapon.Attacking && Jumping) {
+				if (Input.GetKey (Key.LEFT) && Weapon.Attacking && Jumping) {
 				_xSpeed--;
 					this.Mirror (true, false);
 					this._weapon.Flip (true);
 					if (this._weapon.rotation == 0)
 						this._weapon.rotation = 180;
-				} else if (Input.GetKey (Key.A) | Input.GetKey (Key.LEFT) && !Weapon.Attacking) {
+				} else if (Input.GetKey (Key.LEFT) && !Weapon.Attacking) {
 					_xSpeed--;
 					if (this.Health == 100) {
 				SetAnimationFrames (0, 5);
@@ -72,14 +72,14 @@ namespace GXPEngine
 				this._weapon.Flip (true);
 				if (this._weapon.rotation == 0)
 					this._weapon.rotation = 180;
-				} else if (Input.GetKey (Key.D) | Input.GetKey (Key.RIGHT) && Weapon.Attacking && Jumping) {
+				} else if (Input.GetKey (Key.RIGHT) && Weapon.Attacking && Jumping) {
 					_xSpeed++;
 					this.Mirror (false, false);
 					this._weapon.Flip (false);
 					if (this._weapon.rotation == 180)
 						this._weapon.rotation = 0;
                 }
-				else if (Input.GetKey (Key.D) | Input.GetKey (Key.RIGHT) && !Weapon.Attacking) {
+				else if (Input.GetKey (Key.RIGHT) && !Weapon.Attacking) {
 				_xSpeed++;
 					if (this.Health == 100) {
 				SetAnimationFrames (0, 5);
@@ -130,12 +130,12 @@ namespace GXPEngine
 				_ySpeed = 0.0f;
 			}
 
-            if (Input.GetKey(Key.W) | Input.GetKey(Key.UP) && _jumps < _maxJumps)
+            if (Input.GetKey(Key.UP) && _jumps < _maxJumps)
             {
 				_jumpBoost = _jumpBoost + 0.2f;
 			}
 					
-			if (!Input.GetKey (Key.W) | !Input.GetKey(Key.UP) && _jumpBoost > 0 && _jumps < _maxJumps && !Weapon.Attacking) { 
+			if (!Input.GetKey(Key.UP) && _jumpBoost > 0 && _jumps < _maxJumps && !Weapon.Attacking) { 
 				if (!_jumping)
 					_jumping = true;
                 Sounds.PlayJump();
