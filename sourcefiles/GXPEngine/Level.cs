@@ -31,11 +31,14 @@ namespace GXPEngine
         private bool _onTop = true;
         private bool _onBottom = true;
         private bool _allowSideCollision = false;
+        private MyGame _MG;
 
         #endregion
 
-		public Level(string sLevel, Game game)
+		public Level(string sLevel, MyGame game)
+
         {
+            _MG = game;
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
             BuildGameLevel(levelArray);
@@ -46,11 +49,16 @@ namespace GXPEngine
             AddChild(_player);
 			game.AddChild (_textbox);
 			game.AddChild (_scoreBoard);
+            
+
 
             
         }
 
-
+        public void RemoveHUD()
+        {
+            _scoreBoard.Destroy();
+        }
         public void Collisions()
         {
             #region ground collisions
@@ -389,7 +397,7 @@ namespace GXPEngine
                             _groundList.Add(_ground);
                             break;
                         case 2:
-                            _player = new Player();
+                            _player = new Player((MyGame)_MG);
                             _player.SetXY(w * 64, h * 64);
                             break;
 					    case 3:

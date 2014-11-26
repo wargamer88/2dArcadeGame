@@ -28,12 +28,14 @@ namespace GXPEngine
         private float _lastYpos;
 
 		private Weapon _weapon;
+        private MyGame _MG;
 
-        public Player()
+        public Player(MyGame MG)
             : base("images/PlayerAnim.png", 67, 1)
 		{
 			this.SetOrigin (0, 96);
 			Weapon weapon = new Weapon (this, 50);
+            _MG = MG;
 			this.AddChild (weapon);
 			_weapon = weapon;
 
@@ -208,8 +210,9 @@ namespace GXPEngine
 					this.alpha = this.alpha * 0.9f;
                     if (this.alpha < 0.01f)
                     {
+                        _MG.GameOver();
                         this.Destroy();
-                        Console.WriteLine(parent.parent.name);
+                        
                     }
 				}
 				_alive = false;

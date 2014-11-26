@@ -18,7 +18,7 @@ public class MyGame : Game
     #endregion
 
 
-    public MyGame () : base(1280, 960, true)
+    public MyGame () : base(1280, 960, false)
 	{
         _sky = new Sprite("images/sky.png");
         _sky.SetScaleXY(2, 2);
@@ -67,8 +67,14 @@ public class MyGame : Game
 
     public void GameOver()
     {
+        _sLevel = "";
+        _buttonClicked = false;
+        _sButton = "";
+        _levelLoaded = false;
+        _level.RemoveHUD();
         _level.Destroy();
-        AddChild(_menu);
+        
+        AddChild(_menu = new Menu());
     }
 
     private void LoadLevel(string slevel)
