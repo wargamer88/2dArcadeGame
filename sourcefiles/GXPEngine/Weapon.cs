@@ -28,19 +28,13 @@ namespace GXPEngine
 		public void Update()
 		{
 
-            if (Attacking && _attackTimer < 0)
-            {
-               Attack(); // stop attacking
+			if (Attacking && _attackTimer < 0) {
+				Attack (); // stop attacking
 			}
 			if (Input.GetKeyDown(Key.F) | Input.GetKey(Key.LEFT_CTRL) && !this._currentPlayer.Jumping && this._currentPlayer.DamageTimer < 40 && _attackTimer <= 0)
 			{
                 _frame = 0.0f;
 				this.SetAnimationFrames (0, 6);
-				Attack ();
-			} else
-			if (Input.GetKeyDown (Key.F) && this._currentPlayer.Jumping && _attackTimer <= 0) {
-				_frame = 0.0f;
-				this.SetAnimationFrames (7, 13);
 				Attack ();
 			}
 
@@ -53,10 +47,6 @@ namespace GXPEngine
 				_uppercutUsable = false;
 			}  
 
-			/*if (this._currentPlayer.Jumping) {
-				if (this.Attacking)
-					Attack ();
-			} */
 			if (Attacking && !this._currentPlayer.Jumping) {
 				this._currentPlayer.XSpeed = 0;
 				UpdateAnimation ();
