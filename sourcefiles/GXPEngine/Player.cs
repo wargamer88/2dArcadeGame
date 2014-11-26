@@ -52,14 +52,14 @@ namespace GXPEngine
 
 		void ApplySteering() // Apply horizontal speed based on user input
 		{
-			if (_alive) {
-				if (Input.GetKey (Key.A) | Input.GetKey (Key.LEFT) && Weapon.Attacking && Jumping && this.DamageTimer < 40) {
+			if (_alive && this.DamageTimer < 40) {
+				if (Input.GetKey (Key.A) | Input.GetKey (Key.LEFT) && Weapon.Attacking && Jumping) {
 				_xSpeed--;
 					this.Mirror (true, false);
 					this._weapon.Flip (true);
 					if (this._weapon.rotation == 0)
 						this._weapon.rotation = 180;
-				} else if (Input.GetKey (Key.A) | Input.GetKey (Key.LEFT) && !Weapon.Attacking && this.DamageTimer < 40) {
+				} else if (Input.GetKey (Key.A) | Input.GetKey (Key.LEFT) && !Weapon.Attacking) {
 					_xSpeed--;
 					if (this.Health == 100) {
 				SetAnimationFrames (0, 5);
@@ -70,14 +70,14 @@ namespace GXPEngine
 				this._weapon.Flip (true);
 				if (this._weapon.rotation == 0)
 					this._weapon.rotation = 180;
-				} else if (Input.GetKey (Key.D) | Input.GetKey (Key.RIGHT) && Weapon.Attacking && Jumping && this.DamageTimer < 40) {
+				} else if (Input.GetKey (Key.D) | Input.GetKey (Key.RIGHT) && Weapon.Attacking && Jumping) {
 					_xSpeed++;
 					this.Mirror (false, false);
 					this._weapon.Flip (false);
 					if (this._weapon.rotation == 180)
 						this._weapon.rotation = 0;
                 }
-				else if (Input.GetKey (Key.D) | Input.GetKey (Key.RIGHT) && !Weapon.Attacking && this.DamageTimer < 40) {
+				else if (Input.GetKey (Key.D) | Input.GetKey (Key.RIGHT) && !Weapon.Attacking) {
 				_xSpeed++;
 					if (this.Health == 100) {
 				SetAnimationFrames (0, 5);
@@ -110,10 +110,11 @@ namespace GXPEngine
 						SetAnimationFrames (43, 49);
 					}
 			}
-			MoveChar (_xSpeed, 0);
-			
-				_xSpeed = _xSpeed * 0.9f;
+
 			}
+			MoveChar (_xSpeed, 0);
+
+			_xSpeed = _xSpeed * 0.9f;
 		}
 
 		void ApplyGravity()
@@ -232,7 +233,7 @@ namespace GXPEngine
 					this._health = 0;
 					_damageTimer = 80;
 				} else {
-					this.SetAnimationFrames (29, 31);
+					this.SetAnimationFrames (29, 29);
 					this._health = this._health - damage;
 					_damageTimer = 80;
 				}

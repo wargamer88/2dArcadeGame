@@ -33,7 +33,7 @@ namespace GXPEngine
                     this.SetFrame(0);
                     Attack();
 			}
-            if (Input.GetKeyDown(Key.F) | Input.GetKey(Key.LEFT_CTRL) && !this._currentPlayer.Jumping && _attackTimer <= 0)
+			if (Input.GetKeyDown(Key.F) | Input.GetKey(Key.LEFT_CTRL) && !this._currentPlayer.Jumping && this._currentPlayer.DamageTimer < 40 && _attackTimer <= 0)
 			{
                 _frame = 0.0f;
 				this.SetAnimationFrames (0, 6);
@@ -49,7 +49,7 @@ namespace GXPEngine
 				_frame = 0.0f;
 				this.SetAnimationFrames (7, 13);
 				Attack ();
-				_currentPlayer.YSpeed -= 9;
+				_currentPlayer.YSpeed = -15;
 			}  
 
 			/*if (this._currentPlayer.Jumping) {
