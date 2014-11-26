@@ -140,11 +140,11 @@ namespace GXPEngine
                 if (_player.HitTest(spike))
                 {
 					if (_player.DamageTimer == 0) {
-						if (_enemy.x > _player.x) {
+						if (_spike.x > _player.x) {
 							_player.XSpeed = -10;
 							_player.YSpeed = -6;
 						}
-						if (_enemy.x < _player.x) {
+						if (_spike.x < _player.x) {
 							_player.XSpeed = +10;
 							_player.YSpeed = -6;
 						}
