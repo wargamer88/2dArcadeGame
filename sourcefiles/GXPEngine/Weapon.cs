@@ -38,7 +38,7 @@ namespace GXPEngine
                 _frame = 0.0f;
 				this.SetAnimationFrames (0, 6);
 				Attack ();
-			}
+			} else
 			if (Input.GetKeyDown (Key.F) && this._currentPlayer.Jumping && _attackTimer <= 0) {
 				_frame = 0.0f;
 				this.SetAnimationFrames (7, 13);

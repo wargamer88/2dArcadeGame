@@ -51,7 +51,7 @@ namespace GXPEngine
 		}
 
 		void ApplySteering() // Apply horizontal speed based on user input
-		{
+		{ 
 			if (_alive) {
 				if (Input.GetKey (Key.A) | Input.GetKey (Key.LEFT) && Weapon.Attacking && Jumping && this.DamageTimer < 40) {
 				_xSpeed--;

@@ -286,13 +286,15 @@ namespace GXPEngine
                     counter++;
                     if (_player.Weapon.HitTest(brokenRock))
                     {
+                        
                         hitRockIndex = counter;
                     }
                 }
-				if (hitRockIndex >= 0 && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9)
+                if (hitRockIndex >= 0 && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9)
                 {
+                    
                     BrokenRock BR = _brokenRockList[hitRockIndex];
-                    BR.Destroy();
+                    BR.AnimateBreakBlock(_player);
                     _brokenRockList.RemoveAt(hitRockIndex);
                     
                 }

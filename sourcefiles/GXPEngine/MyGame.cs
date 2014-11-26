@@ -35,7 +35,7 @@ public class MyGame : Game
         
         if (_buttonClicked == false)
         {
-            _button = _menu.clickCheck();
+            _button = _menu.SelectButton();
             if (_button != null)
             {
                 _buttonClicked = true;
@@ -49,25 +49,11 @@ public class MyGame : Game
             switch (_sButton)
             {
                 case "start":
-                    if (!_levelLoaded)
-                    {
-                        _sLevel = "level1.tmx";
-                        _level = new Level(_sLevel, this);
-                        AddChild(_level);
-                        _levelLoaded = true;
-                        _button = null;
-
-                    }
-                    else
-                    {
-                        
-                        _level.Collisions();
-                        _level.Scrolling();
-						_level.DisplayHUD ();
-                    }
+                    LoadLevel("level1.tmx");
                     break;
                 case "tutorial":
-                    //load tutorial
+                    //LoadLevel("tutorial_Level.tmx");
+                    //tutorial level needs to be w/o encryption and compression
                     break;
                 case "controls":
                     //load controls screen
@@ -76,14 +62,28 @@ public class MyGame : Game
                     game.Destroy();
                     break;
             }
-            
+        }
+	}
+
+    private void LoadLevel(string slevel)
+    {
+        if (!_levelLoaded)
+        {
+            _sLevel = slevel;
+            _level = new Level(_sLevel, this);
+            AddChild(_level);
+            _levelLoaded = true;
+            _button = null;
 
         }
-        
-            
-        
-        
-	}
+        else
+        {
+
+            _level.Collisions();
+            _level.Scrolling();
+            _level.DisplayHUD();
+        }
+    }
 
 	static void Main() {
 		new MyGame().Start();
