@@ -396,50 +396,96 @@ namespace GXPEngine
 
                     switch (tile)
                     {
-                        case 1:
-                            _ground = new Ground();
+                        //case 1:
+                        //    _ground = new Ground();
+                        //    AddChild(_ground);
+                        //    _ground.SetXY(w * 64, h * 64);
+                        //    _groundList.Add(_ground);
+                        //    break;
+                        //case 2:
+                        //    _player = new Player((MyGame)_MG);
+                        //    _player.SetXY(w * 64, h * 64);
+                        //    break;
+                        //case 3:
+                        //    _enemy = new Enemy (w * 64, h * 64);
+                        //    _enemyList.Add(_enemy);
+                        //    break;
+                        //case 4:
+                        //    _brokenRock = new BrokenRock();
+                        //    AddChild(_brokenRock);
+                        //    _brokenRock.SetXY(w * 64, h * 64);
+                        //    _brokenRockList.Add(_brokenRock);
+                        //    break;
+                        //case 5:
+                        //    _npc = new NPC ("Witchdoctor", "Good news everyone!");
+                        //    AddChild (_npc);
+                        //    _npcList.Add (_npc);
+                        //    _npc.SetXY (w * 64, h * 64);
+                        //    break;
+                        //case 6:
+                        //    _coin = new Coin();
+                        //    AddChild(_coin);
+                        //    _coin.SetXY(w * 64, h * 64);
+                        //    _coinList.Add(_coin);
+                        //    break;
+                        //case 7:
+                        //    _spike = new Spike();
+                        //    AddChild(_spike);
+                        //    _spike.SetXY(w * 64, h * 64);
+                        //    _spikeList.Add(_spike);
+                        //    break;
+                        //case 8:
+                        //    _nextLevel = new NextLevel ();
+                        //    AddChild (_nextLevel);
+                        //    _nextLevel.SetXY (w * 64, h * 64);
+                        //    break;
+                        
+                        case 2:
+                            _ground = new Ground(2);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
-                        case 2:
+                        case 3:
+                            _ground = new Ground(3);
+                            AddChild(_ground);
+                            _ground.SetXY(w * 64, h * 64);
+                            _groundList.Add(_ground);
+                            break;
+                        case 4:
+                            _ground = new Ground(4);
+                            AddChild(_ground);
+                            _ground.SetXY(w * 64, h * 64);
+                            _groundList.Add(_ground);
+                            break;
+                        case 5:
+                            _ground = new Ground(5);
+                            AddChild(_ground);
+                            _ground.SetXY(w * 64, h * 64);
+                            _groundList.Add(_ground);
+                            break;
+                        case 6:
+                            _ground = new Ground(6);
+                            AddChild(_ground);
+                            _ground.SetXY(w * 64, h * 64);
+                            _groundList.Add(_ground);
+                            break;
+                        case 7:
+                            _ground = new Ground(7);
+                            AddChild(_ground);
+                            _ground.SetXY(w * 64, h * 64);
+                            _groundList.Add(_ground);
+                            break;
+                        case 8:
                             _player = new Player((MyGame)_MG);
                             _player.SetXY(w * 64, h * 64);
                             break;
-					    case 3:
-						    _enemy = new Enemy (w * 64, h * 64);
-                            _enemyList.Add(_enemy);
-							break;
-                        case 4:
-                            _brokenRock = new BrokenRock();
-                            AddChild(_brokenRock);
-                            _brokenRock.SetXY(w * 64, h * 64);
-                            _brokenRockList.Add(_brokenRock);
-                            break;
-						case 5:
-							_npc = new NPC ("Witchdoctor", "Good news everyone!");
-							AddChild (_npc);
-							_npcList.Add (_npc);
-							_npc.SetXY (w * 64, h * 64);
-							break;
-                        case 6:
-                            _coin = new Coin();
-                            AddChild(_coin);
-                            _coin.SetXY(w * 64, h * 64);
-                            _coinList.Add(_coin);
-                            break;
-                        case 7:
+                        case 9:
                             _spike = new Spike();
                             AddChild(_spike);
                             _spike.SetXY(w * 64, h * 64);
                             _spikeList.Add(_spike);
                             break;
-						case 8:
-							_nextLevel = new NextLevel ();
-							AddChild (_nextLevel);
-							_nextLevel.SetXY (w * 64, h * 64);
-							break;
-
                     }
 
                 }

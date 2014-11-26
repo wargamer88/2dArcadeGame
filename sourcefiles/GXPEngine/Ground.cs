@@ -5,12 +5,12 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class Ground : Sprite
+    class Ground : AnimSprite
     {
-        public Ground()
-            : base("images/platform.png")
+        public Ground(int frameNr)
+            : base("images/Tileset1.1.png", 6, 1)
         {
-
+            SetFrame(frameNr - 2);
         }
     }
 }
