@@ -67,10 +67,6 @@ public class MyGame : Game
                 case "start":
                     LoadLevel("level1.tmx");
                     break;
-                case "tutorial":
-                    //LoadLevel("tutorial_Level.tmx");
-                    //tutorial level needs to be w/o encryption and compression
-                    break;
                 case "controls":
                     //load controls screen
                     break;

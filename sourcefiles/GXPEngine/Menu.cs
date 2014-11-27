@@ -16,20 +16,25 @@ namespace GXPEngine
 
         public Menu()
         {
+            Sprite TitleScreen = new Sprite("images/Titlenobuttons.png");
+            AddChild(TitleScreen);
+            //_selectionArrows.SetScaleXY(0.5f, 0.5f);
+            _selectionArrows.SetOrigin(_selectionArrows.width / 2, _selectionArrows.height / 2);
+
             _button = new Button("start");
-            _button.SetXY(1280 / 2, 280);
+            _button.SetXY(750, 550);
             _button.SetOrigin(_button.width / 2, _button.height / 2);
             _buttonList.Add(_button);
             AddChild(_button);
 
             _button = new Button("controls");
-            _button.SetXY(1280 / 2, 480);
+            _button.SetXY(750, 600);
             _button.SetOrigin(_button.width / 2, _button.height / 2);
             _buttonList.Add(_button);
             AddChild(_button);
 
             _button = new Button("quit");
-            _button.SetXY(1280 / 2, 680);
+            _button.SetXY(750, 650);
             _button.SetOrigin(_button.width / 2, _button.height / 2);
             _buttonList.Add(_button);
             AddChild(_button);

@@ -61,7 +61,6 @@ namespace GXPEngine
             AddChild(_player);
 			game.AddChild (_textbox);
 			game.AddChild (_scoreBoard);
-			Console.WriteLine (_currentLevel);
 
 
             
@@ -262,7 +261,6 @@ namespace GXPEngine
                 if (_player.HitTest(coin))
                 {
                     _player.Score++;
-                    Console.WriteLine(_player.Score);
                     coin.SetXY(900, 900);
                 }
             }
@@ -378,7 +376,6 @@ namespace GXPEngine
 				if (_player.x + x > 400)
 					x = 400 - _player.x;
 				if (_player.x + x < 100 && x < 0) {
-					Console.WriteLine (x);
 					x = 100 - _player.x;
 				}
 			}
@@ -494,120 +491,126 @@ namespace GXPEngine
                             _batList.Add(_bat);
                             break;
                         case 11:
-                            _ground = new Ground(1);
-                            AddChild(_ground);
-                            _ground.SetXY(w * 64, h * 64);
-                            _groundList.Add(_ground);
-                            break;
+                            //_ground = new Ground(1);
+                            //AddChild(_ground);
+                            //_ground.SetXY(w * 64, h * 64);
+                            //_groundList.Add(_ground);
+                            //break;
                         case 12:
-                            _ground = new Ground(2);
+                            _ground = new Ground(0);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 13:
-                            _ground = new Ground(3);
+                            _ground = new Ground(1);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 14:
-                            _ground = new Ground(4);
+                            _ground = new Ground(2);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 15:
-                            _ground = new Ground(5);
+                            _ground = new Ground(3);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 16:
-                            _ground = new Ground(6);
+                            _ground = new Ground(4);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 17:
-                            _ground = new Ground(7);
+                            _ground = new Ground(5);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 18:
-                            _ground = new Ground(8);
+                            _ground = new Ground(6);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 19:
-                            _ground = new Ground(9);
+                            _ground = new Ground(7);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 20:
-                            _ground = new Ground(10);
+                            _ground = new Ground(8);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 21:
-                            _ground = new Ground(10);
+                            _ground = new Ground(9);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 22:
-                            _ground = new Ground(12);
+                            _ground = new Ground(10);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 23:
-                            _ground = new Ground(13);
+                            _ground = new Ground(11);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 24:
-                            _ground = new Ground(14);
+                            _ground = new Ground(12);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 25:
-                            _ground = new Ground(15);
+                            _ground = new Ground(13);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 26:
-                            _ground = new Ground(16);
+                            _ground = new Ground(14);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 27:
-                            _ground = new Ground(17);
+                            _ground = new Ground(15);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 28:
-                            _ground = new Ground(18);
+                            _ground = new Ground(16);
                             AddChild(_ground);
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
                         case 29:
+                            _ground = new Ground(17);
+                            AddChild(_ground);
+                            _ground.SetXY(w * 64, h * 64);
+                            _groundList.Add(_ground);
+                            break;
+                        case 30:
                             _coin = new Coin();
                             AddChild(_coin);
                             _coin.SetXY(w * 64, h * 64);
                             _coinList.Add(_coin);
                             break;
-                        case 30:
+                        case 31:
                             _brokenRock = new BrokenRock();
                             AddChild(_brokenRock);
                             _brokenRock.SetXY(w * 64, h * 64);
