@@ -204,7 +204,6 @@ namespace GXPEngine
                     if (_player.y - _player.height < spike.y + spike.height && _player.LastYpos - _player.height > spike.y + spike.height)
                     {
                         _player.y = spike.y + spike.height + _player.height;
-                        _player.Jumping = false;
                         _player.YSpeed = 0;
                         _onBottom = true;
                     }
@@ -262,7 +261,6 @@ namespace GXPEngine
                     if (_player.y - _player.height < brokenRock.y + brokenRock.height && _player.LastYpos - _player.height > brokenRock.y + brokenRock.height)
                     {
                         _player.y = brokenRock.y + brokenRock.height + _player.height;
-                        _player.Jumping = false;
                         _player.YSpeed = 0;
                     }
                 }

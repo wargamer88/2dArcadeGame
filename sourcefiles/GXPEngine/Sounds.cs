@@ -21,14 +21,14 @@ namespace GXPEngine
 
         public void PlayJump()
         {
-            Sound soundJump = new Sound(@"Sounds/Jump.mp3");
+            Sound soundJump = new Sound(@"Sounds/Jump.wav");
             soundJump.Play();
         }
 
 		public void PlayBatScreetch()
 		{
-			Sound soundJump = new Sound(@"Sounds/BatScreech.wav");
-			soundJump.Play();
+			Sound soundScreech = new Sound(@"Sounds/BatScreech.wav");
+			soundScreech.Play();
 		}
     }
 }
