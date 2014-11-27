@@ -55,7 +55,7 @@
     <Compile Include="BrokenRock.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Coin.cs" />
-    <Compile Include="Enemy.cs" />
+    <Compile Include="Skeleton.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="GXPEngine\Sound.cs" />
     <Compile Include="Level.cs" />
