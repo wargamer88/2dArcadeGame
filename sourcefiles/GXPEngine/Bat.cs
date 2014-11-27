@@ -2,7 +2,7 @@
 
 namespace GXPEngine
 {
-	public class Enemy : AnimSprite
+	public class Bat : AnimSprite
 	{
 		private float _xSpeed = 0.0f; // Horizontal speed
 		private float _ySpeed = 0.0f; // Vertical speed
@@ -14,19 +14,19 @@ namespace GXPEngine
 		private float _frame = 0.0f; // Frame currently used for the animated sprite
 		private int _firstFrame = 0; // First frame for the range of frames to be used in the animation of the sprite
 		private int _lastFrame = 1; // Last frame for the range of frames to be used in the animation of the sprite
-		private int _gravity = 10; // Gravity that is currently affecting the entity
+		private int _gravity = -1; // Gravity that is currently affecting the entity
 		private bool _jumping = false; // Indicates whether or not the entity has jumped
 		//private Weapon _weapon; // Weapon the entity is using
 		private bool movingLeft = false;
-		private int _health = 100;
+		private int _health = 50;
 		private int _damageTimer = 0;
 
-        public int DamageTimer { get { return _damageTimer; } }
+		public int DamageTimer { get { return _damageTimer; } }
 
 		private float _lastXpos;
 		private float _lastYpos;
 
-		public Enemy (int x, int y) : base("images/SkeletonAnim.png", 15, 1)
+		public Bat (int x, int y) : base("images/BatAnim.png", 5, 1)
 		{
 			this.x = x; // Set horizontal position for player at the start 
 			this.y = y; // Set vertical position for player at the start
@@ -47,17 +47,26 @@ namespace GXPEngine
 		{
 			if (_health == 0)
 			{
-				this.Destroy();
+				this.SetAnimationFrames (4, 4);
+				this._gravity = 9;
+				if (this.DamageTimer <= 0) {
+				
+					this.alpha = this.alpha * 0.9f;
+					if (this.alpha < 0.01f) {
+						this.Destroy ();
+					}
+				}
+
 			}
-			if (_damageTimer > 0) {
-				this.SetAnimationFrames (15, 15);
+			else if (_damageTimer > 0) {
+				this.SetAnimationFrames (4, 4);
 				_damageTimer--;
 				if (_damageTimer % 20 == 1)
 					this.alpha = 0;
 				else
 					this.alpha = 1;
 			} else
-				this.SetAnimationFrames (0, 5);
+				this.SetAnimationFrames (0, 3);
 		}
 
 		public void TakeDamage(int damage)
@@ -65,10 +74,10 @@ namespace GXPEngine
 			if (this._health > 0 && _damageTimer == 0) {
 				if (this._health - damage < 0) {
 					this._health = 0;
-					_damageTimer = 80;
+					_damageTimer = 40;
 				} else {
 					this._health = this._health - damage;
-					_damageTimer = 80;
+					_damageTimer = 40;
 				}
 			}
 		}
@@ -98,7 +107,7 @@ namespace GXPEngine
 
 			if (_ySpeed < _ySpeedMax)
 				_ySpeed = _ySpeedMax;
-				
+
 			if (y < 0) {
 				y = game.height+1;
 				hasMoved = false;
@@ -121,10 +130,6 @@ namespace GXPEngine
 			if (hasMoved == false) {
 				_ySpeed = 0.0f;
 			}
-
-			if (_jumping) {
-				SetAnimationFrames (5, 5);
-			}
 		}
 
 		public void TurnAround()
@@ -139,7 +144,7 @@ namespace GXPEngine
 		{
 			if (movingLeft) {
 				_xSpeed--;
-				SetAnimationFrames (1, 6);
+				SetAnimationFrames (0, 3);
 				this.Mirror (true, false);
 
 			} else if (!movingLeft) {
@@ -148,7 +153,7 @@ namespace GXPEngine
 				this.Mirror (false, false);
 			} 
 			else {
-				SetAnimationFrames (1, 6);
+				SetAnimationFrames (0, 3);
 
 			}
 			MoveChar (_xSpeed, 0);

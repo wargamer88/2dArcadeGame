@@ -19,6 +19,8 @@ namespace GXPEngine
         private List<Coin> _coinList = new List<Coin>();
         private List<Spike> _spikeList = new List<Spike>();
 		private List<FadingBlock> _fadingBlockList = new List<FadingBlock>();
+
+		private List<Bat> _batList = new List<Bat> ();
         private Ground _ground;
         private Player _player;
         private BrokenRock _brokenRock;
@@ -31,6 +33,8 @@ namespace GXPEngine
 		private NextLevel _nextLevel;
 		private Torch _torch;
 		private FadingBlock _fadingBlock;
+
+		private Bat _bat;
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -154,6 +158,19 @@ namespace GXPEngine
                     {
                         enemy.TurnAround();
                     }
+				}
+
+				foreach (Bat bat in _batList) {
+					if (bat.HitTest (ground)) {
+						if (bat.y > ground.y && bat.LastYpos <= ground.y )
+						{
+							bat.y = ground.y;
+
+						}
+
+
+					}
+
 				}
             }
             #endregion
@@ -319,7 +336,7 @@ namespace GXPEngine
 				}
             }
 
-				if (_player.HitTest(enemy))
+			if (_player.HitTest(enemy))
                 {
 					_player.TakeDamage (50);
                     if (_enemy.x > _player.x)
@@ -336,6 +353,21 @@ namespace GXPEngine
                 }
             }
 
+			foreach (Bat bat in _batList) {
+				if (_player.Weapon.Attacking) {
+					if (bat.HitTest (_player.Weapon) && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9 && bat.DamageTimer == 0) {
+						bat.TakeDamage (_player.Weapon.Damage); // get rekt
+
+						if (_player.x > bat.x) {
+							bat.XSpeed = -5;
+						}
+						if (_player.x < bat.x) {
+							bat.XSpeed = +5;
+						}
+
+					}
+				}
+			}
 			if (_player.Weapon.Attacking)
             {
                 int hitRockIndex = -1;
@@ -594,6 +626,16 @@ namespace GXPEngine
 							_fadingBlock.SetXY (w * 64, h * 64);
 							_fadingBlockList.Add (_fadingBlock);
 							break;
+
+
+
+
+
+					case 16:
+						_bat = new Bat (w * 64, h * 64);
+						AddChild (_bat);
+						_batList.Add (_bat);
+						break;
                     }
 
                 }

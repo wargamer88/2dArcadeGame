@@ -12,9 +12,9 @@ namespace GXPEngine
 		private int _lastFrame = 1; // Last frame for the range of frames to be used in the animation of the sprite
 
 		public Coin()
-			: base("images/OrbAnim.png", 6, 1)
+			: base("images/DiamondAnim.png", 13, 1)
 		{
-			SetAnimationFrames (0, 5);
+			SetAnimationFrames (0, 12);
 		}
 
 		public void Update()
