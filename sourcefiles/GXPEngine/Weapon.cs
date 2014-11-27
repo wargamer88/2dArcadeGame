@@ -32,7 +32,7 @@ namespace GXPEngine
 			if (Attacking && _attackTimer < 0) {
 				Attack (); // stop attacking
 			}
-			if (Input.GetKeyDown(Key.F) | Input.GetKeyDown(Key.LEFT_CTRL) && !this._currentPlayer.Jumping && this._currentPlayer.DamageTimer < 40 && _attackTimer <= 0)
+			if (Input.GetKeyDown(Key.F) | Input.GetKey(Key.LEFT_CTRL) && !this._currentPlayer.Jumping && this._currentPlayer.DamageTimer < 40 && _attackTimer <= 0)
 			{
                 _frame = 0.0f;
 				this.SetAnimationFrames (0, 6);
@@ -40,7 +40,7 @@ namespace GXPEngine
                 _sounds.PlaySwordSwing();
 			}
 
-            if (Input.GetKeyDown(Key.G) | Input.GetKeyDown(Key.LEFT_CTRL) && this._currentPlayer.Jumping && _attackTimer <= 0 && _uppercutUsable)
+            if (Input.GetKeyDown(Key.G) | Input.GetKey(Key.LEFT_CTRL) && this._currentPlayer.Jumping && _attackTimer <= 0 && _uppercutUsable)
             {
 				_frame = 0.0f;
 				this.SetAnimationFrames (7, 13);
