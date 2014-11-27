@@ -48,8 +48,8 @@ namespace GXPEngine
 
 		public Level(string sLevel, MyGame game)
         {
-
-            _MG = game;
+			Bat bat;
+            _MG = game; // OK
 			_currentLevel = sLevel;
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
@@ -626,3 +626,4 @@ namespace GXPEngine
         }
     }
 }
+
