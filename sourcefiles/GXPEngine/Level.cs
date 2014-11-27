@@ -49,7 +49,7 @@ namespace GXPEngine
 		public Level(string sLevel, MyGame game)
         {
 			Bat bat;
-            _MG = game; // OK
+            _MG = game;
 			_currentLevel = sLevel;
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
@@ -101,6 +101,32 @@ namespace GXPEngine
                     if (deltaY < 0)
                     {
                         _player.y = ground.y + ground.height + _player.height;
+                        _player.Jumping = false;
+                    }
+                }
+            }
+            foreach (BrokenRock brokenRock in _brokenRockList)
+            {
+                if (_player.HitTest(brokenRock))
+                {
+                    if (deltaX < 0)
+                    {
+                        _player.x = brokenRock.x + brokenRock.width;
+                    }
+                    if (deltaX > 0)
+                    {
+                        _player.x = brokenRock.x - _player.width;
+                    }
+                    if (deltaY > 0)
+                    {
+                        _player.y = brokenRock.y;
+                        _player.Jumping = false;
+                        _player.Jumps = 0;
+                        _player.Weapon.UppercutUsable();
+                    }
+                    if (deltaY < 0)
+                    {
+                        _player.y = brokenRock.y + brokenRock.height + _player.height;
                         _player.Jumping = false;
                     }
                 }
