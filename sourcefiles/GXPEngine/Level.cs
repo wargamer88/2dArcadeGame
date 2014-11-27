@@ -58,14 +58,11 @@ namespace GXPEngine
                 AddChild(enemy);
             }
             AddChild(_player);
-<<<<<<< HEAD
-			game.AddChild (_textbox);
-			game.SetChildIndex (_scoreBoard, 30);
-=======
+
 			game.AddChild(_textbox);
             game.AddChild(_scoreBoard);
 
->>>>>>> origin/master
+
 
             
         }
