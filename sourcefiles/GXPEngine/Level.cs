@@ -43,8 +43,8 @@ namespace GXPEngine
         #endregion
 
 		public Level(string sLevel, MyGame game)
-
         {
+
             _MG = game;
 			_currentLevel = sLevel;
             string level = XMLreader(sLevel);
@@ -231,6 +231,7 @@ namespace GXPEngine
                         _player.Jumping = false;
                         _player.Jumps = 0;
                         _player.YSpeed = 0;
+						_player.Weapon.UppercutUsable ();
                     }
                     if (_player.x + _player.width > brokenRock.x && _player.LastXpos + _player.width <= brokenRock.x)
                     {
@@ -261,6 +262,7 @@ namespace GXPEngine
 						_player.Jumping = false;
 						_player.Jumps = 0;
 						_player.YSpeed = 0;
+						_player.Weapon.UppercutUsable ();
 					}
 					if (_player.x + _player.width > fadingBlock.x && _player.LastXpos + _player.width <= fadingBlock.x)
 					{

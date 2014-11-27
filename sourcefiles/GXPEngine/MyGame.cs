@@ -14,12 +14,14 @@ public class MyGame : Game
     private Button _button;
     private string _sButton;
     private bool _levelLoaded = false;
+	private int _livesLost;
 
     #endregion
 
 
     public MyGame () : base(1280, 960, false)
 	{
+		this.LivesLost = 0;
         _sky = new Sprite("images/sky.png");
         AddChild(_sky);
 
@@ -29,7 +31,17 @@ public class MyGame : Game
         Sounds.BgMusic();
 	
 	}
-	
+	public string CurrentLevel
+	{
+		get { return this._sLevel; }
+	}
+
+	public int LivesLost
+	{
+		get {return this._livesLost;}
+		set {this._livesLost = value;}
+	}
+
 	void Update () {
         
         if (_buttonClicked == false)
@@ -72,7 +84,8 @@ public class MyGame : Game
         _levelLoaded = false;
         _level.RemoveHUD();
         _level.Destroy();
-        
+		this.LivesLost = 0;
+
         AddChild(_menu = new Menu());
     }
 

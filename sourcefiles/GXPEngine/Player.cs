@@ -23,6 +23,7 @@ namespace GXPEngine
 		private int _health = 100;
 		private int _damageTimer = 0;
 		private bool _alive = true;
+		private int _lives;
 
         private float _lastXpos;
         private float _lastYpos;
@@ -30,12 +31,13 @@ namespace GXPEngine
 		private Weapon _weapon;
         private MyGame _MG;
 
-        public Player(MyGame MG)
+		public Player(MyGame MG)
             : base("images/PlayerAnim.png", 67, 1)
 		{
 			this.SetOrigin (0, 96);
 			Weapon weapon = new Weapon (this, 50);
             _MG = MG;
+			_lives = 3-_MG.LivesLost;
 			this.AddChild (weapon);
 			_weapon = weapon;
 
@@ -208,8 +210,15 @@ namespace GXPEngine
 					this.alpha = this.alpha * 0.9f;
                     if (this.alpha < 0.01f)
                     {
-                        _MG.GameOver();
-                        this.Destroy();
+						_lives--;
+						_MG.LivesLost++;
+						if (this._lives < 1) {
+							_MG.GameOver ();
+						} else {
+							this.Destroy ();
+							this.Health = 100;
+							_MG.LoadNextLevel (_MG.CurrentLevel);
+						}
                         
                     }
 				}
