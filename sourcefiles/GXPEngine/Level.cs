@@ -629,7 +629,7 @@ namespace GXPEngine
 
 
 					case 16:
-						_bat = new Bat (w * 64, h * 64);
+						_bat = new Bat (w * 64, h * 64, _MG);
 						AddChild (_bat);
 						_batList.Add (_bat);
 						break;
