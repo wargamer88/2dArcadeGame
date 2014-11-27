@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace GXPEngine
 {
-    class Level : GameObject
+   public class Level : GameObject
     {
         #region local class variables
 
@@ -48,8 +48,8 @@ namespace GXPEngine
 
 		public Level(string sLevel, MyGame game)
         {
-
-            _MG = game; //abvskjbhxvbhuxjd
+			Bat bat;
+            _MG = game; // OK
 			_currentLevel = sLevel;
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
@@ -77,14 +77,14 @@ namespace GXPEngine
             _scoreBoard.Destroy();
         }
 
-        public void PlayerCollision()
+        public void PlayerCollision(float deltaX, float deltaY)
         {
-            #region ground collisions
+
             foreach (Ground ground in _groundList)
             {
-                if(_player.HitTest(ground))
+                if (_player.HitTest(ground))
                 {
-                    if (_player.y > ground.y && _player.LastYpos <= ground.y)
+                    if (deltaX < 0)
                     {
                         _player.x = ground.x + ground.width;
                     }
@@ -104,95 +104,26 @@ namespace GXPEngine
                         _player.y = ground.y + ground.height + _player.height;
                         _player.Jumping = false;
                     }
-                    }
-                    }
-                    }
-        public void BatCollision(float deltaX, float deltaY)
-                    {
-                        _player.x = ground.x - _player.width;
-                        _player.XSpeed = 0;
-                    }
-                    if (_player.x < ground.x + ground.width && _player.LastXpos >= ground.x + ground.width && _allowSideCollision)
-                    {
-                        _player.x = ground.x + ground.width;
-                        _player.XSpeed = 0;
-                    }
-
                 }
             }
         }
-
-        public void Collisions()
+        public void BatCollision(float deltaX, float deltaY)
         {
-            #region ground collisions
             foreach (Ground ground in _groundList)
             {
-                //if(_player.HitTest(ground))
-                //{
-                //    if (_player.y > ground.y && _player.LastYpos <= ground.y )
-                //    {
-                //        _player.y = ground.y;
-                //        _player.Jumping = false;
-                //        _player.Jumps = 0;
-                //        _player.YSpeed = 0;
-                //        _player.Weapon.UppercutUsable();
-                //        _onTop = true;
-                //    }
-                //    else
-                //    {
-                //        _onTop = false;
-                //    }
-                //    if (_player.y - _player.height < ground.y + ground.height && _player.LastYpos - _player.height > ground.y + ground.height)
-                //    {
-                //        _player.y = ground.y + ground.height + _player.height;
-                //        _player.Jumping = false;
-                //        _player.YSpeed = 0;
-                //        _onBottom = true;
-                //    }
-                //    else
-                //    {
-                //        _onBottom = false;
-                //    }
-
-                //    if (!_onBottom && !_onTop)
-                //    {
-                //        _allowSideCollision = true;
-                //    }
-                //    else
-                //    {
-                //        _allowSideCollision = false;
-                //    }
-
-                //    if (_player.x + _player.width > ground.x && _player.LastXpos + _player.width <= ground.x && _allowSideCollision)
-                //    {
-                //        _player.x = ground.x - _player.width;
-                //        _player.XSpeed = 0;
-                //    }
-                //    if (_player.x < ground.x + ground.width && _player.LastXpos >= ground.x + ground.width && _allowSideCollision)
-                //    {
-                //        _player.x = ground.x + ground.width;
-                //        _player.XSpeed = 0;
-                //    }
-                    
-                //}
-
-				foreach (Skeleton enemy in _enemyList) {
-					bool enemyTurning = false;
-
-					if (enemy.HitTest (ground)) {
-						if (enemy.y > ground.y && enemy.LastYpos <= ground.y )
-						{
+                foreach (Bat bat in _batList)
+                {
                     if (bat.HitTest(ground))
-						{
+                    {
                         if (deltaY > 0)
-						{
+                        {
                             bat.y = ground.y;
 
-					}
-						}
-					}
-				}
+                        }
+                    }
+                }
             }
+        }
 
         public void Collisions()
         {
@@ -226,6 +157,7 @@ namespace GXPEngine
                     if (_player.y - _player.height < spike.y + spike.height && _player.LastYpos - _player.height > spike.y + spike.height)
                     {
                         _player.y = spike.y + spike.height + _player.height;
+                        _player.Jumping = false;
                         _player.YSpeed = 0;
                         _onBottom = true;
                     }
@@ -283,6 +215,7 @@ namespace GXPEngine
                     if (_player.y - _player.height < brokenRock.y + brokenRock.height && _player.LastYpos - _player.height > brokenRock.y + brokenRock.height)
                     {
                         _player.y = brokenRock.y + brokenRock.height + _player.height;
+                        _player.Jumping = false;
                         _player.YSpeed = 0;
                     }
                 }
@@ -526,7 +459,7 @@ namespace GXPEngine
                             _spikeList.Add(_spike);
                             break;
                         case 4:
-                        
+
                         case 5:
                             _nextLevel = new NextLevel(_currentLevel, (MyGame)game);
                             AddChild(_nextLevel);
@@ -668,54 +601,20 @@ namespace GXPEngine
                             _ground.SetXY(w * 64, h * 64);
                             _groundList.Add(_ground);
                             break;
-                        case 2:
-                            _player = new Player((MyGame)_MG, this);
-                            _player.SetXY(w * 64, h * 64);
-                            break;
-                        case 3:
-                            _spike = new Spike();
-                            AddChild(_spike);
-                            _spike.SetXY(w * 64, h * 64);
-                            _spikeList.Add(_spike);
+                        case 29:
+                            _coin = new Coin();
+                            AddChild(_coin);
+                            _coin.SetXY(w * 64, h * 64);
+                            _coinList.Add(_coin);
                             break;
                         case 30:
-						   _brokenRock = new BrokenRock();
-						   AddChild(_brokenRock);
-						   _brokenRock.SetXY(w * 64, h * 64);
-						   _brokenRockList.Add(_brokenRock);
-						   break;
-                        case 5:
-                           _nextLevel = new NextLevel(_currentLevel, (MyGame)game);
-                           AddChild(_nextLevel);
-                           _nextLevel.SetXY(w * 64, h * 64);
-                           break;
-                        case 6:
-                           _torch = new Torch();
-                           AddChild(_torch);
-                           _torch.SetXY(w * 64, h * 64);
-                           _torch.Mirror(true, false);
-                           break;
-                        case 7:
-                           _torch = new Torch();
-                           AddChild(_torch);
-                           _torch.SetXY(w * 64, h * 64);
-                           _torch.Mirror(false, false);
-							break;
-                        case 8:
-                           _fadingBlock = new FadingBlock();
-                           AddChild(_fadingBlock);
-                           _fadingBlock.SetXY(w * 64, h * 64);
-                           _fadingBlockList.Add(_fadingBlock);
-							break;
-                        case 9:
-                           _enemy = new Skeleton(w * 64, (h * 64)+64);
-                           _enemyList.Add(_enemy);
-							break;
-                        //case 29:
-                        //   _bat = new Bat(w * 64, h * 64);
-                        //   AddChild(_bat);
-                        //   _batList.Add(_bat);
-                        //    break;
+                            _brokenRock = new BrokenRock();
+                            AddChild(_brokenRock);
+                            _brokenRock.SetXY(w * 64, h * 64);
+                            _brokenRockList.Add(_brokenRock);
+                            break;
+                        
+                        
 
 
 
@@ -727,3 +626,4 @@ namespace GXPEngine
         }
     }
 }
+
