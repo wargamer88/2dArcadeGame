@@ -17,25 +17,22 @@ namespace GXPEngine
         public Menu()
         {
             _button = new Button("start");
-            _button.SetXY(500, 200);
-            _buttonList.Add(_button);
-            AddChild(_button);
-
-            _button = new Button("tutorial");
-            _button.SetXY(500, 400);
+            _button.SetXY(1280 / 2, 280);
+            _button.SetOrigin(_button.width / 2, _button.height / 2);
             _buttonList.Add(_button);
             AddChild(_button);
 
             _button = new Button("controls");
-            _button.SetXY(500, 600);
+            _button.SetXY(1280 / 2, 480);
+            _button.SetOrigin(_button.width / 2, _button.height / 2);
             _buttonList.Add(_button);
             AddChild(_button);
 
             _button = new Button("quit");
-            _button.SetXY(500, 800);
+            _button.SetXY(1280 / 2, 680);
+            _button.SetOrigin(_button.width / 2, _button.height / 2);
             _buttonList.Add(_button);
             AddChild(_button);
-
         }
 
         
@@ -61,7 +58,7 @@ namespace GXPEngine
             {
                 if (buttonSelected == 0)
                 {
-                    buttonSelected = 4;
+                    buttonSelected = _buttonList.Count;
                 }
                 
                 buttonSelected--;

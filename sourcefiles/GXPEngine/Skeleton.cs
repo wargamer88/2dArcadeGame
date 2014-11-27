@@ -4,9 +4,9 @@ namespace GXPEngine
 {
 	public class Skeleton : AnimSprite
 	{
-		private float _xSpeed = 0.0f; // Horizontal speed
-		//private float _ySpeed = 0.0f; // Vertical speed
-		//private float _ySpeedMax = -15; // Maximum speed for jump
+        private float _xSpeed = 0.0f; // Horizontal speed
+        private float _ySpeed = 0.0f; // Vertical speed
+        private float _ySpeedMax = -15; // Maximum speed for jump
 		private int _jumps = 0; // Amount of times the entity has jumped already
 		private int _maxJumps = 2; // Amount of times the entity can jump after touching the ground
 		private int _jumpHeight = 12; // Current jump height
@@ -44,7 +44,6 @@ namespace GXPEngine
             AIwalking();
 			UpdateAnimation (); // Change animation frames
             ApplySteering(); // Move horizontally based on skeleton input
-           // ApplyGravity(); // Move vertically based on skeleton input
 			ApplyDamage ();
             
 		}
@@ -102,36 +101,8 @@ namespace GXPEngine
 			x = x + xMovement;
 			y = y + yMovement;
 
-            //if (_ySpeed < _ySpeedMax)
-            //    _ySpeed = _ySpeedMax;
-				
-            //if (y < 0) {
-            //    y = game.height+1;
-            //    hasMoved = false;
-            //}
-            //if (y > game.height){
-            //    y = this.game.height+1;
-            //    _jumps = 0;
-            //    _jumping = false;
-            //    hasMoved = false;
-            //}
-
 			return hasMoved;
 		}
-
-        //void ApplyGravity()
-        //{
-        //    bool hasMoved = MoveChar (0, _ySpeed);
-        //    if (_ySpeed <= _gravity)
-        //        _ySpeed += 1;
-        //    if (hasMoved == false) {
-        //        _ySpeed = 0.0f;
-        //    }
-
-        //    if (_jumping) {
-        //        SetAnimationFrames (5, 5);
-        //    }
-        //}
 
 		public void TurnAround()
 		{
@@ -196,15 +167,17 @@ namespace GXPEngine
 			}
 		}
 
-        //public float YSpeed //Return or set the YSpeed of the skeleton
-        //{
-        //    get{
-        //        return this._ySpeed;
-        //    }
-        //    set{
-        //        this._ySpeed = value;
-        //    }
-        //}
+        public float YSpeed //Return or set the YSpeed of the skeleton
+        {
+            get
+            {
+                return this._ySpeed;
+            }
+            set
+            {
+                this._ySpeed = value;
+            }
+        }
 
 		public bool Jumping
 		{

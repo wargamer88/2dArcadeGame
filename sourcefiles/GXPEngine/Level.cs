@@ -308,12 +308,12 @@ namespace GXPEngine
                         if (_player.x > _enemy.x)
                         {
                             _enemy.XSpeed = -5;
-                            //_enemy.YSpeed = -3;
+                            _enemy.YSpeed = -3;
                         }
                         if (_player.x < _enemy.x)
                         {
                             _enemy.XSpeed = +5;
-                            //_enemy.YSpeed = -3;
+                            _enemy.YSpeed = -3;
 					}
                         
 				}
@@ -352,7 +352,6 @@ namespace GXPEngine
                         {
                             BrokenRock BR = _brokenRockList[hitRockIndex];
                             BR = _brokenRockList[hitRockIndex];
-                            //_brokenRockList.RemoveAt(hitRockIndex);
                             if (BR.Timer == 0)
                             {
                                 BR.TakeDamage();
@@ -373,22 +372,6 @@ namespace GXPEngine
                         _brokenRockList.Remove(BR);
                     }
                 }
-
-
-                
-
-                //if (hitRockIndex >= 0 && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9)
-                //{
-                //    BrokenRock BR = _brokenRockList[hitRockIndex];
-                //    BR = _brokenRockList[hitRockIndex];
-                //    //_brokenRockList.RemoveAt(hitRockIndex);
-                //    if (BR.Timer == 0)
-                //    {
-                //        BR.TakeDamage();
-                //    }
-                //}
-
-                
             }
 
 			foreach (NPC npc in _npcList) {
