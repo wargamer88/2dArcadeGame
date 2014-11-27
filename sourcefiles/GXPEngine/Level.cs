@@ -59,8 +59,8 @@ namespace GXPEngine
                 AddChild(enemy);
             }
             AddChild(_player);
-			game.AddChild (_textbox);
-			game.AddChild (_scoreBoard);
+			game.AddChild(_textbox);
+            game.AddChild(_scoreBoard);
 
 
             

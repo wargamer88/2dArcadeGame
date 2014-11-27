@@ -1,72 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="15" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="Background" tilewidth="1920" tileheight="960">
-  <tile id="0">
-   <image width="1920" height="960" source="Sprites/Background.png"/>
-  </tile>
+  <image source="Sprites/Background.png" width="1920" height="960"/>
  </tileset>
- <tileset firstgid="2" name="game" tilewidth="96" tileheight="96">
-  <tile id="0">
-   <image width="96" height="96" source="Sprites/Pknight.png"/>
-  </tile>
-  <tile id="1">
-   <image width="64" height="64" source="Sprites/Spikes.png"/>
-  </tile>
- </tileset>
- <tileset firstgid="4" name="tiles spritesheet" tilewidth="64" tileheight="64">
-  <image source="Sprites/tiles spritesheet.png" width="1152" height="64"/>
- </tileset>
- <tileset firstgid="22" name="diamond spawn static" tilewidth="64" tileheight="64">
-  <image source="Sprites/diamond spawn static.png" width="64" height="64"/>
- </tileset>
- <tileset firstgid="23" name="Flashing1" tilewidth="64" tileheight="64">
-  <image source="Sprites/Flashing1.png" width="64" height="64"/>
- </tileset>
- <tileset firstgid="24" name="break block" tilewidth="64" tileheight="64">
+ <tileset firstgid="2" name="break block" tilewidth="64" tileheight="64">
   <image source="Sprites/break block.png" width="64" height="64"/>
  </tileset>
- <tileset firstgid="25" name="Bat" tilewidth="64" tileheight="64">
+ <tileset firstgid="3" name="tiles spritesheet" tilewidth="64" tileheight="64">
+  <image source="Sprites/tiles spritesheet.png" width="1152" height="64"/>
+ </tileset>
+ <tileset firstgid="21" name="diamond spawn static" tilewidth="64" tileheight="64">
+  <image source="Sprites/diamond spawn static.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="22" name="Bat" tilewidth="64" tileheight="64">
   <image source="Sprites/Bat.png" width="64" height="64"/>
  </tileset>
- <tileset firstgid="26" name="skeleton" tilewidth="96" tileheight="96">
+ <tileset firstgid="23" name="skeleton" tilewidth="96" tileheight="96">
   <image source="Sprites/skeleton.png" width="96" height="96"/>
+ </tileset>
+ <tileset firstgid="24" name="Flashing1" tilewidth="64" tileheight="64">
+  <image source="Sprites/Flashing1.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="25" name="Torch" tilewidth="64" tileheight="64">
+  <image source="Sprites/Torch.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="26" name="Torch2" tilewidth="64" tileheight="64">
+  <image source="Sprites/Torch2.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="27" name="Spikes" tilewidth="64" tileheight="64">
+  <image source="Sprites/Spikes.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="28" name="Pknight" tilewidth="96" tileheight="96">
+  <image source="Sprites/Pknight.png" width="96" height="96"/>
  </tileset>
  <layer name="Background" width="30" height="15">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <layer name="Tiles" width="30" height="15">
   <data encoding="csv">
-4,4,4,5,7,5,9,9,6,5,6,5,4,4,9,9,5,6,6,9,5,8,6,6,5,4,9,5,5,6,
-0,0,0,0,24,24,24,24,24,24,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,24,24,24,
-0,0,0,0,0,24,24,24,24,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,24,24,
-0,0,0,0,0,0,24,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,24,
-0,0,0,0,0,0,0,0,0,0,0,0,0,22,0,0,0,0,0,0,0,26,0,22,0,0,0,0,0,24,
-0,0,0,0,0,0,0,0,0,0,0,16,9,5,4,17,0,0,0,16,9,6,4,17,0,0,0,0,0,0,
-6,17,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,16,17,0,0,15,0,0,0,0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,24,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,24,24,0,0,0,0,16,17,0,0,16,17,0,0,0,0,0,0,0,0,0,16,7,4,8,4,
-0,0,0,0,24,24,24,0,0,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0,
-0,2,0,0,0,24,24,0,0,0,0,0,0,0,0,0,0,0,22,0,0,0,0,16,0,0,0,0,0,0,
-7,4,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,10,0,0,0,0,0,0,0,0,0,0,0,
-0,0,11,3,3,3,3,3,3,3,3,3,3,13,10,3,3,11,14,3,3,3,3,3,3,3,3,3,3,3,
-0,0,18,19,8,5,6,4,6,8,6,9,8,20,19,5,4,6,7,4,8,7,5,4,7,9,8,9,6,5
+4,4,5,6,8,7,7,3,7,6,7,8,6,7,5,5,4,4,7,8,6,7,6,8,5,5,3,4,3,3,
+0,0,0,0,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,21,0,0,0,0,0,0,0,23,0,21,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,15,4,3,7,16,0,0,0,15,4,5,4,16,0,0,0,0,0,0,
+3,16,25,0,21,0,0,0,0,0,0,0,0,0,0,0,0,0,15,25,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,15,16,0,26,5,24,0,0,0,0,0,0,0,15,25,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,2,2,0,0,0,0,15,16,24,24,15,16,0,0,0,0,0,0,0,0,0,15,5,4,8,3,
+0,0,0,0,2,2,2,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,25,0,0,0,0,
+0,0,28,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,21,0,0,0,24,15,0,0,0,0,0,0,
+3,4,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,9,0,0,0,0,0,0,0,0,0,0,0,
+0,0,10,27,27,27,27,27,27,27,27,27,27,12,9,27,27,11,10,27,27,27,27,27,27,27,27,27,27,27,
+0,0,17,8,4,7,6,8,7,7,3,3,8,7,3,5,8,8,6,5,7,7,6,7,3,6,7,8,6,8
 </data>
  </layer>
 </map>

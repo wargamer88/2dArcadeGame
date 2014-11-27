@@ -13,6 +13,7 @@ namespace GXPEngine
 		private float _frame = 0.0f; // Frame currently used for the animated sprite
 		private int _firstFrame = 0; // First frame for the range of frames to be used in the animation of the sprite
 		private int _lastFrame = 6; // Last frame for the range of frames to be used in the animation of the sprite
+        private Sounds _sounds = new Sounds();
 
 		public Weapon (Player player, int damage) : base ("images/SwordAnim.png", 14 ,1)
 		{
@@ -36,6 +37,7 @@ namespace GXPEngine
                 _frame = 0.0f;
 				this.SetAnimationFrames (0, 6);
 				Attack ();
+                _sounds.PlaySwordSwing();
 			}
 
             if (Input.GetKeyDown(Key.G) | Input.GetKey(Key.LEFT_CTRL) && this._currentPlayer.Jumping && _attackTimer <= 0 && _uppercutUsable)
@@ -45,6 +47,7 @@ namespace GXPEngine
 				Attack ();
 				_currentPlayer.YSpeed = -15;
 				_uppercutUsable = false;
+                _sounds.PlaySwordSwing();
 			}  
 
 			if (Attacking && !this._currentPlayer.Jumping) {
