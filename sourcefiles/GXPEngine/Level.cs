@@ -656,7 +656,7 @@ namespace GXPEngine
                            _enemyList.Add(_enemy);
 							break;
                         case 29:
-                           _bat = new Bat(w * 64, h * 64);
+							_bat = new Bat(w * 64, h * 64, _MG);
                            AddChild(_bat);
                            _batList.Add(_bat);
 							break;

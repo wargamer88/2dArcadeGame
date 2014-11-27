@@ -18,7 +18,6 @@ namespace GXPEngine
 
 		public void Update()
 		{
-			Console.WriteLine (_fadingCounter);
 			if (this._fadingCounter > 160) {
 				this.SetFrame (0);
 				this.alpha = 1;
