@@ -22,6 +22,7 @@ namespace GXPEngine
 		private int _damageTimer = 0;
 		private MyGame _MG;
 		private float originalStartPoint;
+        private Level _level;
 
 
 		public int DamageTimer { get { return _damageTimer; } }
@@ -29,13 +30,14 @@ namespace GXPEngine
 		private float _lastXpos;
 		private float _lastYpos;
 
-		public Bat (int x, int y, MyGame MG) : base("images/BatAnim.png", 5, 1)
+		public Bat (int x, int y, MyGame MG, Level level) : base("images/BatAnim.png", 5, 1)
 		{
 			this.x = x; // Set horizontal position for player at the start 
 			this.y = y; // Set vertical position for player at the start
-			this.SetOrigin (0, 96);
+			this.SetOrigin (0, 64);
 			originalStartPoint = this.x;
 			_MG = MG;
+            _level = level;
 		}
 
 		void Update()
@@ -120,6 +122,8 @@ namespace GXPEngine
 				_jumping = false;
 				hasMoved = false;
 			}
+
+            _level.BatCollision(xMovement, yMovement);
 
 			return hasMoved;
 		}

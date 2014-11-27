@@ -14,6 +14,7 @@ namespace GXPEngine
 			brush = new SolidBrush (Color.Black);
 			position = new PointF (400, 0);
 			this.AddChild(new Sprite("images/diamonds.png"));
+
 		}
 
 		public void DrawStats(int score, int health)

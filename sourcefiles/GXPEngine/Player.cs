@@ -184,7 +184,7 @@ namespace GXPEngine
 		{
 			bool hasMoved = true;
 
-			//x = x + xMovement;
+			x = x + xMovement;
 			y = y + yMovement;
 
 			if (_ySpeed < _ySpeedMax)
@@ -204,7 +204,7 @@ namespace GXPEngine
 			if (x < 0)
 				x = 0;
 
-            _level.PlayerCollision();
+            _level.PlayerCollision(xMovement, yMovement);
 
 			return hasMoved;
 		}
