@@ -11,7 +11,7 @@ namespace GXPEngine
         #region local class variables
 
         private List<Ground> _groundList = new List<Ground>();
-        private List<Skeleton> _enemyList = new List<Skeleton>();
+        private List<Enemy> _enemyList = new List<Enemy>();
         private List<BrokenRock> _brokenRockList = new List<BrokenRock>();
         private List<BrokenRock> TempListBrokenRocks = new List<BrokenRock>(); //temp list, dont remove, needed by the program to function
         private List<Sign> _signList = new List<Sign>();
@@ -19,10 +19,12 @@ namespace GXPEngine
         private List<Coin> _coinList = new List<Coin>();
         private List<Spike> _spikeList = new List<Spike>();
 		private List<FadingBlock> _fadingBlockList = new List<FadingBlock>();
+
+		private List<Bat> _batList = new List<Bat> ();
         private Ground _ground;
         private Player _player;
         private BrokenRock _brokenRock;
-        private Skeleton _enemy;
+        private Enemy _enemy;
 		private NPC _npc;
 		private TextBox _textbox = new TextBox();
         private Coin _coin;
@@ -31,6 +33,8 @@ namespace GXPEngine
 		private NextLevel _nextLevel;
 		private Torch _torch;
 		private FadingBlock _fadingBlock;
+
+		private Bat _bat;
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -50,7 +54,7 @@ namespace GXPEngine
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
             BuildGameLevel(levelArray);
-            foreach (Skeleton enemy in _enemyList)
+            foreach (Enemy enemy in _enemyList)
             {
                 AddChild(enemy);
             }
@@ -127,34 +131,47 @@ namespace GXPEngine
                     
                 }
 
-                //foreach (Skeleton enemy in _enemyList) {
-                //    bool enemyTurning = false;
+				foreach (Enemy enemy in _enemyList) {
+					bool enemyTurning = false;
 
-                //    if (enemy.HitTest (ground)) {
-                //        if (enemy.y > ground.y && enemy.LastYpos <= ground.y )
-                //        {
-                //            enemy.y = ground.y;
-                //            enemy.Jumping = false;
-                //            enemy.Jumps = 0;
-                //            enemy.YSpeed = 0;
-                //        }
-                //        if (enemy.x + enemy.width > ground.x && enemy.LastXpos + enemy.width <= ground.x)
-                //        {
-                //            enemy.x = ground.x - _enemy.width;
-                //            enemy.XSpeed = 0;
-                //        }
-                //        if (enemy.x < ground.x + ground.width && enemy.LastXpos >= ground.x + ground.width)
-                //        {
-                //            enemy.x = ground.x + ground.width;
-                //            enemy.XSpeed = 0;
-                //        }
+					if (enemy.HitTest (ground)) {
+						if (enemy.y > ground.y && enemy.LastYpos <= ground.y )
+						{
+							enemy.y = ground.y;
+							enemy.Jumping = false;
+							enemy.Jumps = 0;
+							enemy.YSpeed = 0;
+						}
+						if (enemy.x + enemy.width > ground.x && enemy.LastXpos + enemy.width <= ground.x)
+						{
+							enemy.x = ground.x - _enemy.width;
+							enemy.XSpeed = 0;
+						}
+						if (enemy.x < ground.x + ground.width && enemy.LastXpos >= ground.x + ground.width)
+						{
+							enemy.x = ground.x + ground.width;
+							enemy.XSpeed = 0;
+						}
 
-                //    }
-                //    if (enemyTurning)
-                //    {
-                //        enemy.TurnAround();
-                //    }
-                //}
+					}
+                    if (enemyTurning)
+                    {
+                        enemy.TurnAround();
+                    }
+				}
+
+				foreach (Bat bat in _batList) {
+					if (bat.HitTest (ground)) {
+						if (bat.y > ground.y && bat.LastYpos <= ground.y )
+						{
+							bat.y = ground.y;
+
+						}
+
+
+					}
+
+				}
             }
             #endregion
 
@@ -299,7 +316,7 @@ namespace GXPEngine
             }
 
 
-            foreach (Skeleton enemy in _enemyList)
+            foreach (Enemy enemy in _enemyList)
             {
 				if (_player.Weapon.Attacking) {
 					if (enemy.HitTest (_player.Weapon) && _player.Weapon.currentFrame == 3  | _player.Weapon.currentFrame > 9 && _enemy.DamageTimer == 0) {
@@ -319,7 +336,7 @@ namespace GXPEngine
 				}
             }
 
-				if (_player.HitTest(enemy))
+			if (_player.HitTest(enemy))
                 {
 					_player.TakeDamage (50);
                     if (_enemy.x > _player.x)
@@ -336,6 +353,21 @@ namespace GXPEngine
                 }
             }
 
+			foreach (Bat bat in _batList) {
+				if (_player.Weapon.Attacking) {
+					if (bat.HitTest (_player.Weapon) && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9 && bat.DamageTimer == 0) {
+						bat.TakeDamage (_player.Weapon.Damage); // get rekt
+
+						if (_player.x > bat.x) {
+							bat.XSpeed = -5;
+						}
+						if (_player.x < bat.x) {
+							bat.XSpeed = +5;
+						}
+
+					}
+				}
+			}
 			if (_player.Weapon.Attacking)
             {
                 int hitRockIndex = -1;
@@ -577,10 +609,16 @@ namespace GXPEngine
 							_fadingBlock.SetXY (w * 64, h * 64);
 							_fadingBlockList.Add (_fadingBlock);
 							break;
-                    case 15:
-                            _enemy = new Skeleton (w * 64, (h * 64)+64);
-                            _enemyList.Add(_enemy);
-                            break;
+
+
+
+
+
+					case 16:
+						_bat = new Bat (w * 64, h * 64);
+						AddChild (_bat);
+						_batList.Add (_bat);
+						break;
                     }
 
                 }
