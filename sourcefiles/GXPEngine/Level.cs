@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace GXPEngine
 {
-    class Level : GameObject
+   public class Level : GameObject
     {
         #region local class variables
 
@@ -77,20 +77,20 @@ namespace GXPEngine
             _scoreBoard.Destroy();
         }
 
-        public void Collisions()
+        public void PlayerCollision()
         {
-            #region ground collisions
+
             foreach (Ground ground in _groundList)
             {
-                if(_player.HitTest(ground))
+                if (_player.HitTest(ground))
                 {
-                    if (_player.y > ground.y && _player.LastYpos <= ground.y )
+                    if (_player.y > ground.y && _player.LastYpos <= ground.y)
                     {
                         _player.y = ground.y;
                         _player.Jumping = false;
                         _player.Jumps = 0;
                         _player.YSpeed = 0;
-						_player.Weapon.UppercutUsable();
+                        _player.Weapon.UppercutUsable();
                         _onTop = true;
                     }
                     else
@@ -128,8 +128,64 @@ namespace GXPEngine
                         _player.x = ground.x + ground.width;
                         _player.XSpeed = 0;
                     }
-                    
+
                 }
+            }
+        }
+
+        public void Collisions()
+        {
+            #region ground collisions
+            foreach (Ground ground in _groundList)
+            {
+                //if(_player.HitTest(ground))
+                //{
+                //    if (_player.y > ground.y && _player.LastYpos <= ground.y )
+                //    {
+                //        _player.y = ground.y;
+                //        _player.Jumping = false;
+                //        _player.Jumps = 0;
+                //        _player.YSpeed = 0;
+                //        _player.Weapon.UppercutUsable();
+                //        _onTop = true;
+                //    }
+                //    else
+                //    {
+                //        _onTop = false;
+                //    }
+                //    if (_player.y - _player.height < ground.y + ground.height && _player.LastYpos - _player.height > ground.y + ground.height)
+                //    {
+                //        _player.y = ground.y + ground.height + _player.height;
+                //        _player.Jumping = false;
+                //        _player.YSpeed = 0;
+                //        _onBottom = true;
+                //    }
+                //    else
+                //    {
+                //        _onBottom = false;
+                //    }
+
+                //    if (!_onBottom && !_onTop)
+                //    {
+                //        _allowSideCollision = true;
+                //    }
+                //    else
+                //    {
+                //        _allowSideCollision = false;
+                //    }
+
+                //    if (_player.x + _player.width > ground.x && _player.LastXpos + _player.width <= ground.x && _allowSideCollision)
+                //    {
+                //        _player.x = ground.x - _player.width;
+                //        _player.XSpeed = 0;
+                //    }
+                //    if (_player.x < ground.x + ground.width && _player.LastXpos >= ground.x + ground.width && _allowSideCollision)
+                //    {
+                //        _player.x = ground.x + ground.width;
+                //        _player.XSpeed = 0;
+                //    }
+                    
+                //}
 
 				foreach (Skeleton enemy in _enemyList) {
 					bool enemyTurning = false;
@@ -615,7 +671,7 @@ namespace GXPEngine
                             _groundList.Add(_ground);
                             break;
                         case 2:
-                            _player = new Player((MyGame)_MG);
+                            _player = new Player((MyGame)_MG, this);
                             _player.SetXY(w * 64, h * 64);
                             break;
                         case 3:
@@ -657,11 +713,11 @@ namespace GXPEngine
                            _enemy = new Skeleton(w * 64, (h * 64)+64);
                            _enemyList.Add(_enemy);
 							break;
-                        case 29:
-                           _bat = new Bat(w * 64, h * 64);
-                           AddChild(_bat);
-                           _batList.Add(_bat);
-							break;
+                        //case 29:
+                        //   _bat = new Bat(w * 64, h * 64);
+                        //   AddChild(_bat);
+                        //   _batList.Add(_bat);
+                        //    break;
 
 
 

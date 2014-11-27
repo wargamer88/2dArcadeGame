@@ -40,6 +40,7 @@ namespace GXPEngine
 
         public Button SelectButton()
         {
+            return _buttonList[0];
             AddChild(_selectionArrows);
             _selectionArrows.SetOrigin(_selectionArrows.width / 2, _selectionArrows.height / 2);
             _selectionArrows.SetXY(_buttonList[buttonSelected].x, _buttonList[buttonSelected].y);
@@ -80,6 +81,7 @@ namespace GXPEngine
                     }
                 }
             }
+
             return null;
         }
     }
