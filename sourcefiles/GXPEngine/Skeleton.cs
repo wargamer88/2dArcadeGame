@@ -50,22 +50,25 @@ namespace GXPEngine
 
 		public void ApplyDamage()
 		{
-			if (_health == 0)
-			{
-				this.SetAnimationFrames (10, 14);
-				if (_damageTimer == 0) {
-					this.Destroy ();
-				}
-			}
+
 			if (_damageTimer > 0) {
-				this.SetAnimationFrames (15, 15);
+				this.SetAnimationFrames (14, 14);
 				_damageTimer--;
 				if (_damageTimer % 20 == 1)
 					this.alpha = 0;
 				else
 					this.alpha = 1;
 			} else
-				this.SetAnimationFrames (0, 5);
+				this.SetAnimationFrames (0, 6);
+			if (_health == 0)
+			{
+				this.SetAnimationFrames (9, 13);
+				if (this.currentFrame == 13)
+					this.SetAnimationFrames (13, 13);
+				if (_damageTimer == 0) {
+					this.Destroy ();
+				}
+			}
 		}
 
 		public void TakeDamage(int damage)
@@ -99,12 +102,16 @@ namespace GXPEngine
 
 		bool MoveChar(float xMovement, float yMovement)
 		{
-			bool hasMoved = true;
+			if (this._damageTimer <= 0) {
 
-			x = x + xMovement;
-			y = y + yMovement;
+				bool hasMoved = true;
 
-			return hasMoved;
+				x = x + xMovement;
+				y = y + yMovement;
+
+				return hasMoved;
+			} else
+				return false;
 		}
 
 		public void TurnAround()
@@ -119,16 +126,16 @@ namespace GXPEngine
 		{
 			if (movingLeft) {
 				_xSpeed--;
-				SetAnimationFrames (1, 6);
+				SetAnimationFrames (0, 6);
 				this.Mirror (false, false);
 
 			} else if (!movingLeft) {
 				_xSpeed++;
-				SetAnimationFrames (2, 3);
+				SetAnimationFrames (0, 6);
 				this.Mirror (true, false);
 			} 
 			else {
-				SetAnimationFrames (1, 6);
+				SetAnimationFrames (0, 6);
 
 			}
             if (_xSpeed > 4)
@@ -145,14 +152,12 @@ namespace GXPEngine
 
         public void AIwalking()
         {
-            if (this.x <= originalStartPoint)
-            {
-                movingLeft = false;
-            }
-            if (this.x >= originalStartPoint + 288)
-            {
-                movingLeft = true;
-            }
+			if (this.x <= originalStartPoint) {
+					movingLeft = false;
+				}
+			if (this.x >= originalStartPoint + 288) {
+					movingLeft = true;
+				}
         }
 
 		public void Attack()

@@ -36,6 +36,7 @@ namespace GXPEngine
         private Sounds _sounds = new Sounds();
 
 		private Bat _bat;
+
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -49,7 +50,6 @@ namespace GXPEngine
 
 		public Level(string sLevel, MyGame game)
         {
-			Bat bat;
             _MG = game;
 			_currentLevel = sLevel;
             string level = XMLreader(sLevel);
@@ -60,9 +60,10 @@ namespace GXPEngine
                 AddChild(enemy);
             }
             AddChild(_player);
+			game.AddChild (_textbox);
+			game.SetChildIndex (_scoreBoard, 30);
 			game.AddChild(_textbox);
             game.AddChild(_scoreBoard);
-
 
             
         }
@@ -102,7 +103,6 @@ namespace GXPEngine
                     if (deltaY < 0)
                     {
                         _player.y = ground.y + ground.height + _player.height;
-                        _player.Jumping = false;
                     }
                 }
             }
@@ -128,7 +128,6 @@ namespace GXPEngine
                     if (deltaY < 0)
                     {
                         _player.y = brokenRock.y + brokenRock.height + _player.height;
-                        _player.Jumping = false;
                     }
                 }
             }
@@ -312,7 +311,7 @@ namespace GXPEngine
 				}
             }
 
-			if (_player.HitTest(enemy))
+				if (_player.HitTest(enemy) && enemy.currentFrame < 9)
                 {
 					_player.TakeDamage (50);
                     if (_enemy.x > _player.x)
@@ -646,10 +645,6 @@ namespace GXPEngine
                             break;
                         
                         
-
-
-
-
                     }
 
                 }
