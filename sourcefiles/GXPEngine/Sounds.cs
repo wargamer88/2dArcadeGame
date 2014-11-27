@@ -5,19 +5,30 @@ using System.Text;
 
 namespace GXPEngine
 {
-    static class Sounds
+	public class Sounds
     {
-
-        public static void BgMusic()
+		private SoundChannel _music;
+		public void BgMusic(string songname)
         {
-            Sound music = new Sound(@"Sounds/UncleBibby_-_01_-_The_Simple_Complex.mp3", true, true);
-            music.Play();
+			Sound _currentBgMusic = new Sound(@"Sounds/" + songname + ".mp3", true, true);
+			_music = _currentBgMusic.Play();
         }
 
-        public static void PlayJump()
+		public void StopMusic()
+		{
+			_music.Stop ();
+		}
+
+        public void PlayJump()
         {
-            Sound soundJump = new Sound(@"Sounds/Jump.wav");
+            Sound soundJump = new Sound(@"Sounds/Jump.mp3");
             soundJump.Play();
         }
+
+		public void PlayBatScreetch()
+		{
+			Sound soundJump = new Sound(@"Sounds/BatScreech.wav");
+			soundJump.Play();
+		}
     }
 }

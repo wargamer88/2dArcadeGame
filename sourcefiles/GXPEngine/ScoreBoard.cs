@@ -8,24 +8,26 @@ namespace GXPEngine
 		Font font;
 		Brush brush;
 		PointF position;
-		public ScoreBoard () : base(400,64)
+		public ScoreBoard () : base(800,64)
 		{
 			font = new Font ("Arial", 20, FontStyle.Regular);
 			brush = new SolidBrush (Color.Black);
-			position = new PointF (0, 0);
+			position = new PointF (400, 0);
+			this.AddChild(new Sprite("images/diamonds.png"));
 		}
 
 		public void DrawStats(int score, int health)
 		{
-			graphics.Clear (Color.Gray);
+			graphics.Clear (Color.Empty);
 			DrawScore (score);
-			DrawHealth (health);
+			//DrawHealth (health);
 		}
 		private void DrawScore(int score)
 		{
-			string message = "Score: " + score;
-			position = new PointF (0, 0);
-			brush = new SolidBrush (Color.Black);
+			string message = score.ToString ();
+			font = new Font ("Arial", 50, FontStyle.Bold);
+			position = new PointF (200, 0);
+			brush = new SolidBrush (Color.DarkRed);
 			graphics.DrawString (message, font, brush, position);
 		}
 
@@ -38,7 +40,7 @@ namespace GXPEngine
 				message = "You have died.";
 				brush = new SolidBrush (Color.Red);
 			}
-			position = new PointF (200, 0);
+			position = new PointF (400, 0);
 			graphics.DrawString (message, font, brush, position);
 		}
 	}

@@ -646,22 +646,23 @@ namespace GXPEngine
                            AddChild(_torch);
                            _torch.SetXY(w * 64, h * 64);
                            _torch.Mirror(false, false);
-                           break;
+							break;
                         case 8:
                            _fadingBlock = new FadingBlock();
                            AddChild(_fadingBlock);
                            _fadingBlock.SetXY(w * 64, h * 64);
                            _fadingBlockList.Add(_fadingBlock);
-                           break;
+							break;
                         case 9:
                            _enemy = new Skeleton(w * 64, (h * 64)+64);
                            _enemyList.Add(_enemy);
-                           break;
+							break;
                         case 29:
                            _bat = new Bat(w * 64, h * 64);
                            AddChild(_bat);
                            _batList.Add(_bat);
-                           break;
+							break;
+
 
 
 

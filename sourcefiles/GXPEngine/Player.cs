@@ -34,12 +34,17 @@ namespace GXPEngine
 		public Player(MyGame MG)
             : base("images/PlayerAnim.png", 67, 1)
 		{
+
 			this.SetOrigin (0, 96);
 			Weapon weapon = new Weapon (this, 50);
             _MG = MG;
 			_lives = 3-_MG.LivesLost;
 			this.AddChild (weapon);
 			_weapon = weapon;
+			if (_MG.CurrentLevel == "level1.2.tmx") {
+				_MG.Sound.StopMusic ();
+				_MG.Sound.BgMusic ("Volatile Reaction");
+			}
 
 		}
 
@@ -140,7 +145,7 @@ namespace GXPEngine
 			if (!Input.GetKey(Key.LEFT_ALT) && _jumpBoost > 0 && _jumps < _maxJumps && !Weapon.Attacking) { 
 				if (!_jumping)
 					_jumping = true;
-                Sounds.PlayJump();
+					_MG.Sound.PlayJump ();
 				_jumpHeight = _jumpHeight + (int)_jumpBoost;
 				_jumpBoost = 0;
 				this.y--;

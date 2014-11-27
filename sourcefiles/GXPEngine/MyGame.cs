@@ -9,6 +9,7 @@ public class MyGame : Game
     private Level _level;
     private Sprite _sky;
     private Menu _menu;
+	private Sounds _sounds = new Sounds();
     private string _sLevel;
     private bool _buttonClicked = false;
     private Button _button;
@@ -28,8 +29,13 @@ public class MyGame : Game
         _menu = new Menu();
         AddChild(_menu);
 
-        Sounds.BgMusic();
+        _sounds.BgMusic("Black Vortex");
 	
+	}
+
+	public Sounds Sound
+	{
+		get { return this._sounds; }
 	}
 	public string CurrentLevel
 	{
