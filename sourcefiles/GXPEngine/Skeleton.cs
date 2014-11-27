@@ -2,11 +2,11 @@
 
 namespace GXPEngine
 {
-	public class Enemy : AnimSprite
+	public class Skeleton : AnimSprite
 	{
 		private float _xSpeed = 0.0f; // Horizontal speed
-		private float _ySpeed = 0.0f; // Vertical speed
-		private float _ySpeedMax = -15; // Maximum speed for jump
+		//private float _ySpeed = 0.0f; // Vertical speed
+		//private float _ySpeedMax = -15; // Maximum speed for jump
 		private int _jumps = 0; // Amount of times the entity has jumped already
 		private int _maxJumps = 2; // Amount of times the entity can jump after touching the ground
 		private int _jumpHeight = 12; // Current jump height
@@ -17,30 +17,36 @@ namespace GXPEngine
 		private int _gravity = 10; // Gravity that is currently affecting the entity
 		private bool _jumping = false; // Indicates whether or not the entity has jumped
 		//private Weapon _weapon; // Weapon the entity is using
-		private bool movingLeft = false;
+		private bool movingLeft = true;
 		private int _health = 100;
 		private int _damageTimer = 0;
+
+        private float originalStartPoint;
 
         public int DamageTimer { get { return _damageTimer; } }
 
 		private float _lastXpos;
 		private float _lastYpos;
 
-		public Enemy (int x, int y) : base("images/SkeletonAnim.png", 15, 1)
+		public Skeleton (int x, int y) : base("images/SkeletonAnim.png", 15, 1)
 		{
-			this.x = x; // Set horizontal position for player at the start 
-			this.y = y; // Set vertical position for player at the start
+			this.x = x; // Set horizontal position for skeleton at the start 
+            this.y = y; // Set vertical position for skeleton at the start
+            originalStartPoint = this.x;
 			this.SetOrigin (0, 96);
 		}
 
 		void Update()
 		{
+            
 			_lastXpos = x;
 			_lastYpos = y;
+            AIwalking();
 			UpdateAnimation (); // Change animation frames
-			ApplySteering (); // Move horizontally based on player input
-			ApplyGravity (); // Move vertically	based on player input
+            ApplySteering(); // Move horizontally based on skeleton input
+           // ApplyGravity(); // Move vertically based on skeleton input
 			ApplyDamage ();
+            
 		}
 
 		public void ApplyDamage()
@@ -96,36 +102,36 @@ namespace GXPEngine
 			x = x + xMovement;
 			y = y + yMovement;
 
-			if (_ySpeed < _ySpeedMax)
-				_ySpeed = _ySpeedMax;
+            //if (_ySpeed < _ySpeedMax)
+            //    _ySpeed = _ySpeedMax;
 				
-			if (y < 0) {
-				y = game.height+1;
-				hasMoved = false;
-			}
-			if (y > game.height){
-				y = this.game.height+1;
-				_jumps = 0;
-				_jumping = false;
-				hasMoved = false;
-			}
+            //if (y < 0) {
+            //    y = game.height+1;
+            //    hasMoved = false;
+            //}
+            //if (y > game.height){
+            //    y = this.game.height+1;
+            //    _jumps = 0;
+            //    _jumping = false;
+            //    hasMoved = false;
+            //}
 
 			return hasMoved;
 		}
 
-		void ApplyGravity()
-		{
-			bool hasMoved = MoveChar (0, _ySpeed);
-			if (_ySpeed <= _gravity)
-				_ySpeed += 1;
-			if (hasMoved == false) {
-				_ySpeed = 0.0f;
-			}
+        //void ApplyGravity()
+        //{
+        //    bool hasMoved = MoveChar (0, _ySpeed);
+        //    if (_ySpeed <= _gravity)
+        //        _ySpeed += 1;
+        //    if (hasMoved == false) {
+        //        _ySpeed = 0.0f;
+        //    }
 
-			if (_jumping) {
-				SetAnimationFrames (5, 5);
-			}
-		}
+        //    if (_jumping) {
+        //        SetAnimationFrames (5, 5);
+        //    }
+        //}
 
 		public void TurnAround()
 		{
@@ -140,27 +146,47 @@ namespace GXPEngine
 			if (movingLeft) {
 				_xSpeed--;
 				SetAnimationFrames (1, 6);
-				this.Mirror (true, false);
+				this.Mirror (false, false);
 
 			} else if (!movingLeft) {
-				//_xSpeed++;
-				//SetAnimationFrames (2, 3);
-				this.Mirror (false, false);
+				_xSpeed++;
+				SetAnimationFrames (2, 3);
+				this.Mirror (true, false);
 			} 
 			else {
 				SetAnimationFrames (1, 6);
 
 			}
+            if (_xSpeed > 4)
+            {
+                _xSpeed = 4;
+            }
+            if (_xSpeed < -4)
+            {
+                _xSpeed = -4;
+            }
 			MoveChar (_xSpeed, 0);
 			_xSpeed = _xSpeed * 0.9f;
 		}
+
+        public void AIwalking()
+        {
+            if (this.x <= originalStartPoint)
+            {
+                movingLeft = false;
+            }
+            if (this.x >= originalStartPoint + 288)
+            {
+                movingLeft = true;
+            }
+        }
 
 		public void Attack()
 		{
 
 		}
 
-		public float XSpeed //Return or set the XSpeed of the player
+		public float XSpeed //Return or set the XSpeed of the skeleton
 		{
 			get{
 				return this._xSpeed;
@@ -170,15 +196,15 @@ namespace GXPEngine
 			}
 		}
 
-		public float YSpeed //Return or set the YSpeed of the player
-		{
-			get{
-				return this._ySpeed;
-			}
-			set{
-				this._ySpeed = value;
-			}
-		}
+        //public float YSpeed //Return or set the YSpeed of the skeleton
+        //{
+        //    get{
+        //        return this._ySpeed;
+        //    }
+        //    set{
+        //        this._ySpeed = value;
+        //    }
+        //}
 
 		public bool Jumping
 		{
