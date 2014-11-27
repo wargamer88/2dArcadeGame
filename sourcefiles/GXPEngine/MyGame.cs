@@ -53,7 +53,19 @@ public class MyGame : Game
 	}
 
 	void Update () {
-        
+
+        if (_levelLoaded && Input.GetKeyDown(Key.FIVE))
+        {
+            _sLevel = "";
+            _buttonClicked = false;
+            _sButton = "";
+            _levelLoaded = false;
+            _level.RemoveHUD();
+            _level.Destroy();
+            this.LivesLost = 0;
+
+            AddChild(_menu = new Menu());
+        }
         if (_buttonClicked == false)
         {
             _button = _menu.SelectButton();
