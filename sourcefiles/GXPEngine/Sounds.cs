@@ -16,7 +16,8 @@ namespace GXPEngine
 
 		public void StopMusic()
 		{
-			_music.Stop ();
+			if (_music != null)
+				_music.Stop ();
 		}
 
         public void PlayJump()
