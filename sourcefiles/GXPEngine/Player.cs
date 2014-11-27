@@ -227,6 +227,7 @@ namespace GXPEngine
 						} else {
 							this.Destroy ();
 							this.Health = 100;
+							this.Score = 0;
 							_MG.LoadNextLevel (_MG.CurrentLevel);
 						}
                         

@@ -33,8 +33,8 @@ namespace GXPEngine
 		private NextLevel _nextLevel;
 		private Torch _torch;
 		private FadingBlock _fadingBlock;
-
 		private Bat _bat;
+
         private int _levelWidth;
         private int _levelHeight;
         private bool _onTop = true;
@@ -48,7 +48,6 @@ namespace GXPEngine
 
 		public Level(string sLevel, MyGame game)
         {
-			Bat bat;
             _MG = game;
 			_currentLevel = sLevel;
             string level = XMLreader(sLevel);
@@ -60,8 +59,7 @@ namespace GXPEngine
             }
             AddChild(_player);
 			game.AddChild (_textbox);
-			game.AddChild (_scoreBoard);
-
+			game.SetChildIndex (_scoreBoard, 30);
 
             
         }
@@ -101,7 +99,6 @@ namespace GXPEngine
                     if (deltaY < 0)
                     {
                         _player.y = ground.y + ground.height + _player.height;
-                        _player.Jumping = false;
                     }
                 }
             }
@@ -127,7 +124,6 @@ namespace GXPEngine
                     if (deltaY < 0)
                     {
                         _player.y = brokenRock.y + brokenRock.height + _player.height;
-                        _player.Jumping = false;
                     }
                 }
             }
@@ -310,7 +306,7 @@ namespace GXPEngine
 				}
             }
 
-			if (_player.HitTest(enemy))
+				if (_player.HitTest(enemy) && enemy.currentFrame < 9)
                 {
 					_player.TakeDamage (50);
                     if (_enemy.x > _player.x)
@@ -642,10 +638,6 @@ namespace GXPEngine
                             _brokenRock.SetXY(w * 64, h * 64);
                             _brokenRockList.Add(_brokenRock);
                             break;
-                        
-                        
-
-
 
 
                     }
