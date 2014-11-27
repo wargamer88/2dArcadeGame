@@ -52,7 +52,10 @@ namespace GXPEngine
 		{
 			if (_health == 0)
 			{
-				this.Destroy();
+				this.SetAnimationFrames (10, 14);
+				if (_damageTimer == 0) {
+					this.Destroy ();
+				}
 			}
 			if (_damageTimer > 0) {
 				this.SetAnimationFrames (15, 15);
