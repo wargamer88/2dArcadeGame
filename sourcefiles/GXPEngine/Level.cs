@@ -33,6 +33,7 @@ namespace GXPEngine
 		private NextLevel _nextLevel;
 		private Torch _torch;
 		private FadingBlock _fadingBlock;
+        private Sounds _sounds = new Sounds();
 
 		private Bat _bat;
         private int _levelWidth;
@@ -287,7 +288,8 @@ namespace GXPEngine
                 if (_player.HitTest(coin))
                 {
                     _player.Score++;
-                    coin.SetXY(900, 900);
+                    coin.SetXY(2000, 2000);
+                    _sounds.PlayPickupCoin();
                 }
             }
 
