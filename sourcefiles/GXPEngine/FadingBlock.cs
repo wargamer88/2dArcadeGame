@@ -6,12 +6,12 @@ namespace GXPEngine
 	{
 		private int _fadingCounter;
 		private bool _canCollide = true;
-		public FadingBlock () : base ("images/TilesetGround.png", 6, 1)
+		public FadingBlock () : base ("images/TilesetGround.png", 18, 1)
 		{
 			this._fadingCounter = 240;
 		}
 
-		public FadingBlock (int fadingCounter) : base ("images/TilesetGround.png", 6, 1)
+		public FadingBlock (int fadingCounter) : base ("images/TilesetGround.png", 18, 1)
 		{
 			this._fadingCounter = fadingCounter;
 		}
