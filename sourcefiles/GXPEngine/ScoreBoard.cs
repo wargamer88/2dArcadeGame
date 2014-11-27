@@ -8,13 +8,22 @@ namespace GXPEngine
 		Font font;
 		Brush brush;
 		PointF position;
+		Life _life;
+
 		public ScoreBoard () : base(800,64)
 		{
+			_life = new Life ();
 			font = new Font ("Arial", 20, FontStyle.Regular);
 			brush = new SolidBrush (Color.Black);
 			position = new PointF (400, 0);
 			this.AddChild(new Sprite("images/diamonds.png"));
+			this.AddChild (_life);
+			_life.x += 300;
+		}
 
+		public Life Life
+		{
+			get { return this._life; }
 		}
 
 		public void DrawStats(int score, int health)
