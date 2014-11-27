@@ -30,7 +30,6 @@ public class MyGame : Game
         AddChild(_menu);
 
         _sounds.BgMusic("Black Vortex");
-	
 	}
 
 	public Sounds Sound

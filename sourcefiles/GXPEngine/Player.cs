@@ -31,9 +31,12 @@ namespace GXPEngine
 		private Weapon _weapon;
         private MyGame _MG;
 
-		public Player(MyGame MG)
+        private Level _level;
+
+		public Player(MyGame MG, Level level)
             : base("images/PlayerAnim.png", 67, 1)
 		{
+            _level = level;
 
 			this.SetOrigin (0, 96);
 			Weapon weapon = new Weapon (this, 50);
@@ -181,7 +184,7 @@ namespace GXPEngine
 		{
 			bool hasMoved = true;
 
-			x = x + xMovement;
+			//x = x + xMovement;
 			y = y + yMovement;
 
 			if (_ySpeed < _ySpeedMax)
@@ -200,7 +203,9 @@ namespace GXPEngine
 
 			if (x < 0)
 				x = 0;
-            
+
+            _level.PlayerCollision();
+
 			return hasMoved;
 		}
 
