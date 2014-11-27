@@ -30,10 +30,17 @@ namespace GXPEngine
 			Sound soundScreech = new Sound(@"Sounds/BatScreech.wav");
 			soundScreech.Play();
 		}
+
         public void PlaySwordSwing()
         {
             Sound soundSwordSwing = new Sound(@"Sounds/sword_swipe.mp3");
             soundSwordSwing.Play();
+        }
+
+        public void PlayPickupCoin()
+        {
+            Sound soundPickupCoin = new Sound(@"Sounds/Coin.wav");
+            soundPickupCoin.Play();
         }
     }
 }
