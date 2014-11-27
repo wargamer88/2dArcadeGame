@@ -11,7 +11,7 @@ namespace GXPEngine
         #region local class variables
 
         private List<Ground> _groundList = new List<Ground>();
-        private List<Enemy> _enemyList = new List<Enemy>();
+        private List<Skeleton> _enemyList = new List<Skeleton>();
         private List<BrokenRock> _brokenRockList = new List<BrokenRock>();
         private List<BrokenRock> TempListBrokenRocks = new List<BrokenRock>(); //temp list, dont remove, needed by the program to function
         private List<Sign> _signList = new List<Sign>();
@@ -24,7 +24,7 @@ namespace GXPEngine
         private Ground _ground;
         private Player _player;
         private BrokenRock _brokenRock;
-        private Enemy _enemy;
+        private Skeleton _enemy;
 		private NPC _npc;
 		private TextBox _textbox = new TextBox();
         private Coin _coin;
@@ -54,7 +54,7 @@ namespace GXPEngine
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
             BuildGameLevel(levelArray);
-            foreach (Enemy enemy in _enemyList)
+            foreach (Skeleton enemy in _enemyList)
             {
                 AddChild(enemy);
             }
@@ -131,7 +131,7 @@ namespace GXPEngine
                     
                 }
 
-				foreach (Enemy enemy in _enemyList) {
+				foreach (Skeleton enemy in _enemyList) {
 					bool enemyTurning = false;
 
 					if (enemy.HitTest (ground)) {
@@ -140,7 +140,6 @@ namespace GXPEngine
 							enemy.y = ground.y;
 							enemy.Jumping = false;
 							enemy.Jumps = 0;
-							enemy.YSpeed = 0;
 						}
 						if (enemy.x + enemy.width > ground.x && enemy.LastXpos + enemy.width <= ground.x)
 						{
@@ -316,7 +315,7 @@ namespace GXPEngine
             }
 
 
-            foreach (Enemy enemy in _enemyList)
+            foreach (Skeleton enemy in _enemyList)
             {
 				if (_player.Weapon.Attacking) {
 					if (enemy.HitTest (_player.Weapon) && _player.Weapon.currentFrame == 3  | _player.Weapon.currentFrame > 9 && _enemy.DamageTimer == 0) {
@@ -325,12 +324,10 @@ namespace GXPEngine
                         if (_player.x > _enemy.x)
                         {
                             _enemy.XSpeed = -5;
-                            _enemy.YSpeed = -3;
                         }
                         if (_player.x < _enemy.x)
                         {
                             _enemy.XSpeed = +5;
-                            _enemy.YSpeed = -3;
 					}
                         
 				}
@@ -501,7 +498,7 @@ namespace GXPEngine
                         //    _player.SetXY(w * 64, h * 64);
                         //    break;
                         //case 3:
-                        //    _enemy = new Enemy (w * 64, h * 64);
+                        //    _enemy = new Skeleton (w * 64, h * 64);
                         //    _enemyList.Add(_enemy);
                         //    break;
                         //case 4:
