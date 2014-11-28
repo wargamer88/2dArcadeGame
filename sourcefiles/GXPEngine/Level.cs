@@ -129,6 +129,32 @@ namespace GXPEngine
                     }
                 }
             }
+
+			foreach (FadingBlock fadingBlock in _fadingBlockList) {
+				if (_player.HitTest(fadingBlock) && fadingBlock.CanCollide)
+				{
+					fadingBlock.BlockPressed = true;
+					if (deltaX < 0)
+					{
+						_player.x = fadingBlock.x + fadingBlock.width;
+					}
+					if (deltaX > 0)
+					{
+						_player.x = fadingBlock.x - _player.width;
+					}
+					if (deltaY > 0)
+					{
+						_player.y = fadingBlock.y;
+						_player.Jumping = false;
+						_player.Jumps = 0;
+						_player.Weapon.UppercutUsable();
+					}
+					if (deltaY < 0)
+					{
+						_player.y = fadingBlock.y + fadingBlock.height + _player.height;
+					}
+				}
+			}
         }
         public void BatCollision(float deltaX, float deltaY)
         {
@@ -211,7 +237,7 @@ namespace GXPEngine
 
                 }
             }
-
+			/*
             #region broken rock collisions
             foreach (BrokenRock brokenRock in _brokenRockList)
             {
@@ -248,6 +274,7 @@ namespace GXPEngine
 			foreach (FadingBlock fadingBlock in _fadingBlockList) {
 				if (_player.HitTest(fadingBlock) && fadingBlock.CanCollide)
 				{
+					fadingBlock.BlockPressed = true;
 					if (_player.y > fadingBlock.y && _player.LastYpos <= fadingBlock.y)
 					{
 						_player.y = fadingBlock.y;
@@ -274,7 +301,7 @@ namespace GXPEngine
 					}
 				}
 			}
-
+			*/
 			if (_player.HitTest(_nextLevel))
 			{
 				_nextLevel.LoadNext ();
@@ -392,6 +419,7 @@ namespace GXPEngine
 
 		public void DisplayHUD()
 		{
+			_scoreBoard.Life.CurrentLife = _player.Lives;
 			_scoreBoard.DrawStats (_player.Score, _player.Health);
 		}
 

@@ -300,6 +300,7 @@ namespace GXPEngine
 			set{ this._jumps = value; }
 		}
 
+		public int Lives {get { return this._lives; } set { this._lives = value;}}
 		public Weapon Weapon { get {return this._weapon;} set{ this._weapon = value; } }
 		public int DamageTimer { get { return _damageTimer; } }
 		public int Health { get { return _health; } set { _health = value; } }
