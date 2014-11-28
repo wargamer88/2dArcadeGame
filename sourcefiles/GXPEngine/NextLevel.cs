@@ -18,8 +18,10 @@ namespace GXPEngine
 				_MG.LoadNextLevel ("level1.tmx");
 			} else if (_sLevel == "level1.tmx") {
 				_MG.LoadNextLevel ("level1.1.tmx");
-			} else if (_sLevel == "level1.1.tmx")
+			} else if (_sLevel == "level1.1.tmx"){
 				_MG.LoadNextLevel ("level1.2.tmx");
+            } else if (_sLevel == "level1.2.tmx")
+				_MG.LoadNextLevel ("level1.3.tmx");
 		}
 	}
 }

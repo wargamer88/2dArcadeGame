@@ -89,7 +89,7 @@ public class MyGame : Game
             switch (_sButton)
             {
                 case "start":
-					LoadLevel("level1.3.tmx");
+					LoadLevel("level1.tmx");
                     break;
                 case "controls":
                     LoadControlScreen();
@@ -109,7 +109,8 @@ public class MyGame : Game
             _controls.SetOrigin(0, 0);
             _controls.SetXY(0, 0);
             AddChild(_controls);
-            //_controls.StartControlsAnimation();
+            _controls.StartControlsAnimation();
+            _controls.SetFrame(0);
         }
         else
         {
