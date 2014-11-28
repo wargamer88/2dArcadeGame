@@ -29,6 +29,7 @@ public class MyGame : Game
 
         _menu = new Menu();
         AddChild(_menu);
+		_sounds.BgMusic ("Black Vortex");
 	
 	}
 
@@ -36,6 +37,7 @@ public class MyGame : Game
 	{
 		get { return this._sounds; }
 	}
+
 	public string CurrentLevel
 	{
 		get { return this._sLevel; }
@@ -83,7 +85,7 @@ public class MyGame : Game
             switch (_sButton)
             {
                 case "start":
-					LoadLevel("level1.tmx");
+					LoadLevel("level1.3.tmx");
                     break;
                 case "controls":
                     LoadControlScreen();
@@ -114,6 +116,7 @@ public class MyGame : Game
 
     public void GameOver()
     {
+		Sound.StopMusic ();
         _sLevel = "";
         _buttonClicked = false;
         _sButton = "";
@@ -129,11 +132,18 @@ public class MyGame : Game
 	{
 		int score = this._level.CurrentPlayer.Score;
 		int health = this._level.CurrentPlayer.Health;
+		this.Sound.StopMusic ();
+		if (CurrentLevel != "level1.3.tmx") {
+			_sounds.BgMusic ("Black Vortex");
+		} else {
+			_sounds.BgMusic ("Volatile Reaction");
+		}
 		this._level.RemoveHUD ();
 		this._level.Destroy ();
 		_sLevel = slevel;
 		_level = new Level (_sLevel, this);
 		AddChild (_level);
+
 		this._level.CurrentPlayer.Health = health;
 		this._level.CurrentPlayer.Score = score;
 		_levelLoaded = true;
@@ -143,9 +153,15 @@ public class MyGame : Game
     {
         if (!_levelLoaded)
         {
+			Sound.StopMusic ();
             _sLevel = slevel;
             _level = new Level(_sLevel, this);
             AddChild(_level);
+			if (CurrentLevel != "level1.3.tmx") {
+				_sounds.BgMusic ("Black Vortex");
+			} else {
+				_sounds.BgMusic ("Volatile Reaction");
+			}
             _levelLoaded = true;
             _button = null;
 
