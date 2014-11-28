@@ -18,12 +18,12 @@ namespace GXPEngine
         public ControlScreen()
             : base("images/controlSpritesheet.png", 9, 1)
         {
-            SetFrame(0);
         }
 
         public void StartControlsAnimation()
         {
             _startAnimation = true;
+
         }
 
         public void StopcontrolsAnimation()
@@ -35,7 +35,7 @@ namespace GXPEngine
         {
             if (_startAnimation)
             {
-                _frame = _frame + 0.2f;
+                _frame = _frame + 0.025f;
                 if (_frame >= _lastFrame + 1)
                     _frame = _firstFrame;
                 if (_frame < _firstFrame)

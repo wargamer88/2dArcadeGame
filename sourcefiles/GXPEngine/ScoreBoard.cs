@@ -9,10 +9,12 @@ namespace GXPEngine
 		Brush brush;
 		PointF position;
 		Life _life;
+        MyGame _MG;
 
-		public ScoreBoard () : base(800,128)
+		public ScoreBoard (MyGame MG) : base(800,128)
 		{
 			_life = new Life ();
+            _MG = MG;
 			font = new Font ("Arial", 20, FontStyle.Regular);
 			brush = new SolidBrush (Color.Black);
 			position = new PointF (400, 0);
@@ -29,9 +31,13 @@ namespace GXPEngine
 
 		public void DrawStats(int score, int health)
 		{
-			graphics.Clear (Color.Empty);
-			DrawScore (score);
-			//DrawHealth (health);
+            if (_life.CurrentLife > -2 || !_MG.victory)
+            {
+                graphics.Clear (Color.Empty);
+			    DrawScore (score);
+			    //DrawHealth (health);
+            }
+			
 		}
 		private void DrawScore(int score)
 		{

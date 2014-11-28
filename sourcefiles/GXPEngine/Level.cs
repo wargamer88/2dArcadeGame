@@ -30,7 +30,7 @@ namespace GXPEngine
 		private TextBox _textbox = new TextBox();
         private Coin _coin;
         private Spike _spike;
-		private ScoreBoard _scoreBoard = new ScoreBoard ();
+        private ScoreBoard _scoreBoard;
 		private NextLevel _nextLevel;
 		private Torch _torch;
 		private FadingBlock _fadingBlock;
@@ -56,6 +56,7 @@ namespace GXPEngine
 		public Level(string sLevel, MyGame game)
         {
             _MG = game;
+            _scoreBoard = new ScoreBoard(_MG);
 			_currentLevel = sLevel;
             string level = XMLreader(sLevel);
             int[,] levelArray = LevelArrayBuilder(level);
@@ -189,6 +190,28 @@ namespace GXPEngine
 					}
 				}
 			}
+            foreach (Spike spike in _spikeList)
+            {
+                if (_boss.HitTest(spike))
+                {
+                    if (deltaX < 0)
+                    {
+                        _boss.x = spike.x + spike.width;
+                    }
+                    if (deltaX > 0)
+                    {
+                        _boss.x = spike.x - _player.width;
+                    }
+                    if (deltaY > 0)
+                    {
+                        _boss.y = spike.y;
+                    }
+                    if (deltaY < 0)
+                    {
+                        _boss.y = spike.y + spike.height + _boss.height;
+                    }
+                }
+            }
 		}
         public void BatCollision(float deltaX, float deltaY)
         {
