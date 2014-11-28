@@ -96,6 +96,7 @@
     <Compile Include="FadingBlock.cs" />
     <Compile Include="Bat.cs" />
     <Compile Include="Life.cs" />
+    <Compile Include="Boss.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

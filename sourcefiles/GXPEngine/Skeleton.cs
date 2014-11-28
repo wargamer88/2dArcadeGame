@@ -16,6 +16,7 @@ namespace GXPEngine
 		private int _lastFrame = 1; // Last frame for the range of frames to be used in the animation of the sprite
 		private int _gravity = 10; // Gravity that is currently affecting the entity
 		private bool _jumping = false; // Indicates whether or not the entity has jumped
+		private bool _attacking = false;
 		//private Weapon _weapon; // Weapon the entity is using
 		private bool movingLeft = true;
 		private int _health = 100;
@@ -152,17 +153,28 @@ namespace GXPEngine
 
         public void AIwalking()
         {
-			if (this.x <= originalStartPoint) {
+			if (!this._attacking) {
+				if (this.x <= originalStartPoint) {
 					movingLeft = false;
 				}
-			if (this.x >= originalStartPoint + 288) {
+				if (this.x >= originalStartPoint + 288) {
 					movingLeft = true;
 				}
+			}
         }
 
-		public void Attack()
+		public void Attack(bool left)
 		{
-
+			this.Attacking = true;
+			SetAnimationFrames (6, 9);
+			if (left) {
+				this.Mirror (false, false);
+				_xSpeed--;
+			}
+			if (!left) {
+				this.Mirror (true, false);
+				_xSpeed++;
+				}
 		}
 
 		public float XSpeed //Return or set the XSpeed of the skeleton
@@ -194,6 +206,16 @@ namespace GXPEngine
 			}
 			set{
 				this._jumping = value;
+			}
+		}
+
+		public bool Attacking
+		{
+			get{
+				return this._attacking;
+			}
+			set{
+				this._attacking = value;
 			}
 		}
 

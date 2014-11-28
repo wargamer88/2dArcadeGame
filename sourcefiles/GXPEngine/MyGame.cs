@@ -30,7 +30,7 @@ public class MyGame : Game
         _menu = new Menu();
         AddChild(_menu);
 
-		if (_sLevel != "level1.2.tmx") {
+		if (_sLevel != "level1.3.tmx") {
 			_sounds.BgMusic ("Black Vortex");
 		} else {
 			_sounds.StopMusic ();
@@ -83,7 +83,7 @@ public class MyGame : Game
             switch (_sButton)
             {
                 case "start":
-					LoadLevel("level1.tmx");
+					LoadLevel("level1.3.tmx");
                     break;
                 case "controls":
                     LoadControlScreen();

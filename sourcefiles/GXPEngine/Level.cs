@@ -34,7 +34,7 @@ namespace GXPEngine
 		private Torch _torch;
 		private FadingBlock _fadingBlock;
         private Sounds _sounds = new Sounds();
-
+		private Boss _boss;
 		private Bat _bat;
 
         private int _levelWidth;
@@ -156,6 +156,32 @@ namespace GXPEngine
 				}
 			}
         }
+
+		public void BossCollision(float deltaX, float deltaY)
+		{
+			foreach (Ground ground in _groundList)
+			{
+				if (_boss.HitTest(ground))
+				{
+					if (deltaX < 0)
+					{
+						_boss.x = ground.x + ground.width;
+					}
+					if (deltaX > 0)
+					{
+						_boss.x = ground.x - _player.width;
+					}
+					if (deltaY > 0)
+					{
+						_boss.y = ground.y;
+					}
+					if (deltaY < 0)
+					{
+						_boss.y = ground.y + ground.height + _boss.height;
+					}
+				}
+			}
+		}
         public void BatCollision(float deltaX, float deltaY)
         {
             foreach (Ground ground in _groundList)
@@ -175,11 +201,9 @@ namespace GXPEngine
         }
 
         public void Collisions()
-        {
-            foreach (Spike spike in _spikeList)
-            {
-                if (_player.HitTest(spike))
-                {
+		{
+			foreach (Spike spike in _spikeList) {
+				if (_player.HitTest (spike)) {
 					if (_player.DamageTimer == 0) {
 						if (_spike.x > _player.x) {
 							_player.XSpeed = -10;
@@ -191,167 +215,94 @@ namespace GXPEngine
 						}
 					}
 					_player.TakeDamage (50);
-                    if (_player.y > spike.y && _player.LastYpos <= spike.y)
-                    {
-                        _player.y = spike.y;
-                        _player.Jumping = false;
-                        _player.Jumps = 0;
-                        _player.YSpeed = 0;
-                        _onTop = true;
-                    }
-                    else
-                    {
-                        _onTop = false;
-                    }
-                    if (_player.y - _player.height < spike.y + spike.height && _player.LastYpos - _player.height > spike.y + spike.height)
-                    {
-                        _player.y = spike.y + spike.height + _player.height;
-                        _player.Jumping = false;
-                        _player.YSpeed = 0;
-                        _onBottom = true;
-                    }
-                    else
-                    {
-                        _onBottom = false;
-                    }
-
-                    if (!_onBottom && !_onTop)
-                    {
-                        _allowSideCollision = true;
-                    }
-                    else
-                    {
-                        _allowSideCollision = false;
-                    }
-
-                    if (_player.x + _player.width > spike.x && _player.LastXpos + _player.width <= spike.x && _allowSideCollision)
-                    {
-                        _player.x = spike.x - _player.width;
-                        _player.XSpeed = 0;
-                    }
-                    if (_player.x < spike.x + spike.width && _player.LastXpos >= spike.x + spike.width && _allowSideCollision)
-                    {
-                        _player.x = spike.x + spike.width;
-                        _player.XSpeed = 0;
-                    }
-
-                }
-            }
-			/*
-            #region broken rock collisions
-            foreach (BrokenRock brokenRock in _brokenRockList)
-            {
-                if (_player.HitTest(brokenRock))
-                {
-                    if (_player.y > brokenRock.y && _player.LastYpos <= brokenRock.y)
-                    {
-                        _player.y = brokenRock.y;
-                        _player.Jumping = false;
-                        _player.Jumps = 0;
-                        _player.YSpeed = 0;
-						_player.Weapon.UppercutUsable ();
-                    }
-                    if (_player.x + _player.width > brokenRock.x && _player.LastXpos + _player.width <= brokenRock.x)
-                    {
-                        _player.x = brokenRock.x - _player.width;
-                        _player.XSpeed = 0;
-                    }
-                    if (_player.x < brokenRock.x + brokenRock.width && _player.LastXpos >= brokenRock.x + brokenRock.width)
-                    {
-                        _player.x = brokenRock.x + brokenRock.width;
-                        _player.XSpeed = 0;
-                    }
-                    if (_player.y - _player.height < brokenRock.y + brokenRock.height && _player.LastYpos - _player.height > brokenRock.y + brokenRock.height)
-                    {
-                        _player.y = brokenRock.y + brokenRock.height + _player.height;
-                        _player.Jumping = false;
-                        _player.YSpeed = 0;
-                    }
-                }
-            }
-            #endregion
-
-			foreach (FadingBlock fadingBlock in _fadingBlockList) {
-				if (_player.HitTest(fadingBlock) && fadingBlock.CanCollide)
-				{
-					fadingBlock.BlockPressed = true;
-					if (_player.y > fadingBlock.y && _player.LastYpos <= fadingBlock.y)
-					{
-						_player.y = fadingBlock.y;
+					if (_player.y > spike.y && _player.LastYpos <= spike.y) {
+						_player.y = spike.y;
 						_player.Jumping = false;
 						_player.Jumps = 0;
 						_player.YSpeed = 0;
-						_player.Weapon.UppercutUsable ();
+						_onTop = true;
+					} else {
+						_onTop = false;
 					}
-					if (_player.x + _player.width > fadingBlock.x && _player.LastXpos + _player.width <= fadingBlock.x)
-					{
-						_player.x = fadingBlock.x - _player.width;
-						_player.XSpeed = 0;
-					}
-					if (_player.x < fadingBlock.x + fadingBlock.width && _player.LastXpos >= fadingBlock.x + fadingBlock.width)
-					{
-						_player.x = fadingBlock.x + fadingBlock.width;
-						_player.XSpeed = 0;
-					}
-					if (_player.y - _player.height < fadingBlock.y + fadingBlock.height && _player.LastYpos - _player.height > fadingBlock.y + fadingBlock.height)
-					{
-						_player.y = fadingBlock.y + fadingBlock.height + _player.height;
+					if (_player.y - _player.height < spike.y + spike.height && _player.LastYpos - _player.height > spike.y + spike.height) {
+						_player.y = spike.y + spike.height + _player.height;
 						_player.Jumping = false;
 						_player.YSpeed = 0;
+						_onBottom = true;
+					} else {
+						_onBottom = false;
 					}
+
+					if (!_onBottom && !_onTop) {
+						_allowSideCollision = true;
+					} else {
+						_allowSideCollision = false;
+					}
+
+					if (_player.x + _player.width > spike.x && _player.LastXpos + _player.width <= spike.x && _allowSideCollision) {
+						_player.x = spike.x - _player.width;
+						_player.XSpeed = 0;
+					}
+					if (_player.x < spike.x + spike.width && _player.LastXpos >= spike.x + spike.width && _allowSideCollision) {
+						_player.x = spike.x + spike.width;
+						_player.XSpeed = 0;
+					}
+
 				}
 			}
-			*/
-			if (_player.HitTest(_nextLevel))
-			{
+
+			if (_player.HitTest (_nextLevel)) {
 				_nextLevel.LoadNext ();
 			}
 			
-            foreach (Coin coin in _coinList)
-            {
-                if (_player.HitTest(coin))
-                {
-                    _player.Score++;
-                    coin.SetXY(2000, 2000);
-                    _sounds.PlayPickupCoin();
-                }
-            }
+			foreach (Coin coin in _coinList) {
+				if (_player.HitTest (coin)) {
+					_player.Score++;
+					coin.SetXY (2000, 2000);
+					_sounds.PlayPickupCoin ();
+				}
+			}
 
 
-            foreach (Skeleton enemy in _enemyList)
-            {
+			foreach (Skeleton enemy in _enemyList) {
 				if (_player.Weapon.Attacking) {
-					if (enemy.HitTest (_player.Weapon) && _player.Weapon.currentFrame == 3  | _player.Weapon.currentFrame > 9 && _enemy.DamageTimer == 0) {
+					if (enemy.HitTest (_player.Weapon) && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9 && _enemy.DamageTimer == 0) {
 						enemy.TakeDamage (_player.Weapon.Damage); // get rekt
 
-                        if (_player.x > _enemy.x)
-                        {
-                            _enemy.XSpeed = -5;
-                        }
-                        if (_player.x < _enemy.x)
-                        {
-                            _enemy.XSpeed = +5;
-					}
+						if (_player.x > _enemy.x) {
+							_enemy.XSpeed = -5;
+						}
+						if (_player.x < _enemy.x) {
+							_enemy.XSpeed = +5;
+						}
                         
+					}
 				}
-            }
 
-				if (_player.HitTest(enemy) && enemy.currentFrame < 9)
-                {
+				if (_player.HitTest (enemy) && enemy.currentFrame < 9) {
 					_player.TakeDamage (50);
-                    if (_enemy.x > _player.x)
-                    {
-                        _player.XSpeed = -10;
-                        _player.YSpeed = -6;
-                    }
-                    if (_enemy.x < _player.x)
-                    {
-                        _player.XSpeed = +10;
-                        _player.YSpeed = -6;
-                    }
+					if (_enemy.x > _player.x) {
+						_player.XSpeed = -10;
+						_player.YSpeed = -6;
+					}
+					if (_enemy.x < _player.x) {
+						_player.XSpeed = +10;
+						_player.YSpeed = -6;
+					}
                     
-                }
-            }
+				}
+				/*
+				if (_player.x - enemy.x <= 200 && _player.y == enemy.y) {
+					if (_player.x > enemy.x) {
+						enemy.Attack (true);
+					}
+					if (_player.x < enemy.x) {
+						enemy.Attack (false);
+					}
+				} else {
+					enemy.Attacking = false;
+				}*/
+			}
 
 			foreach (Bat bat in _batList) {
 				if (_player.Weapon.Attacking) {
@@ -368,54 +319,59 @@ namespace GXPEngine
 					}
 				}
 			}
-			if (_player.Weapon.Attacking)
-            {
-                int hitRockIndex = -1;
-                int counter = -1;
-                TempListBrokenRocks = new List<BrokenRock>();
-                foreach (BrokenRock brokenRock in _brokenRockList)
-                {
-                    counter++;
-                    if (_player.Weapon.HitTest(brokenRock))
-                    {
+			if (_player.Weapon.Attacking) {
+				int hitRockIndex = -1;
+				int counter = -1;
+				TempListBrokenRocks = new List<BrokenRock> ();
+				foreach (BrokenRock brokenRock in _brokenRockList) {
+					counter++;
+					if (_player.Weapon.HitTest (brokenRock)) {
                         
-                        hitRockIndex = counter;
-                        if (hitRockIndex >= 0 && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9)
-                        {
-                            BrokenRock BR = _brokenRockList[hitRockIndex];
-                            BR = _brokenRockList[hitRockIndex];
-                            if (BR.Timer == 0)
-                            {
-                                BR.TakeDamage();
-                                if (BR.Durability == 0)
-                                {
-                                    TempListBrokenRocks.Add(BR);
-                                }
-                            }
+						hitRockIndex = counter;
+						if (hitRockIndex >= 0 && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9) {
+							BrokenRock BR = _brokenRockList [hitRockIndex];
+							BR = _brokenRockList [hitRockIndex];
+							if (BR.Timer == 0) {
+								BR.TakeDamage ();
+								if (BR.Durability == 0) {
+									TempListBrokenRocks.Add (BR);
+								}
+							}
                             
-                        }
-                    }
-                }
+						}
+					}
+				}
 
-                if (TempListBrokenRocks.Count > 0)
-                {
-                    foreach (BrokenRock BR in TempListBrokenRocks)
-                    {
-                        _brokenRockList.Remove(BR);
-                    }
-                }
-            }
+				if (TempListBrokenRocks.Count > 0) {
+					foreach (BrokenRock BR in TempListBrokenRocks) {
+						_brokenRockList.Remove (BR);
+					}
+				}
+			}
 
 			foreach (NPC npc in _npcList) {
 				if (_player.HitTest (npc)) {
 					npc.SetAnimationFrames (0, 3);
 					_textbox.DrawTextBox (npc.Name, npc.Text);
-				} else{
+				} else {
 					npc.SetAnimationFrames (3, 3);
 					_textbox.ClearTextBox ();
 				}
 			}
-        }
+			if (_boss != null) {
+				if (_player.x > _boss.x && _player.x - _boss.x <= 512) {
+					_boss.Initiate (true);
+					if (_player.x - _boss.x <= 128 && _player.y == _boss.y) {
+						_boss.Attack (true);
+					}
+				} else if (_player.x < _boss.x && _boss.x - _player.x <= 512) {
+					if (_boss.x - _player.x <= 128 && _player.y == _boss.y)
+						_boss.Attack (false);
+				} else
+					_boss.Attack (false);
+			}
+			
+		}
 
 		public void DisplayHUD()
 		{
@@ -669,7 +625,11 @@ namespace GXPEngine
                             _brokenRock.SetXY(w * 64, h * 64);
                             _brokenRockList.Add(_brokenRock);
                             break;
-                        
+						case 32:
+							_boss = new Boss (_MG, this);
+							AddChild (_boss);
+							_boss.SetXY (w * 64, h * 64);
+							break;
                         
                     }
 

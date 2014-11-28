@@ -10,12 +10,13 @@ namespace GXPEngine
 		PointF position;
 		Life _life;
 
-		public ScoreBoard () : base(800,64)
+		public ScoreBoard () : base(800,128)
 		{
 			_life = new Life ();
 			font = new Font ("Arial", 20, FontStyle.Regular);
 			brush = new SolidBrush (Color.Black);
 			position = new PointF (400, 0);
+			//this.AddChild(new Sprite("images/HudBar.png"));
 			this.AddChild(new Sprite("images/diamonds.png"));
 			this.AddChild (_life);
 			_life.x += 300;
@@ -35,9 +36,9 @@ namespace GXPEngine
 		private void DrawScore(int score)
 		{
 			string message = score.ToString ();
-			font = new Font ("Arial", 50, FontStyle.Bold);
+			font = new Font ("Arial", 60, FontStyle.Bold);
 			position = new PointF (200, 0);
-			brush = new SolidBrush (Color.DarkRed);
+			brush = new SolidBrush (Color.DarkGreen);
 			graphics.DrawString (message, font, brush, position);
 		}
 

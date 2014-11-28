@@ -26,7 +26,7 @@ namespace GXPEngine
             soundJump.Play();
         }
 
-		public void PlayBatScreetch()
+		public void PlayBatScreech()
 		{
 			Sound soundScreech = new Sound(@"Sounds/BatScreech.wav");
 			soundScreech.Play();

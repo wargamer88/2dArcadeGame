@@ -57,10 +57,12 @@ namespace GXPEngine
 			{
 				this.SetAnimationFrames (4, 4);
 				this._gravity = 9;
-				this.alpha = this.alpha * 0.9f;
 				if (this.DamageTimer <= 0) {
+					this.alpha = this.alpha * 0.9f;
+					if (this.alpha < 0.01f) {
 						this.alpha = 0;
 						this.Destroy ();
+					}
 				}
 
 			}
@@ -69,7 +71,8 @@ namespace GXPEngine
 				_damageTimer--;
 
 			} else
-				this.SetAnimationFrames (0, 3);
+				if (this._health > 0)
+					this.SetAnimationFrames (0, 3);
 		}
 
 		public void TakeDamage(int damage)
@@ -79,7 +82,7 @@ namespace GXPEngine
 					this._health = 0;
 					_damageTimer = 40;
 				} else {
-					_MG.Sound.PlayBatScreetch ();
+					_MG.Sound.PlayBatScreech ();
 					this._health = this._health - damage;
 					_damageTimer = 40;
 				}
@@ -148,27 +151,26 @@ namespace GXPEngine
 
 		void ApplySteering() // Apply horizontal speed based on user input
 		{
-			if (movingLeft) {
-				_xSpeed--;
-				SetAnimationFrames (1, 6);
-				this.Mirror (false, false);
+			if (_health > 0) {
+				if (movingLeft) {
+					_xSpeed--;
+					SetAnimationFrames (0, 3);
+					this.Mirror (false, false);
 
-			} else if (!movingLeft) {
-				_xSpeed++;
-				SetAnimationFrames (2, 3);
-				this.Mirror (true, false);
-			} 
-			else {
-				SetAnimationFrames (1, 6);
+				} else if (!movingLeft) {
+					_xSpeed++;
+					SetAnimationFrames (0, 3);
+					this.Mirror (true, false);
+				} else {
+					SetAnimationFrames (1, 6);
 
-			}
-			if (_xSpeed > 4)
-			{
-				_xSpeed = 4;
-			}
-			if (_xSpeed < -4)
-			{
-				_xSpeed = -4;
+				}
+				if (_xSpeed > 4) {
+					_xSpeed = 4;
+				}
+				if (_xSpeed < -4) {
+					_xSpeed = -4;
+				}
 			}
 			MoveChar (_xSpeed, 0);
 			_xSpeed = _xSpeed * 0.9f;
@@ -176,7 +178,7 @@ namespace GXPEngine
 
 		public void AIwalking()
 		{
-			if (_damageTimer == 0) {
+			if (_damageTimer == 0 && _health > 0) {
 				if (this.x <= originalStartPoint) {
 					movingLeft = false;
 				}
