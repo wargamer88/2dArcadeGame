@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using Glide;
 
 namespace GXPEngine
 {
@@ -11,6 +12,7 @@ namespace GXPEngine
         private List<Button> _buttonList = new List<Button>();
         private Button _button;
         private Sprite _selectionArrows = new Sprite("images/buttons/selectionArrows.png");
+        private Tweener _tweener = new Tweener();
         private int buttonSelected = 0;
 
 
@@ -26,21 +28,27 @@ namespace GXPEngine
             _button.SetOrigin(_button.width / 2, _button.height / 2);
             _buttonList.Add(_button);
             AddChild(_button);
+            _tweener.Tween(_button, new { x = 500, y = 500 }, 5, 1);
 
             _button = new Button("controls");
             _button.SetXY(750, 600);
             _button.SetOrigin(_button.width / 2, _button.height / 2);
             _buttonList.Add(_button);
             AddChild(_button);
+            _tweener.Tween(_button, new { x = 500, y = 500 }, 5, 1);
 
             _button = new Button("quit");
             _button.SetXY(750, 650);
             _button.SetOrigin(_button.width / 2, _button.height / 2);
             _buttonList.Add(_button);
             AddChild(_button);
+            _tweener.Tween(_button, new { x = 500, y = 500 }, 5, 1);
         }
 
-        
+        public void Update()
+        {
+            _tweener.Update(0.1f);
+        }
         
 
         public Button SelectButton()

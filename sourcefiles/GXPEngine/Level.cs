@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Glide;
 
 namespace GXPEngine
 {
@@ -36,6 +37,9 @@ namespace GXPEngine
         private Sounds _sounds = new Sounds();
 		private Boss _boss;
 		private Bat _bat;
+
+        
+
 
         private int _levelWidth;
         private int _levelHeight;
@@ -461,6 +465,7 @@ namespace GXPEngine
                         case 3:
                             _spike = new Spike();
                             AddChild(_spike);
+                            
                             _spike.SetXY(w * 64, h * 64);
                             _spikeList.Add(_spike);
                             break;
