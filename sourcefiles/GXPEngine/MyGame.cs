@@ -55,6 +55,12 @@ public class MyGame : Game
 
 	void Update () {
 
+        if (_levelLoaded)
+        {
+            AddChild(_level.Textbox);
+            AddChild(_level.Scoreboard);
+        }
+
         if (_levelLoaded && Input.GetKeyDown(Key.FIVE))
         {
             _sLevel = "";

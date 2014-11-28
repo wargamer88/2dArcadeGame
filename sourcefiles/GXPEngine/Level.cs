@@ -38,7 +38,8 @@ namespace GXPEngine
 		private Boss _boss;
 		private Bat _bat;
 
-        
+        public TextBox Textbox { get { return _textbox; } }
+        public ScoreBoard Scoreboard { get { return _scoreBoard; } }
 
 
         private int _levelWidth;
@@ -65,8 +66,8 @@ namespace GXPEngine
             }
             AddChild(_player);
 
-			game.AddChild(_textbox);
-            game.AddChild(_scoreBoard);
+            //game.AddChild(_textbox);
+            //game.AddChild(_scoreBoard);
 
         }
 
