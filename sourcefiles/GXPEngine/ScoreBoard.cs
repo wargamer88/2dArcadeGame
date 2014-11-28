@@ -36,7 +36,7 @@ namespace GXPEngine
 		private void DrawScore(int score)
 		{
 			string message = score.ToString ();
-			font = new Font ("Arial", 60, FontStyle.Bold);
+			font = new Font ("White Rabbit", 60, FontStyle.Bold);
 			position = new PointF (200, 0);
 			brush = new SolidBrush (Color.DarkGreen);
 			graphics.DrawString (message, font, brush, position);

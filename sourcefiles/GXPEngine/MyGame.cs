@@ -29,13 +29,7 @@ public class MyGame : Game
 
         _menu = new Menu();
         AddChild(_menu);
-
-		if (_sLevel != "level1.3.tmx") {
-			_sounds.BgMusic ("Black Vortex");
-		} else {
-			_sounds.StopMusic ();
-			_sounds.BgMusic ("Volatile Reaction");
-		}
+	
 	}
 
 	public Sounds Sound

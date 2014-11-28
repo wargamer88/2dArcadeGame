@@ -20,6 +20,7 @@ namespace GXPEngine
 		private int _gravity = 10; // Gravity that is currently affecting the player
 		private bool _jumping = false; // Indicates whether or not the player has jumped
         private int _score = 0;
+		private int _totalScore = 0;
 		private int _health = 100;
 		private int _damageTimer = 0;
 		private bool _alive = true;
@@ -44,10 +45,6 @@ namespace GXPEngine
 			_lives = 3-_MG.LivesLost;
 			this.AddChild (weapon);
 			_weapon = weapon;
-			if (_MG.CurrentLevel == "level1.2.tmx") {
-				_MG.Sound.StopMusic ();
-				_MG.Sound.BgMusic ("Volatile Reaction");
-			}
 
 		}
 
@@ -227,7 +224,6 @@ namespace GXPEngine
 						} else {
 							this.Destroy ();
 							this.Health = 100;
-							this.Score = 0;
 							_MG.LoadNextLevel (_MG.CurrentLevel);
 						}
                         
@@ -299,7 +295,6 @@ namespace GXPEngine
 			get{ return this._jumps; }
 			set{ this._jumps = value; }
 		}
-
 		public int Lives {get { return this._lives; } set { this._lives = value;}}
 		public Weapon Weapon { get {return this._weapon;} set{ this._weapon = value; } }
 		public int DamageTimer { get { return _damageTimer; } }

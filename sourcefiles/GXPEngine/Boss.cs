@@ -30,9 +30,11 @@ namespace GXPEngine
 		private bool _attacking = false;
 
 
-		public Boss (MyGame MG, Level level) : base("images/BossAnim.png", 12, 1)
+		public Boss (MyGame MG, Level level, int x, int y) : base("images/BossAnim.png", 12, 1)
 		{
 			this.SetOrigin (0, 192);
+			this.x = x;
+			this.y = y;
 			originalStartPoint = this.x;
 			_MG = MG;
 			_level = level;
@@ -87,7 +89,7 @@ namespace GXPEngine
 
 		public void UpdateAnimation() // Continuously loop through the frames based on the maximum and
 		{
-			_frame = _frame + 0.2f;
+			_frame = _frame + 0.1f;
 			if (_frame >= _lastFrame + 1)
 				_frame = _firstFrame;
 			if (_frame < _firstFrame)
@@ -187,13 +189,17 @@ namespace GXPEngine
 		public void Initiate(bool fromLeft)
 		{
 			this.Aggressive = true;
-			if (fromLeft) {
-				this.Mirror (false, false);
-				_xSpeed--;
-			}
-			if (!fromLeft) {
-				this.Mirror (true, false);
-				_xSpeed++;
+			if (!Attacking) {
+				if (fromLeft) {
+					this.Mirror (false, false);
+					if (this.XSpeed > -5)
+						_xSpeed--;
+				}
+				if (!fromLeft) {
+					this.Mirror (true, false);
+					if (this.XSpeed < +5)
+						_xSpeed++;
+				}
 			}
 		}
 

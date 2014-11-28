@@ -65,6 +65,12 @@ namespace GXPEngine
                 AddChild(enemy);
             }
             AddChild(_player);
+			_sounds.StopMusic ();
+			if (_MG.CurrentLevel != "level1.3.tmx") {
+				_sounds.BgMusic ("Black Vortex");
+			} else {
+				_sounds.BgMusic ("Volatile Reaction");
+			}
 
         }
 
@@ -361,14 +367,19 @@ namespace GXPEngine
 				}
 			}
 			if (_boss != null) {
-				if (_player.x > _boss.x && _player.x - _boss.x <= 512) {
-					_boss.Initiate (true);
+				Console.WriteLine (_boss.x + "         " + _player.x);
+				if (_player.x > _boss.x && _player.x - _boss.x <= 320) {
+					_boss.Initiate (false);
 					if (_player.x - _boss.x <= 128 && _player.y == _boss.y) {
 						_boss.Attack (true);
-					}
-				} else if (_player.x < _boss.x && _boss.x - _player.x <= 512) {
+					} else
+						_boss.Attacking = false;
+				} else if (_player.x < _boss.x && _boss.x - _player.x <= 320) {
+					_boss.Initiate (true);
 					if (_boss.x - _player.x <= 128 && _player.y == _boss.y)
-						_boss.Attack (false);
+						_boss.Attack (true);
+					else
+						_boss.Attacking = false;
 				} else
 					_boss.Attack (false);
 			}
@@ -629,9 +640,8 @@ namespace GXPEngine
                             _brokenRockList.Add(_brokenRock);
                             break;
 						case 32:
-							_boss = new Boss (_MG, this);
+							_boss = new Boss (_MG, this, w * 64, h * 64);
 							AddChild (_boss);
-							_boss.SetXY (w * 64, h * 64);
 							break;
                         
                     }

@@ -43,7 +43,7 @@ namespace GXPEngine
 					this.alpha = 0;
 					this._canCollide = false;
 				}
-				_fadingCounter--;
+				_fadingCounter = _fadingCounter - 2;
 				if (_fadingCounter < 0) {
 					_fadingCounter = 240;
 					this._blockPressed = false;

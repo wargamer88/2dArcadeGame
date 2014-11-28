@@ -55,7 +55,6 @@
     <Compile Include="BrokenRock.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Coin.cs" />
-    <Compile Include="ControlScreen.cs" />
     <Compile Include="Ease.cs" />
     <Compile Include="GlideInfo.cs" />
     <Compile Include="Skeleton.cs" />
@@ -99,8 +98,9 @@
     <Compile Include="Torch.cs" />
     <Compile Include="FadingBlock.cs" />
     <Compile Include="Bat.cs" />
-    <Compile Include="Life.cs" />
     <Compile Include="Boss.cs" />
+    <Compile Include="ControlScreen.cs" />
+    <Compile Include="Life.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -123,5 +123,8 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="whitrabt.ttf" />
   </ItemGroup>
 </Project>
