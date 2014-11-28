@@ -66,14 +66,13 @@ namespace GXPEngine
                 AddChild(enemy);
             }
             AddChild(_player);
-			_sounds.StopMusic ();
-			if (_MG.CurrentLevel != "level1.3.tmx") {
-				_sounds.BgMusic ("Black Vortex");
-			} else {
-				_sounds.BgMusic ("Volatile Reaction");
-			}
 
         }
+
+		public Sounds Sound
+		{
+			get { return this._sounds; }
+		}
 
 		public Player CurrentPlayer
 		{
@@ -227,9 +226,27 @@ namespace GXPEngine
 
                         }
                     }
+
+					if (bat.HitTest(_player))
+						{
+						_player.TakeDamage (50);
+						if (_enemy.x > _player.x) {
+							_player.XSpeed = -10;
+							_player.YSpeed = -6;
+						}
+						if (_enemy.x < _player.x) {
+							_player.XSpeed = +10;
+							_player.YSpeed = -6;
+						}
+						}
                 }
             }
         }
+
+		public Sounds CurrentSound()
+		{
+			return this._sounds;
+		}
 
         public void Collisions()
 		{
@@ -297,14 +314,14 @@ namespace GXPEngine
 
 			foreach (Skeleton enemy in _enemyList) {
 				if (_player.Weapon.Attacking) {
-					if (enemy.HitTest (_player.Weapon) && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9 && _enemy.DamageTimer == 0) {
+					if (enemy.HitTest (_player.Weapon) && _player.Weapon.currentFrame == 3 | _player.Weapon.currentFrame > 9 && enemy.DamageTimer == 0) {
 						enemy.TakeDamage (_player.Weapon.Damage); // get rekt
 
-						if (_player.x > _enemy.x) {
-							_enemy.XSpeed = -5;
+						if (_player.x > enemy.x) {
+							enemy.XSpeed = -5;
 						}
-						if (_player.x < _enemy.x) {
-							_enemy.XSpeed = +5;
+						if (_player.x < enemy.x) {
+							enemy.XSpeed = +5;
 						}
                         
 					}
@@ -312,11 +329,11 @@ namespace GXPEngine
 
 				if (_player.HitTest (enemy) && enemy.currentFrame < 9) {
 					_player.TakeDamage (50);
-					if (_enemy.x > _player.x) {
+					if (enemy.x > _player.x) {
 						_player.XSpeed = -10;
 						_player.YSpeed = -6;
 					}
-					if (_enemy.x < _player.x) {
+					if (enemy.x < _player.x) {
 						_player.XSpeed = +10;
 						_player.YSpeed = -6;
 					}
@@ -350,6 +367,7 @@ namespace GXPEngine
 					}
 				}
 			}
+
 			if (_player.Weapon.Attacking) {
 				int hitRockIndex = -1;
 				int counter = -1;
@@ -378,6 +396,11 @@ namespace GXPEngine
 						_brokenRockList.Remove (BR);
 					}
 				}
+
+				if (_player.Weapon.HitTest(_boss))
+					{
+					_boss.TakeDamage (_player.Weapon.Damage);
+					}
 			}
 
 			foreach (NPC npc in _npcList) {
@@ -390,7 +413,6 @@ namespace GXPEngine
 				}
 			}
 			if (_boss != null) {
-				Console.WriteLine (_boss.x + "         " + _player.x);
 				if (_player.x > _boss.x && _player.x - _boss.x <= 320) {
 					_boss.Initiate (false);
 					if (_player.x - _boss.x <= 128 && _player.y == _boss.y) {
@@ -405,6 +427,19 @@ namespace GXPEngine
 						_boss.Attacking = false;
 				} else
 					_boss.Attack (false);
+
+				if (_player.HitTest(_boss))
+					{
+						_player.TakeDamage (50);
+						if (_boss.x > _player.x) {
+						_player.XSpeed = -10;
+						_player.YSpeed = -6;
+					}
+						if (_boss.x < _player.x) {
+						_player.XSpeed = +10;
+						_player.YSpeed = -6;
+					}
+					}
 			}
 			
 		}

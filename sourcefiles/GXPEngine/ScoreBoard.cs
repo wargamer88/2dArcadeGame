@@ -35,31 +35,19 @@ namespace GXPEngine
             {
                 graphics.Clear (Color.Empty);
 			    DrawScore (score);
-			    //DrawHealth (health);
             }
 			
 		}
 		private void DrawScore(int score)
 		{
 			string message = score.ToString ();
-			font = new Font ("White Rabbit", 60, FontStyle.Bold);
-			position = new PointF (200, 0);
+			font = new Font ("White Rabbit", 70, FontStyle.Bold);
+			position = new PointF (160, 15);
 			brush = new SolidBrush (Color.DarkGreen);
 			graphics.DrawString (message, font, brush, position);
 		}
 
-		private void DrawHealth(int health)
-		{
-			string message;
-			if (health > 0)
-				message = "Health: " + health;
-			else {
-				message = "You have died.";
-				brush = new SolidBrush (Color.Red);
-			}
-			position = new PointF (400, 0);
-			graphics.DrawString (message, font, brush, position);
-		}
+
 	}
 }
 
