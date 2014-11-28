@@ -56,6 +56,8 @@
     <Compile Include="Button.cs" />
     <Compile Include="Coin.cs" />
     <Compile Include="ControlScreen.cs" />
+    <Compile Include="Ease.cs" />
+    <Compile Include="GlideInfo.cs" />
     <Compile Include="Skeleton.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="GXPEngine\Sound.cs" />
@@ -87,6 +89,8 @@
     <Compile Include="Sign.cs" />
     <Compile Include="Sounds.cs" />
     <Compile Include="Spike.cs" />
+    <Compile Include="Tween.cs" />
+    <Compile Include="Tweener.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="NPC.cs" />
     <Compile Include="TextBox.cs" />
