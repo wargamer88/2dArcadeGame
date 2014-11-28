@@ -55,6 +55,7 @@
     <Compile Include="BrokenRock.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Coin.cs" />
+    <Compile Include="ControlScreen.cs" />
     <Compile Include="Skeleton.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="GXPEngine\Sound.cs" />

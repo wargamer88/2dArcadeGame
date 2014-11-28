@@ -10,6 +10,7 @@ public class MyGame : Game
     private Sprite _sky;
     private Menu _menu;
 	private Sounds _sounds = new Sounds();
+    private ControlScreen _controls = new ControlScreen();
     private string _sLevel;
     private bool _buttonClicked = false;
     private Button _button;
@@ -85,7 +86,7 @@ public class MyGame : Game
 					LoadLevel("level1.tmx");
                     break;
                 case "controls":
-                    //load controls screen
+                    LoadControlScreen();
                     break;
                 case "quit":
                     game.Destroy();
@@ -93,6 +94,22 @@ public class MyGame : Game
             }
         }
 	}
+
+    public void LoadControlScreen()
+    {
+        if (!_controls.StartAnimation)
+        {
+            _controls = new ControlScreen();
+            _controls.SetOrigin(0, 0);
+            _controls.SetXY(0, 0);
+            AddChild(_controls);
+            //_controls.StartControlsAnimation();
+        }
+        else
+        {
+            //_controls.AnimateControlScreen();
+        }
+    }
 
     public void GameOver()
     {
