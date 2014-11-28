@@ -98,7 +98,7 @@ public class MyGame : Game
             switch (_sButton)
             {
                 case "start":
-					LoadLevel("level1.3.tmx");
+					LoadLevel("level1.tmx");
                     break;
                 case "controls":
                     LoadControlScreen();
