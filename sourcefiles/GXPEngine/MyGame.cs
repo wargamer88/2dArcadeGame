@@ -10,18 +10,22 @@ public class MyGame : Game
     private Sprite _sky;
     private Menu _menu;
 	private Sounds _sounds = new Sounds();
-    private ControlScreen _controls = new ControlScreen();
+    private ControlScreen _controls;
     private string _sLevel;
     private bool _buttonClicked = false;
     private Button _button;
     private string _sButton;
     private bool _levelLoaded = false;
 	private int _livesLost;
+    private int _timer = 100;
+    private bool _loadedControls = false;
+    private bool _victory = false;
 
+    public bool victory { get { return _victory; } set { _victory = value; } }
     #endregion
 
 
-    public MyGame () : base(1280, 960, false)
+    public MyGame () : base(1280, 960, true)
 	{
 		this.LivesLost = 0;
         _sky = new Sprite("images/sky.png");
@@ -51,20 +55,31 @@ public class MyGame : Game
 
 	void Update () {
 
+        //if (_victory)
+        //{
+        //    Victory();
+        //}
+
+        _timer--;
+        //Console.WriteLine(_timer);
+        //Console.WriteLine(this.GetChildren().Clear);
         if (_levelLoaded)
         {
             AddChild(_level.Textbox);
             AddChild(_level.Scoreboard);
         }
 
-        if (_levelLoaded && Input.GetKeyDown(Key.FIVE))
+        if (_levelLoaded | _loadedControls && Input.GetKeyDown(Key.FIVE))
         {
             _sLevel = "";
             _buttonClicked = false;
             _sButton = "";
-            _levelLoaded = false;
-            _level.RemoveHUD();
-            _level.Destroy();
+            if (_levelLoaded)
+            {
+                _levelLoaded = false;
+                _level.RemoveHUD();
+                _level.Destroy();
+            }
             this.LivesLost = 0;
 
             AddChild(_menu = new Menu());
@@ -99,23 +114,27 @@ public class MyGame : Game
 
     public void LoadControlScreen()
     {
-        if (!_controls.StartAnimation)
+        if (!_loadedControls)
         {
             _controls = new ControlScreen();
-            _controls.SetOrigin(0, 0);
-            _controls.SetXY(0, 0);
             AddChild(_controls);
             _controls.StartControlsAnimation();
-            _controls.SetFrame(0);
+            _loadedControls = true;
         }
         else
         {
-            //_controls.AnimateControlScreen();
+            _controls.AnimateControlScreen();
         }
+    }
+
+    public void ResetTimer()
+    {
+        _timer = 100;
     }
 
     public void GameOver()
     {
+
 		Sound.StopMusic ();
         _sLevel = "";
         _buttonClicked = false;
@@ -125,7 +144,46 @@ public class MyGame : Game
         _level.Destroy();
 		this.LivesLost = 0;
 
-        AddChild(_menu = new Menu());
+        _sky = new Sprite("images/defeat.png");
+
+        this.AddChild(_sky);
+        if (_timer == 1)
+        {
+            this.GetChildren().Clear();
+            
+            _level.RemoveHUD();
+            _level.Destroy();
+            this.LivesLost = 0;
+            _sLevel = "";
+            _sButton = "";
+            _levelLoaded = false;
+            _buttonClicked = false;
+            _timer = 300;
+            AddChild(_menu = new Menu());
+        }
+    }
+
+
+    public void Victory()
+    {
+        
+        _sky = new Sprite("images/victory.png");
+        Console.WriteLine(_timer);
+        this.AddChild(_sky);
+        if (_timer == 1)
+        {
+            this.GetChildren().Clear();
+            _level.CurrentPlayer.Lives = -2;
+            _level.RemoveHUD();
+            _level.Destroy();
+            this.LivesLost = 0;
+            _sLevel = "";
+            _sButton = "";
+            _levelLoaded = false;
+            _buttonClicked = false;
+            _timer = 300;
+            AddChild(_menu = new Menu());
+        }
     }
 
 	public void LoadNextLevel(string slevel)
@@ -154,6 +212,9 @@ public class MyGame : Game
         if (!_levelLoaded)
         {
 			Sound.StopMusic ();
+            _sky = new Sprite("images/sky.png");
+            AddChild(_sky);
+
             _sLevel = slevel;
             _level = new Level(_sLevel, this);
             AddChild(_level);

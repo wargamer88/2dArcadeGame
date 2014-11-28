@@ -219,8 +219,14 @@ namespace GXPEngine
                     {
 						_lives--;
 						_MG.LivesLost++;
-						if (this._lives < 1) {
+						if (this._lives < 0) {
 							_MG.GameOver ();
+                            if (_lives == -1)
+                            {
+                                _MG.ResetTimer();
+                            }
+                            _lives = -2;
+
 						} else {
 							this.Destroy ();
 							this.Health = 100;
